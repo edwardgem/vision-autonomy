@@ -108,3 +108,44 @@ recent-window agreement, 7-day safety alerts.
 - **Leakage confirmed in anomalib:** default `PostProcessor` fits `F1AdaptiveThreshold` on labeled data
   (`gt_label`) → never use its `pred_label`/threshold. Extract raw `pred_score` and apply our own a-priori thresholds.
 - Venv: `.venv` (Python 3.12.13; anomalib 2.6.2, torch 2.14.0, lightning 2.6.6). `data/` and `.venv/` are gitignored.
+
+## Component 3 brief (written by Opus at pre-registration `prereg-v1`, for the executing model)
+
+Read EXPERIMENT_PLAN.md (approved, frozen) first. Do not change `config/*_v1.json`. If something in the plan cannot
+be implemented as written, STOP and tell Edward (and recommend switching to a stronger model) — do not improvise.
+
+**Build (small, research-grade Python in this repo, `.venv`, httpx):**
+1. `scripts/build_inputs.py` → `results/inputs/decision_records.csv` from frozen scores + `config/calibration_v1.json`
+   (fields in plan §3). Baselines A–C are computed later, offline, from this file.
+2. `sim/amp_client.py` — thin wrappers reusing payment-agent `run_e2e.py`/`hitl_bridge.py` calls (X-API-Key):
+   `/api/agent/init`, `/api/hitl/request`, `/api/hitl/get-decision`, `/api/workitems` (+ `/{id}/status`),
+   `/api/rlhf/outcome`, `/api/rlhf/outcome/feedback`, `/api/rlhf/stage_tick/trigger`, `/api/rlhf/bootstrap`,
+   `/api/rlhf/status`. Reuse `_is_rlhf_admin_workitem` logic for admin WIs.
+3. `sim/run_amp.py` — per agent: register agent + install policy (template with `__ORG_ID__`/`__AGENT_NAME__`
+   filled; nothing else may differ) → bootstrap → stream loop (plan §5.4) → tick every 10 items with
+   `tick_minutes=1440` → settle loop → write outputs (plan §6). One-shot, resumable not required.
+
+**Open implementation questions to resolve by reading code, not guessing:**
+- How to create an agent + install an RLHF policy on local AMP (payment agent's policy lives in
+  `agents/<org>/<agent>/policy/policy_v1.json`; check backend endpoints for agent creation / policy approval and
+  whether approval validates against `rlhf/src/policy_schema.ts`, which lacks `auto_reject_threshold`).
+- HITL request: payment used an LLM-evaluated `hitl.when` string. The plan requires "always request HITL, no LLM".
+  Find the hitl-agent/backend handling of `when` and use a form that is deterministic (e.g. omit or literal true).
+- How to read per-item stage / model score / probe / routing: `rlhf_approval_request.signals_json` has `stage,
+  model_score, probe_forced_human, hard_blocked, decision_mode, recommended_decision` (RLHFDecisionService.ts).
+- How to detect "RLHF jobs for this agent are idle" for the settle loop (rlhf_jobs table / `/api/rlhf/status`).
+
+**Environment step (approved by Edward):** add `RLHF_TRAINING_SEED=vision-loco-v1` to `amp-backend/.env`,
+`pm2 restart amp`, then after bootstrap verify with `ps eww <scoped worker pid> | tr ' ' '\n' | grep RLHF_TRAINING_SEED`.
+Also confirm a scoped worker was spawned for the E2E agent (only the payment agent had one at pre-registration).
+
+**E2E acceptance (plan §9) — all must pass before any full run; report results to Edward and stop:**
+use agent `vis-loco-e2e-1` (and `-2` if needed), category with stream built from seed 999 (not a study seed).
+To reach Stage 2 in E2E you may use the real category stream; do NOT change policy values for the E2E.
+Checks: routing + oracle + feedback persist; Stage 0→1→2 via AMP's own jobs/WIs; **zero auto-rejects and
+evidence that `auto_reject_threshold: 1.01` is loaded** (e.g. a Stage 2 item with p ≤ 0.10 routed to human, and
+the field present in the policy AMP resolved); base-policy rules never fire (no `rules_strict` recommendation at
+Stage ≥1 / no base-policy log); tick stats reconcile with items sent; worker has the training seed;
+per-item latency → apply the seed-fallback rule (plan §2).
+**Hard stop:** any auto-reject, field rejected/ignored, row loss, Stage 2 structurally unreachable, or settle
+loop not converging → stop, report, and tell Edward to switch to a stronger model.
