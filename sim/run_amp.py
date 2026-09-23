@@ -217,6 +217,13 @@ def approve_admin_workitems(human, agent, log):
 def settle(amp, human, db, agent, ts, pos, log, max_iters=8):
     """Tick, let AMP's own pipeline finish, approve privileged workitems, repeat until nothing moves."""
     prev, stage_before = None, (db.agent_state(agent) or {}).get("stage")
+    if not db.rlhf_enabled(agent):
+        # AMP auto-disabled RLHF (max_failed_retrain_cycles): no worker, ticks would never run.
+        # Plan amendment v1.1 #3: report as "did not promote"; remaining items continue as human review.
+        if not ts.get("disabled_logged"):
+            log.write("rlhf_auto_disabled_detected", stream_position=pos, stage=stage_before)
+            ts["disabled_logged"] = True
+        return stage_before
     for it in range(1, max_iters + 1):
         ts["k"] += 1
         tick_minutes = 1440 - ts["k"]            # unique job id per tick (job id keys on minute of now-tick_minutes)
@@ -330,10 +337,14 @@ def run(a):
     new_reqs = db.request_count(agent) - preexisting_requests
     summary = {
         "items_sent": len(recs), "new_requests_in_amp_db": new_reqs, "requests_counted_in_tick_summaries": tick_rows,
-        "reconcile_ok": len(recs) == new_reqs == tick_rows,
+        "reconcile_ok": len(recs) == new_reqs and (tick_rows == new_reqs or not db.rlhf_enabled(agent)),
         "by_stage_routing": {f"stage{k[0]}:{k[1]}": int(v) for k, v in df.groupby(["amp_stage", "routing"]).size().items()} if len(df) else {},
         "first_stage1_pos": int(df[df.amp_stage >= 1].stream_position.min()) if (df.amp_stage >= 1).any() else None,
         "first_stage2_pos": int(df[df.amp_stage >= 2].stream_position.min()) if (df.amp_stage >= 2).any() else None,
+        "rlhf_auto_disabled_at_pos": next((json.loads(l)["stream_position"] for l in open(out / "amp_events.jsonl")
+                                           if '"rlhf_auto_disabled_detected"' in l), None),
+        "stage2_human_with_p_le_0.10": int(((df.amp_stage == 2) & (df.routing == "hitl") &
+                                            (df.amp_approval_probability <= 0.10)).sum()) if len(df) else 0,
         "auto_rejects": int(((df.routing == "autonomous") & (df.amp_auto_decision != "approve")).sum()) if len(df) else 0,
         "failed_jobs": db.failed_jobs(agent), "admin_approvals": human.approvals,
         "mean_seconds_per_item": round(float(df.seconds.mean()), 3) if len(df) else None,

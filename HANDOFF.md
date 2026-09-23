@@ -164,3 +164,20 @@ drops `action_governance.action_fields_allowlist`, `automation.auto_reject_thres
 (fix AMP vs work around it) by a stronger model + Edward. Simulator code exists in `sim/` and `scripts/build_inputs.py`; per-item flow is
 validated. Authorization: API key cannot resolve workitems; Edward authorized a human login session (AMP_PASSWORD in gitignored .env) for all
 workitem resolution incl. admin approvals. New agents must be FRESH per run (tick job-id collision guard aborts on re-use).
+
+## E2E rerun brief (Opus, 2026-09-23, after hitl-agent fix `746a268`; plan amendment v1.1, tag `prereg-v1.1`)
+- **AMP now honours the policy:** `hitl-agent` runs branch `fix/normalize-policy-rlhf-fields` (restarted, verified live:
+  features_json contains action.proposal/score_z/margin_abs). Do not modify AMP further. Any new AMP problem → STOP.
+- **Simulator updates (Opus):** settle loop now detects AMP auto-disabled RLHF (no stall). The summary reports
+  `rlhf_auto_disabled_at_pos` and `stage2_human_with_p_le_0.10`.
+- **Run:** `python -m sim.run_amp --category juice_bottle --stream-seed 999 --agent vis-loco-e2e-3 --out-root results/e2e`
+  (fresh agent; full 330-item stream; ≈ 5–10 min; run it in the background and poll).
+- **Pass criteria (plan §9 + amendment #6):** reconcile_ok; stage 0→1→2 via AMP jobs/workitems with admin approvals
+  logged; `auto_rejects == 0`; `stage2_human_with_p_le_0.10 >= 1`; no `violation` events; no model_score of exactly
+  0/1 at Stage ≥1 (base rules off); worker has RLHF_TRAINING_SEED; the Stage 1 `amp_recommended_decision` is populated.
+- **If juice_bottle does not reach Stage 2** (e.g. RLHF auto-disabled), that is not a code failure. Run ONE more E2E
+  on `screw_bag` (seed 999, agent `vis-loco-e2e-4`). If neither reaches Stage 2, STOP and tell Edward to switch to
+  a stronger model: Stage 2 reachability is then a plan question. Never change policy values to force promotion.
+- **After a pass:** write `E2E_REPORT.md` §10 "Rerun" (checks table plus evidence paths), update STATUS, and stop for
+  Edward's review. Do NOT start the study runs.
+- **Commits:** no Co-Authored-By lines (Edward's standing rule).

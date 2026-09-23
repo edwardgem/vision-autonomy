@@ -54,6 +54,10 @@ class AmpDB:
         r["metadata"] = self._j(r.pop("metadata_json"))
         return r
 
+    def rlhf_enabled(self, agent):
+        rows = self._q("SELECT enabled FROM rlhf_agent_config WHERE org_id=%s AND agent_name=%s", (self.org_id, agent))
+        return bool(rows and int(rows[0]["enabled"]))
+
     def job(self, job_id):
         rows = self._q("SELECT job_id, job_type, status, attempts, last_error FROM rlhf_jobs WHERE job_id=%s", (job_id,))
         return rows[0] if rows else None
