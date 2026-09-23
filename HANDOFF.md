@@ -157,3 +157,10 @@ already present) → log-agent exits `[FATAL] requires AMP_INTERNAL_SECRET in pr
 the real value (never echo it):
 `S="$(grep '^AMP_INTERNAL_SECRET=' ../amp-backend/.env | cut -d= -f2-)"; AMP_INTERNAL_SECRET="$S" pm2 restart <app> --update-env; unset S`
 (use `pm2 start <ecosystem>` instead of restart if the app is not registered). Verify with `pm2 jlist` (0 restarts, online).
+
+## Component 3 status (Sonnet, 2026-09-23): HARD STOP - read E2E_REPORT.md first
+The E2E failed plan §9 checks 2-4. Do NOT run the full experiment. Root cause: `hitl-agent/server/rlhf_integration.js::normalizePolicy`
+drops `action_governance.action_fields_allowlist`, `automation.auto_reject_threshold` and `base_policy_rules`. Needs a v2 plan decision
+(fix AMP vs work around it) by a stronger model + Edward. Simulator code exists in `sim/` and `scripts/build_inputs.py`; per-item flow is
+validated. Authorization: API key cannot resolve workitems; Edward authorized a human login session (AMP_PASSWORD in gitignored .env) for all
+workitem resolution incl. admin approvals. New agents must be FRESH per run (tick job-id collision guard aborts on re-use).
