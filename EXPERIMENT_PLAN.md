@@ -317,3 +317,28 @@ unreachable in principle, the `auto_reject_threshold` field rejected, row loss, 
    the running worker's environment. `MODEL_MODE=file` in hitl-agent (real learned model, not the stub).
 5. Note: scoped RLHF workers exist only for enabled pipelines (at pre-registration time only the payment agent
    had one). Bootstrapping each `vis-loco-*` agent must spawn its worker; the E2E test verifies this.
+
+## Amendment v1.1 (2026-09-23, after the failed v1 E2E; approved by Edward before any study run)
+
+The design, parameters and frozen configs are **unchanged** (`config/*_v1.json` byte-identical). This amendment only records
+implementation facts found in the Component 3 E2E (`E2E_REPORT.md`):
+
+1. **AMP fix (system under test).** The v1 E2E found that the HITL server's `normalizePolicy` dropped
+   `action_fields_allowlist`, `signal_keys_allowlist`, `base_policy_rules` and `automation.auto_reject_threshold`,
+   so AMP could not behave as §5 specifies. Fixed in `hitl-agent` commit `746a268` (branch
+   `fix/normalize-policy-rlhf-fields`, to be released in AMP), and verified live: stored features now include
+   `action.proposal/score_z/margin_abs`. **All study runs use AMP with this fix**; every run manifest records the
+   hitl-agent / amp-backend / rlhf commits. The paper cites the AMP version, not the bug.
+2. **Tick implementation.** `tick_minutes = 1440 − k` for the k-th tick of a run (AMP's tick job id has minute
+   resolution and silently de-duplicates). The window is unchanged, because AMP starts each window at
+   `last_processed_at`. The simulator aborts if a tick fails to create a new job. Every run uses a fresh agent.
+3. **Reporting non-promotion.** If AMP rejects 4 consecutive candidates (`max_failed_retrain_cycles`, default 4),
+   AMP itself disables RLHF for that agent. That category/seed is reported as **"did not promote (RLHF
+   auto-disabled at stream position p)"**. The remaining items continue as human review (the simulator treats
+   AMP's non-RLHF routing as HITL).
+4. **Simulated reviewer identity.** API keys cannot resolve workitems in AMP. The simulated human acts through
+   a login session of the org's admin reviewer (authorized by Edward), including the model/promotion approvals of D3.
+5. **Disclosure.** During the v1 E2E (`juice_bottle`, stream seed 999, 240 items), a console summary printed
+   proposal accuracy by `margin_abs` band, which uses test labels. No frozen value was chosen or changed after it.
+6. **E2E evidence standard for auto-reject (plan §9 check 3).** At Stage 2 there must be ≥ 1 item with AMP
+   approve-probability ≤ 0.10 routed to **human**, and zero autonomous non-approve decisions.
