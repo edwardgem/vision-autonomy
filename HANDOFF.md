@@ -149,3 +149,11 @@ Stage ≥1 / no base-policy log); tick stats reconcile with items sent; worker h
 per-item latency → apply the seed-fallback rule (plan §2).
 **Hard stop:** any auto-reject, field rejected/ignored, row loss, Stage 2 structurally unreachable, or settle
 loop not converging → stop, report, and tell Edward to switch to a stronger model.
+
+**Service startup gotcha (2026-09-23):** AMP needs 3 pm2 apps: `amp` (backend+frontend, `amp-backend/dev.sh`),
+`hitl-agent` (:3010, `hitl-agent/ecosystem.config.js`), `log-agent-rlhf` (:4001, `log-agent/ecosystem.config.js`).
+The pm2 daemon injects an EMPTY `AMP_INTERNAL_SECRET`, which blocks both services' .env fallback (they skip keys
+already present) → log-agent exits `[FATAL] requires AMP_INTERNAL_SECRET in production`. Start/restart them with
+the real value (never echo it):
+`S="$(grep '^AMP_INTERNAL_SECRET=' ../amp-backend/.env | cut -d= -f2-)"; AMP_INTERNAL_SECRET="$S" pm2 restart <app> --update-env; unset S`
+(use `pm2 start <ecosystem>` instead of restart if the app is not registered). Verify with `pm2 jlist` (0 restarts, online).
