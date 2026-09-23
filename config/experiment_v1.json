@@ -1,0 +1,52 @@
+{
+  "experiment_id": "vision-loco-v1",
+  "plan": "EXPERIMENT_PLAN.md",
+  "dataset": {
+    "name": "MVTec LOCO AD",
+    "archive_sha256": "9e7c84dba550fd2e59d8e9e231c929c45ba737b6b6a6d3814100f54d63aae687",
+    "evaluation_split": "test",
+    "evaluation_images": 1568,
+    "categories": ["breakfast_box", "juice_bottle", "pushpins", "screw_bag", "splicing_connectors"]
+  },
+  "perception": {
+    "model": "PatchCore (anomalib 2.6.2 defaults)",
+    "scores_file": "results/patchcore_scores.csv",
+    "patchcore_seed": 0,
+    "frozen": true
+  },
+  "calibration": {
+    "file": "config/calibration_v1.json",
+    "rule": "tau_c = 0.95 quantile (numpy linear) of validation-normal raw scores of category c",
+    "proposal": "defective if raw_score >= tau_c else good",
+    "score_z": "(raw_score - mu_val_c) / sigma_val_c",
+    "margin_abs": "abs(raw_score - tau_c) / sigma_val_c  (= model_confidence)"
+  },
+  "static_hitl": {
+    "primary_delta_sigma": 1.0,
+    "rule": "defer to human iff margin_abs < delta; otherwise execute proposal autonomously",
+    "risk_coverage_sweep": {"delta_min": 0.0, "delta_max": 5.0, "step": 0.05}
+  },
+  "amp": {
+    "target": "local dev AMP",
+    "policy_template": "config/amp_policy_v1.json",
+    "agent_name_pattern": "vis-loco-{category}-s{stream_seed}",
+    "row_count_scale_factor": 0.4,
+    "tick_every_items_per_agent": 10,
+    "tick_minutes": 1440,
+    "settle_after_each_tick": {"max_extra_ticks": 6, "job_wait_timeout_sec": 300},
+    "auto_approve_admin_workitems": true,
+    "outcome_feedback_for_human_decisions": "succeeded",
+    "outcome_feedback_for_auto_decisions": "none",
+    "worker_env_required": {"RLHF_TRAINING_SEED": "vision-loco-v1"}
+  },
+  "streams": {
+    "stream_seeds": [0, 1, 2, 3, 4],
+    "fallback_if_seed_wall_time_gt_hours": 3,
+    "fallback_stream_seeds": [0, 1, 2],
+    "construction": "per category: sort test image_ids ascending, numpy.random.default_rng(seed).permutation"
+  },
+  "reporting": {
+    "ci": "Wilson 95% for proportions within a run; mean and SD across stream seeds",
+    "min_n_for_rate": 10
+  }
+}
