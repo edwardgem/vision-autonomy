@@ -1,0 +1,13 @@
+/Users/edwardc/Projects/vision-autonomy/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/Users/edwardc/Projects/vision-autonomy/.venv/lib/python3.12/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/Users/edwardc/Projects/vision-autonomy/.venv/lib/python3.12/site-packages/anomalib/models/image/dinomaly/components/layers.py:22: FutureWarning: The anomalib.models.components.dinov2 package is deprecated and will be removed in a future release. Please use the timm-based feature extractor instead: anomalib.models.components.feature_extractors.TimmFeatureExtractor
+  from anomalib.models.components.dinov2.layers import Attention, DropPath, LayerScale, MemEffAttention
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+breakfast_box {'train_images': 351, 'scored_images': 337, 'fit_seconds': 348.1, 'total_seconds': 410.2}
+juice_bottle {'train_images': 335, 'scored_images': 384, 'fit_seconds': 309.7, 'total_seconds': 372.2}
+pushpins {'train_images': 372, 'scored_images': 379, 'fit_seconds': 390.1, 'total_seconds': 456.6}
+screw_bag {'train_images': 360, 'scored_images': 401, 'fit_seconds': 392.6, 'total_seconds': 486.9}
+splicing_connectors {'train_images': 360, 'scored_images': 372, 'fit_seconds': 381.0, 'total_seconds': 451.6}
+wrote /Users/edwardc/Projects/vision-autonomy/results/patchcore_scores.csv 1873 rows
