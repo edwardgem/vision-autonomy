@@ -1,14 +1,14 @@
 # EXPERIMENT_PLAN.md — Vision progressive autonomy on MVTec LOCO AD
 
-Status: **draft for review (2026-09-23). Nothing in this plan has been tuned on test labels.** Once approved, this
+Status: **APPROVED by Edward 2026-09-23 (pre-registered). Nothing in this plan has been tuned on test labels.** Once approved, this
 file plus `config/calibration_v1.json`, `config/amp_policy_v1.json` and `config/experiment_v1.json` are committed.
 That commit hash is the pre-registration point, and every run manifest records it. Any later change is a new
 version (`*_v2`) with a stated reason, and v1 results are still reported.
 
 ## 1. Research question and scope
 
-> Can validated decisions and model performance be used by AMP to progressively transfer decision authority from
-> human review to autonomous execution while maintaining policy-governed HITL oversight?
+> Can validated human decisions and model performance be used to progressively grant decision authority to a
+> vision-based agent while maintaining policy-governed human oversight?
 
 - **Perception (fixed):** PatchCore, seed 0, frozen raw scores in `results/patchcore_scores.csv`. It is never
   retrained or re-seeded, and it never sees human feedback.
@@ -304,11 +304,16 @@ unreachable in principle, the `auto_reject_threshold` field rejected, row loss, 
 9. **Probe randomness.**
 10. **The row-count scaling (×0.4) is a choice:** it is disclosed, applied uniformly, and fixed in advance.
 
-## 11. Prerequisites needed from Edward before Component 3
+## 11. Prerequisites (resolved 2026-09-23)
 
-1. **AMP credentials:** local AMP org_id and API key, and the reviewer username that is a valid AMP user (the HITL
-   `who`).
-2. **Training seed:** permission to set `RLHF_TRAINING_SEED=vision-loco-v1` on the local RLHF worker (and to confirm
-   how pm2 `amp` launches it).
-3. **Agent registration:** permission to register 25 agents `vis-loco-*` under that org (plus 1–2 E2E test agents).
-4. **Testing mode:** confirm AMP testing mode is off; it changes the safety gate and the auto-disable behaviour.
+1. AMP target: local AMP, org `O-XXXX-ORG`, reviewer/`who` = `reviewer@example.org` (superadmin). API key is
+   kept in the gitignored `vision-autonomy/.env`, never committed.
+2. `RLHF_TRAINING_SEED=vision-loco-v1` approved. Env chain: `amp-backend/.env` is sourced by `amp-backend/dev.sh`
+   (pm2 `amp`) → Flask backend → the backend spawns scoped `rlhf_worker.js` processes (inheriting env) for each
+   enabled pipeline. Set it by adding the line to `amp-backend/.env` and `pm2 restart amp`; verify with
+   `ps eww <worker pid>`.
+3. Registering 25–30 `vis-loco-*` agents approved.
+4. AMP testing mode verified **off**: `AMP_TESTING_MODE` is commented out in `amp-backend/.env` and absent from
+   the running worker's environment. `MODEL_MODE=file` in hitl-agent (real learned model, not the stub).
+5. Note: scoped RLHF workers exist only for enabled pipelines (at pre-registration time only the payment agent
+   had one). Bootstrapping each `vis-loco-*` agent must spawn its worker; the E2E test verifies this.
