@@ -1,0 +1,10 @@
+cell,k,amp_good,amp_good_wrong,amp_def,amp_def_wrong,st_good,st_good_wrong,st_def,st_def_wrong
+breakfast_box s0,24,0,0,24,0,0,0,24,0
+breakfast_box s2,26,0,0,26,0,2,1,24,0
+breakfast_box s3,20,0,0,20,0,0,0,20,0
+juice_bottle s0,53,0,0,53,1,0,0,53,0
+juice_bottle s1,59,0,0,59,0,0,0,59,0
+juice_bottle s2,45,0,0,45,0,0,0,45,0
+juice_bottle s3,84,0,0,84,2,3,0,81,2
+juice_bottle s4,154,55,22,99,6,56,17,98,2
+splicing_connectors s0,26,1,1,25,0,9,3,17,0

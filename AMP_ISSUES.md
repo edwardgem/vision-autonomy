@@ -18,3 +18,16 @@
   whether to change the default is a product decision after Experiment 2.
 
 ## ISSUE-3 — HITL server dropped RLHF policy fields (fixed, hitl-agent `746a268`, branch `fix/normalize-policy-rlhf-fields`, not yet merged/deployed)
+
+## ISSUE-4 — Promotion does not check that the active model discriminates (observed in Experiment 2, 2026-09-24)
+- In juice_bottle s4 the first model (80 rows, 96 % positive labels) assigned P ≥ 0.917 to every item; promotion gates passed and the 0.90
+  execution threshold then selected every Stage 2 item. Autonomous error ≈ model-only error (0.18), including 22 of 55 auto-released
+  defective parts. Nothing in the Stage 0→1 acceptance check or Stage 1→2 gates measures discrimination (e.g. AUROC / probability spread).
+- Candidate remedy (product decision, would need its own evaluation): a minimum-discrimination or minimum-probability-spread gate, and/or
+  a larger/stratified minimum training set before the first activation.
+
+## ISSUE-5 — Stage 2 probes have little power and no consequence (observed in Experiment 2)
+- At stage2_probe_rate 0.1, the juice_bottle s4 window yielded 16 probes with 1 rejection while the autonomous error rate was 18 %.
+  No AMP mechanism uses probe disagreement (no alerting, demotion or rollback on probe error rate).
+- Candidate remedy: sequential monitoring of probe outcomes (e.g. demote/alert when the probe rejection rate exceeds a bound), and/or an
+  adaptive probe rate early in Stage 2.
