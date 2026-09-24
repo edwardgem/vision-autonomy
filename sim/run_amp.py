@@ -18,9 +18,14 @@ import pandas as pd
 from sim.amp_client import AmpClient, HumanSession, agent_slug, iso_now, load_env, ROOT
 from sim.amp_db import AmpDB
 
-CFG = json.loads((ROOT / "config" / "experiment_v1.json").read_text())
+# Experiment config: Experiment 1 by default; Experiment 2 passes --config config/exp2/experiment_exp2_v1.json.
+# Parsed before the rest of the module so the constants below follow the selected experiment.
+_cfg_arg = next((sys.argv[i + 1] for i, v in enumerate(sys.argv[:-1]) if v == "--config"), None)
+CFG_PATH = (ROOT / _cfg_arg) if _cfg_arg else (ROOT / "config" / "experiment_v1.json")
+CFG = json.loads(CFG_PATH.read_text())
 EXPERIMENT_ID = CFG["experiment_id"]
-POLICY_TEMPLATE = ROOT / "config" / "amp_policy_v1.json"
+POLICY_TEMPLATE = ROOT / CFG["amp"].get("policy_template", "config/amp_policy_v1.json")
+AGENT_PATTERN = CFG["amp"].get("agent_name_pattern", "vis-loco-{category}-s{stream_seed}")
 CRITERION = [{"criterion_id": "c_perception_output_valid", "criterion_text": "Perception model produced a valid score",
               "result": True, "hardness": "hard", "signals": {}}]
 REVIEWER = load_env()["AMP_USERNAME"]   # real AMP reviewer: AMP assigns model-approval workitems to the latest human actor
@@ -258,7 +263,7 @@ def run(a):
     env = load_env()
     amp, human, db = AmpClient(env), HumanSession(env), AmpDB(env["AMP_ORG_ID"])
     human.login()
-    agent = a.agent or agent_slug(a.category, a.stream_seed)
+    agent = a.agent or agent_slug(a.category, a.stream_seed, AGENT_PATTERN)
     stream = build_stream(a.category, a.stream_seed)
     if a.limit:
         stream = stream.iloc[:a.limit]
@@ -283,7 +288,8 @@ def run(a):
     params = json.loads(params) if isinstance(params, str) else params
 
     manifest = {
-        "run_id": run_id, "experiment_id": EXPERIMENT_ID, "condition": "D_amp_progressive", "agent_name": agent,
+        "run_id": run_id, "experiment_id": EXPERIMENT_ID, "experiment_config": str(CFG_PATH.relative_to(ROOT)),
+        "policy_template": str(POLICY_TEMPLATE.relative_to(ROOT)), "condition": "D_amp_progressive", "agent_name": agent,
         "category": a.category, "stream_seed": a.stream_seed, "n_items": len(stream), "limit": a.limit,
         "tick_every_items": a.tick_every, "tick_minutes_rule": "1440 - k (k = tick index; unique job id, window unaffected)",
         "started": iso_now(), "org_id": env["AMP_ORG_ID"], "reviewer_session_user": env["AMP_USERNAME"],
@@ -293,7 +299,7 @@ def run(a):
                 "hitl-agent": git_info(ROOT.parent / "hitl-agent"), "rlhf": git_info(ROOT.parent / "rlhf")},
         "sha256": {"policy_template": sha256_file(POLICY_TEMPLATE),
                    "calibration": sha256_file(ROOT / "config" / "calibration_v1.json"),
-                   "experiment_config": sha256_file(ROOT / "config" / "experiment_v1.json"),
+                   "experiment_config": sha256_file(CFG_PATH),
                    "decision_records": sha256_file(ROOT / "results" / "inputs" / "decision_records.csv")},
         "python": sys.version.split()[0],
     }
@@ -363,7 +369,8 @@ def main():
     ap.add_argument("--agent", default=None)
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--tick-every", type=int, default=CFG["amp"]["tick_every_items_per_agent"])
-    ap.add_argument("--out-root", default=str(ROOT / "results" / "runs"))
+    ap.add_argument("--out-root", default=str(ROOT / CFG.get("results_root", "results") / "runs"))
+    ap.add_argument("--config", default=None, help="experiment config (default config/experiment_v1.json)")
     ap.add_argument("--continue-on-violation", action="store_true")
     run(ap.parse_args())
 

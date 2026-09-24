@@ -8,12 +8,16 @@ import json, subprocess, sys, time
 from pathlib import Path
 from sim.amp_client import agent_slug, iso_now, ROOT
 
-CFG = json.loads((ROOT / "config" / "experiment_v1.json").read_text())
+_cfg_arg = next((sys.argv[i + 1] for i, v in enumerate(sys.argv[:-1]) if v == "--config"), None)
+CFG_REL = _cfg_arg or "config/experiment_v1.json"
+CFG = json.loads((ROOT / CFG_REL).read_text())
+AGENT_PATTERN = CFG["amp"].get("agent_name_pattern", "vis-loco-{category}-s{stream_seed}")
+STOP_WORKER_AFTER_RUN = bool(CFG["amp"].get("stop_worker_after_each_run"))
 CATS = CFG["dataset"]["categories"]
 SEEDS = list(CFG["streams"]["stream_seeds"])
 FALLBACK_SEEDS = list(CFG["streams"]["fallback_stream_seeds"])
 FALLBACK_HOURS = float(CFG["streams"]["fallback_if_seed_wall_time_gt_hours"])
-OUT = ROOT / "results" / "runs"
+OUT = ROOT / CFG.get("results_root", "results") / "runs"
 LOG = OUT / "study_log.jsonl"
 
 
@@ -59,17 +63,22 @@ def main():
     while i < len(seeds):
         seed, t_seed = seeds[i], time.time()
         for cat in CATS:
-            agent, done = next_agent(agent_slug(cat, seed))
+            agent, done = next_agent(agent_slug(cat, seed, AGENT_PATTERN))
             if done:
                 log("run_skipped_already_complete", agent=agent, dir=str(done))
                 continue
             t0 = time.time()
             log("run_start", agent=agent, seed=seed, category=cat)
             with open(OUT / "console" / f"{agent}.log", "w") as cf:
-                rc = subprocess.run([sys.executable, "-m", "sim.run_amp", "--category", cat, "--stream-seed", str(seed),
+                rc = subprocess.run([sys.executable, "-m", "sim.run_amp", "--config", CFG_REL, "--category", cat, "--stream-seed", str(seed),
                                      "--agent", agent, "--out-root", str(OUT)], stdout=cf, stderr=subprocess.STDOUT,
                                     cwd=str(ROOT)).returncode
             log("run_end", agent=agent, returncode=rc, minutes=round((time.time() - t0) / 60, 2))
+            if STOP_WORKER_AFTER_RUN:   # declared in advance (EXPERIMENT_PLAN_2.md section 5); Exp 1 v1.3 mechanism
+                src = subprocess.run([sys.executable, "-m", "sim.ops_stop_workers", "--agents", agent,
+                                      "--ops-dir", str(OUT.parent / "ops")],
+                                     capture_output=True, text=True, cwd=str(ROOT))
+                log("worker_stopped_after_run", agent=agent, returncode=src.returncode, output=src.stdout[-400:])
             if rc != 0 or not completed(agent):
                 log("study_stopped_on_failure", agent=agent, returncode=rc)
                 print(f"STUDY STOPPED: run {agent} failed (rc={rc}); see {OUT}/console/{agent}.log", flush=True)

@@ -60,7 +60,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--agents", nargs="*", help="explicit agent names (default: every running vis-loco-* worker)")
     ap.add_argument("--keep", nargs="*", default=[], help="agents to leave running")
+    ap.add_argument("--ops-dir", default=None, help="where snapshots/log go (default results/ops = Experiment 1 record)")
     a = ap.parse_args()
+    global OPS
+    if a.ops_dir:
+        OPS = Path(a.ops_dir)
     OPS.mkdir(parents=True, exist_ok=True)
     amp = AmpClient()
     targets = a.agents or running_worker_agents()

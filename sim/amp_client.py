@@ -26,9 +26,10 @@ def iso_now():
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-def agent_slug(category, seed):
-    """AMP agent names must match ^[a-z0-9][a-z0-9-]*$ (underscores in category names become hyphens)."""
-    return f"vis-loco-{category.replace('_', '-')}-s{seed}"
+def agent_slug(category, seed, pattern="vis-loco-{category}-s{stream_seed}"):
+    """AMP agent names must match ^[a-z0-9][a-z0-9-]*$ (underscores in category names become hyphens).
+    `pattern` comes from the experiment config (amp.agent_name_pattern); the default is Experiment 1's."""
+    return pattern.format(category=category.replace('_', '-'), stream_seed=seed)
 
 
 class AmpClient:
