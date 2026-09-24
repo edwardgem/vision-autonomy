@@ -1,0 +1,4 @@
+{"ts": "2026-09-24T03:36:49.692004Z", "event": "study_start", "seeds": [0, 1, 2, 3, 4], "categories": ["breakfast_box", "juice_bottle", "pushpins", "screw_bag", "splicing_connectors"]}
+{"ts": "2026-09-24T03:36:49.692589Z", "event": "run_start", "agent": "vis-loco-breakfast-box-s0", "seed": 0, "category": "breakfast_box"}
+{"ts": "2026-09-24T03:40:35.035165Z", "event": "run_end", "agent": "vis-loco-breakfast-box-s0", "returncode": 0, "minutes": 3.76}
+{"ts": "2026-09-24T03:40:35.036082Z", "event": "run_start", "agent": "vis-loco-juice-bottle-s0", "seed": 0, "category": "juice_bottle"}

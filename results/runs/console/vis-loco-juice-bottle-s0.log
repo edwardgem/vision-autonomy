@@ -1,0 +1,8 @@
+registering + installing policy for vis-loco-juice-bottle-s0
+run vision-loco-v1-vis-loco-juice-bottle-s0-20260924T034035Z: 330 items, seed-in-worker=vision-loco-v1
+  seq   10 stage=0 human=10 auto=0
+  seq   20 stage=0 human=20 auto=0
+  seq   30 stage=0 human=30 auto=0
+  seq   40 stage=0 human=40 auto=0
+  seq   50 stage=0 human=50 auto=0
+  seq   60 stage=0 human=60 auto=0

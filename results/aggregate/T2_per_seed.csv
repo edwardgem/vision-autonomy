@@ -1,0 +1,4 @@
+condition,stream_seed,n,accuracy,errors,fa_count,fa_rate,n_gt_defective,fr_count,fr_rate,n_gt_good,autonomous_count,autonomous_rate,hitl_count,hitl_rate,autonomous_errors,autonomous_error_rate,autonomous_fa,autonomous_fr
+A Human oracle,all,1568,1.000000,0,0,0.000000,993,0,0.000000,575,0,0.000000,1568,1.000000,0,,0,0
+B Model only,all,1568,0.679847,502,474,0.477341,993,28,0.048696,575,1568,1.000000,0,0.000000,502,0.320153,474,28
+C Static HITL (δ=1σ),all,1568,0.787628,333,327,0.329305,993,6,0.010435,575,1193,0.760842,375,0.239158,333,0.279128,327,6

@@ -1,0 +1,2 @@
+stream_seed,category,stage1_entry_pos,stage2_entry_pos,reached_stage2,candidates_trained,activations,stage_regressions,rollbacks,rlhf_auto_disabled,auto_disabled_at_pos,stage2_items,stage2_autonomous,stage2_autonomy_rate,stage2_autonomous_error_rate,stage2_autonomous_errors,admin_approvals
+0,breakfast_box,81,,False,1,1,0,0,False,,0,0,,,0,1
