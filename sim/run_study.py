@@ -79,6 +79,10 @@ def main():
                                       "--ops-dir", str(OUT.parent / "ops")],
                                      capture_output=True, text=True, cwd=str(ROOT))
                 log("worker_stopped_after_run", agent=agent, returncode=src.returncode, output=src.stdout[-400:])
+                if src.returncode != 0 or "config.enabled -> 0" not in src.stdout:
+                    log("study_stopped_worker_not_stopped", agent=agent)
+                    print(f"STUDY STOPPED: could not stop worker of {agent}; see study_log", flush=True)
+                    sys.exit(3)
             if rc != 0 or not completed(agent):
                 log("study_stopped_on_failure", agent=agent, returncode=rc)
                 print(f"STUDY STOPPED: run {agent} failed (rc={rc}); see {OUT}/console/{agent}.log", flush=True)

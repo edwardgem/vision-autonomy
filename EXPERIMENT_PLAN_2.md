@@ -1,6 +1,6 @@
 # EXPERIMENT_PLAN_2.md — Separating Stage 1 qualification from Stage 2 execution
 
-Status: **DRAFT for Edward's review (2026-09-24). Not yet preregistered.** On approval: the AMP parameter (§4) is implemented and tested,
+Status: **PREREGISTERED 2026-09-24 (tag `prereg-exp2-v1`), design approved by Edward; implementation and E2E acceptance complete (§11, §12).** On approval: the AMP parameter (§4) is implemented and tested,
 its commits are recorded in §11, and this file plus `config/exp2/*` are committed and tagged `prereg-exp2-v1` **before any Experiment 2 run**,
 including the E2E. Results go to `RESULTS-2.md`. Experiment 1 (`EXPERIMENT_PLAN.md`, `RESULTS.md`, `results/runs/`) remains the primary
 experiment and is not altered.
@@ -165,14 +165,40 @@ Static HITL at matched coverage executes the k window items with the largest `ma
 3. AMP's re-entry behaviour (F4) can end Stage 2 windows early, and it is inherited, not designed.
 4. Primary-endpoint power is limited by the number and length of Stage 2 windows (≤ 25 runs, at most ≈ 115–180 Stage 2 items each).
 5. The same 1,568 images are reused. Experiment 2 is a paired follow-up, not an independent replication.
+6. **Pairing is exact only until promotion (observed in E2E, §12).** After promotion, AMP's unseeded probe selection (hash of a random
+   decision-point id) changes which Stage 2 items receive human labels. That changes the Stage 2 retrain data and therefore whether a retrained
+   candidate passes the model-acceptance check (+0.037 vs +0.012 against the 0.03 bar in the E2E pair). So Stage 2 trajectories, retrains and
+   re-entries differ between Experiment 1 and 2 partly by chance, not only because of the gate change. Post-promotion Experiment 1 vs 2
+   differences are reported as descriptive, not attributed solely to the parameter.
+7. The rlhf `dist/` running during Experiment 1 predated rlhf commit `d92f45e` (a Stage 0 count filter by `stage_entered_at`); the rebuild for
+   Experiment 2 activates it. For fresh agents it is a no-op. That was confirmed empirically: identical first model and identical Stage 0/1 probabilities vs Experiment 1 (§12).
 
-## 11. Implementation record (to be filled before the `prereg-exp2-v1` tag)
+## 11. Implementation record (frozen before `prereg-exp2-v1`)
 
 | Item | Value |
 |---|---|
-| amp-backend commit (catalog + params passthrough) | _pending_ |
-| rlhf commit (gate basis switch) + `dist/` build | _pending_ |
-| Test results | _pending_ |
-| `config/exp2/amp_policy_exp2_v1.json` sha256 | `6b573506feda1f6e4189c5e8ee1e822a70ade71fe4fd95b92472099d8234b300` (diff vs v1 = `stage1_agreement_basis`, `policy_id`, `comment` only) |
-| `config/exp2/experiment_exp2_v1.json` sha256 | `d755b694c5e42ab92317d28b430f9e3cd91de2674a9f7b46fa600c04f3010ffc` |
-| Reused unchanged | `config/calibration_v1.json` `a33653b2…6d95`; `results/inputs/decision_records.csv` `eb24ae6b…fa9`; `results/patchcore_scores.csv` `5e261c7b…8b28` |
+| amp-backend | branch `feat/stage1-agreement-basis`, commit **`ad5e7e8`** (on `d2a42ca`): catalog field `promotion.stage1_agreement_basis` (choices; absent/invalid → `execution_threshold`) + pass-through in `_extract_rlhf_params_from_policy` + `tests/test_stage1_agreement_basis.py` |
+| rlhf | branch `feat/stage1-agreement-basis`, commit **`2d3356e`** (on `59fffbd`): `ApprovalRepo.aggregateWindowStats` adds recommendation-basis Stage 1 counts; `StageTickHandler` selects counts by basis and records it in metadata/debug; `tests/stage1_agreement_basis.test.ts`; `dist/` rebuilt (also activates earlier `d92f45e`, see §10.7) |
+| hitl-agent | unchanged: `746a268` (Experiment 1 fix) |
+| amp-backend tests | 759 passed (baseline 755 + 4 new); 0 failed |
+| rlhf tests | 91 run: 88 passed; the same 3 pre-existing failures as the unmodified baseline (gate_orchestrator "creates approval_request…" expects `model` but base-policy rules now return `rules_strict`; 2 override-validation fixtures), unrelated to Stage 1 gates; 5/5 new tests pass |
+| Real-data regression (rebuilt SQL, 24 completed Experiment 1 agents, full history) | default counts = AMP-stored Experiment 1 cumulative counts **24/24**; recommendation counts = stored-recommendation definition **24/24** |
+| Default compatibility | `invoice-payment-agent-5c58` and Experiment 1 agents: `stage1_agreement_basis` absent from `params_json` → `execution_threshold`; payment worker respawned on the new `dist/`, no other change |
+| Simulator | vision-autonomy `591ceda`: `--config` (Experiment 2 policy, agent pattern `vis-loco2-*`, `results/exp2`); Experiment 1 default path unchanged. Later: worker-stop filter includes `vis-loco2-*`; driver halts if a post-run worker stop fails |
+| `config/exp2/amp_policy_exp2_v1.json` | `6b573506feda1f6e4189c5e8ee1e822a70ade71fe4fd95b92472099d8234b300` (experimental diff vs v1: `autonomy_ops.promotion.stage1_agreement_basis = recommendation`; plus `policy_id`, `comment`) |
+| `config/exp2/experiment_exp2_v1.json` | `d755b694c5e42ab92317d28b430f9e3cd91de2674a9f7b46fa600c04f3010ffc` |
+| Reused unchanged | `config/amp_policy_v1.json` `f83fc31f…edae` (reference); `config/calibration_v1.json` `a33653b2…6d95`; `results/inputs/decision_records.csv` `eb24ae6b…fa9`; `results/patchcore_scores.csv` `5e261c7b…8b28` |
+
+## 12. E2E acceptance record (engineering validation only; never study evidence)
+
+Agent `vis-loco2-e2e-1`, juice_bottle, stream seed 999; reference: Experiment 1 E2E agent `vis-loco-e2e-3b` (same stream).
+Evidence: `results/exp2/e2e/vision-loco-exp2-v1-vis-loco2-e2e-1-20260924T164943Z/` (incl. `e2e_acceptance.json`).
+
+| §8 criterion | Result |
+|---|---|
+| 1 Generic | PASS: 330 = 330 = 330 reconciled; 0 auto-rejects; 0 violations; 0 failed jobs; worker seed `vision-loco-v1`; testing mode off; admin approvals logged (model ×2, Stage 2 promotion ×1) |
+| 2 Parameter effect | PASS: AMP stored cumulative 85/99 with basis `recommendation`; recommendation recomputation 85/99 (execution-threshold recomputation would be 74/99). Recent-20: AMP 0.85 = recomputation 0.85 (definition unchanged). Stage 2: `threshold_used` = 0.90 for every item; 0 autonomous decisions with P < 0.90 (min 0.9008); 0 non-probe human items with P ≥ 0.90 |
+| 3 Default preserved | PASS (see §11) |
+| 4 Determinism | **PASS**: first model identical (max parameter difference 0.0); 229 scored items before stage divergence, max |ΔP| = 0.0; no missing-score mismatch. Both runs promoted to Stage 2 at item 161 (this stream already passed under the Experiment 1 basis). Stage-divergence at item 311 (Experiment 2 re-entered Stage 1). The 16 routing differences before 311 are all Stage 2 probe selections (Experiment 2: 4 probes, Experiment 1: 16), the known unseeded source (§10.6) |
+| 5 Retrain / re-entry (F4) | **Exercised.** 81 Stage 2 human rows → retrain → candidate accepted (+0.037 ≥ 0.03) → approved → activated → **Stage 1 at item 311**. After re-entry AMP kept `stage1_promotion_approved = true` and carried over the cumulative counts (99 = 79 first-model rows + 20 new) while resetting `stage1_eval_rows` (20): **consistent with F4**. Non-re-promotion itself was not observable (stream ended 20 rows after re-entry, below the 80-row sample gate); the blocking condition is unambiguous in code. No second change needed |
+| 6 Design change required? | **No.** Two operational fixes were made to the simulator (not AMP, not experimental parameters): the worker-stop name filter, and the driver halting on a failed stop |
