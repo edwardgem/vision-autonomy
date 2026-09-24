@@ -22,10 +22,17 @@ on two different recommendation thresholds. (Suggested erratum for RESULTS.md / 
 
 ## 2. Hypothesis and single change
 
-**Hypothesis (empirical form).** If Stage 1 qualification uses the Stage 1 recommendation (0.65) consistently, while each Stage 2 decision still requires P ≥ 0.90, then
-AMP will (a) reach Stage 2 in more category × order runs than in Experiment 1, and (b) its Stage 2 autonomous decisions will be **no less accurate than
-a static confidence threshold granting the same number of autonomous decisions on the same items.**
-(a) is expected and largely predictable (§6); (b) is the question.
+**Purpose.** Experiment 1 showed that AMP's two Stage 1 promotion gates use inconsistent recommendation semantics: the cumulative gate uses
+the Stage 2 execution threshold (P ≥ 0.90); the recent-20 gate already uses the Stage 1 recommendation (P ≥ 0.65). Experiment 2 tests whether
+using the existing Stage 1 recommendation semantics consistently for Stage 1 qualification leads to effective controlled autonomy, while every
+individual autonomous decision still requires P ≥ 0.90. The aim is not to lower a threshold or to obtain more promotions.
+
+**Hypotheses.**
+- (a) *Secondary / descriptive:* more category × order runs reach Stage 2 than in Experiment 1. This is partly predictable from Experiment 1 (§6)
+  and is not confirmatory.
+- (b) *Primary:* Stage 2 autonomous decision quality will be consistent with or better than a static confidence threshold granting the same
+  number of autonomous decisions on the same items (endpoint and reading rule in §7). This is a pre-declared descriptive reading rule with a
+  run-level bootstrap interval, **not** a formal, powered non-inferiority test, and must not be described as one.
 
 **Single experimental change.** The cumulative-agreement gate counts a Stage 1 recommendation as *approve* iff P(human approves proposal) ≥ 0.65, taken from
 the same stored `recommended_decision` the recent-20 gate already uses. So both agreement gates use one definition:
@@ -75,8 +82,9 @@ Required edits (exact diff and commit hashes recorded in §11 before preregistra
   On activation AMP resets `stage1_eval_rows` but **does not** clear the cumulative agreement counters or the `stage1_promotion_approved` flag. Those are cleared only
   by the manual "clear training data" admin action. The tick handler only proposes promotion while `stage1_promotion_approved` is false.
   **Consequence (from code; to be confirmed in E2E):** a re-entered agent is not re-promoted in this configuration and stays in Stage 1 for the rest of its stream.
-  This is identical AMP behaviour in both experiments (Experiment 1 never exercised it) and is **not** changed here. It is reported as observed (§7).
-  It may also be a product issue for AMP; that is outside this experiment.
+  This is identical AMP behaviour in both experiments (Experiment 1 never exercised it) and is **not** changed here (fixing it would be a second change).
+  **A run's Stage 2 window ends when the agent re-enters Stage 1**; later Stage 1 items are human-reviewed and counted in the full-stream metrics only.
+  Re-entries are reported per run (§7). Recorded separately as an AMP product issue (`AMP_ISSUES.md`) for remediation after this experiment.
 
 ## 5. Conditions and runs
 
