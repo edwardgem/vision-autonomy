@@ -119,3 +119,35 @@ Per the pre-registration rule, any change is a `*_v2` with a stated reason, and 
 `scripts/build_inputs.py` (1,568 input records), `sim/amp_client.py` (AMP REST client + human session),
 `sim/amp_db.py` (read-only AMP DB view), `sim/run_amp.py` (one stream, one agent). Known gaps: baselines A–C and
 aggregation/tables are not built yet (Component 4), and the Stage 1/2 code paths are unexercised.
+
+## 10. Rerun after the AMP fix (Sonnet, 2026-09-24)
+
+**Setup:** hitl-agent `746a268` (fix) running since 16:56; amp-backend `d2a42ca`; rlhf `59fffbd`; API key with `hitl:resolve` for ordinary
+workitems; login session for privileged approvals. Agent `vis-loco-e2e-3b`, `juice_bottle`, stream seed 999, all 330 items.
+Evidence: `results/e2e/vision-loco-v1-vis-loco-e2e-3b-20260924T000846Z/` (manifest, `amp_decisions.csv/jsonl`, `amp_events.jsonl`, `amp_rlhf_events.jsonl`).
+(An earlier rerun on `vis-loco-e2e-3` was stopped after I found AMP had assigned the model-approval workitem to my fake reviewer id `sim-oracle`,
+which is not an AMP user. Fixed by posting outcomes as the real reviewer and finding privileged workitems by id pattern; that agent is scratch residue.)
+
+| Check | Result |
+|---|---|
+| Routing, oracle decision, feedback persist; tick stats reconcile | **PASS**: 330 sent = 330 in AMP DB = 330 in tick summaries |
+| Stage 0 → 1 → 2 through AMP's own jobs and workitems | **PASS**: Stage 1 from item 81, Stage 2 from item 161 (the earliest the 80-row gates allow); 2 privileged approvals (model approval, Stage 2 promotion) logged; no failed jobs |
+| Stage 2 behaviour | 170 Stage 2 items: **68 autonomous (40 %)**, 102 human (84 below the 0.90 threshold, 18 probes ≈ 10 % of autonomous-eligible) |
+| Autonomous non-approve decisions (auto-reject) | **PASS: 0** (all 68 autonomous decisions are `approve`; 0 violation events; hard abort armed) |
+| Auto-reject guard *observed* (≥ 1 Stage 2 item with P ≤ 0.10 sent to a human) | **NOT OBSERVABLE, 0 items**: Stage 2 P(approve) ranged 0.795–1.000, so the model never gets near 0.10 (even the pre-fix default would not have fired on this stream). **Substitute evidence:** the fixed normalizer, run on this run's real policy file, yields `auto_reject_threshold = 1.01` → the decision service's `rejectThreshold = 1.01` → fires only if P ≤ −0.01, impossible. Plus the run-time abort on any autonomous non-approve. **Edward to accept or ask for a synthetic test.** |
+| Base-policy rules did not fire | **PASS**: 0 items with P exactly 0 or 1 at Stage ≥ 1; the normalizer yields `{both false}` |
+| Features reach AMP | **PASS**: candidate accepted at item 80 with estimated auto-rate 0.4875 (v1: 0) |
+| Training seed / testing mode | **PASS**: worker `RLHF_TRAINING_SEED=vision-loco-v1`, testing mode false |
+| Stage 1 recommendation populated | **79 / 80**. The first item after activation (seq 81) had no model score: a one-request model-cache warm-up in AMP. A human decides at Stage 1 anyway; at Stage 2 the same transient routes to a human (safe direction). Recorded, not a defect of the run. |
+| Latency / seed fallback | 8.0 min for 330 items (≈ 1.5 s/item incl. ticks). One seed (1,568 items) ≈ 38 min, so **no fallback: 5 seeds ≈ 3.2 h total** (the rule is per seed > 3 h). |
+
+**Informational observations (no design change proposed):**
+- Stage 1 recommendation–oracle agreement was 0.861.
+- The 68 autonomous decisions were 42 logical-anomaly, 25 structural-anomaly and 1 good image; all were "defective"
+  proposals except that one, and 1 of 68 was wrong (a good image proposed defective). AMP granted autonomy mostly to
+  high-margin defective proposals. This is one category and one stream, so no conclusions.
+- **Scratch residue on local AMP:** agents `vis-loco-e2e-3` (one model-approval workitem still pending, assigned to `sim-oracle`),
+  `vis-loco-e2e-3b`, `-keycheck`, `-fixcheck`, `-e2e-1`, `-smoke`, `-smoke-2`, `-e2e-2` (RLHF auto-disabled). Not cleaned up.
+
+**Verdict:** the simulator and AMP integration work end to end. One evidence item (auto-reject observation) needs Edward's decision.
+Study runs have **not** been started.

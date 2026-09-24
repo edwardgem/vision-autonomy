@@ -58,6 +58,13 @@ class AmpDB:
         rows = self._q("SELECT enabled FROM rlhf_agent_config WHERE org_id=%s AND agent_name=%s", (self.org_id, agent))
         return bool(rows and int(rows[0]["enabled"]))
 
+    def pending_admin_workitems(self, agent):
+        """Privileged RLHF workitems (model approval / stage 2 promotion) still pending for this agent.
+        Looked up by id pattern so discovery does not depend on which user AMP assigned them to."""
+        return [r["workitem_id"] for r in self._q(
+            "SELECT workitem_id FROM workitems WHERE instance_id LIKE %s AND workitem_id LIKE 'rlhf-%%' "
+            "AND status='Pending'", (agent + "-%",))]
+
     def job(self, job_id):
         rows = self._q("SELECT job_id, job_type, status, attempts, last_error FROM rlhf_jobs WHERE job_id=%s", (job_id,))
         return rows[0] if rows else None

@@ -23,7 +23,7 @@ EXPERIMENT_ID = CFG["experiment_id"]
 POLICY_TEMPLATE = ROOT / "config" / "amp_policy_v1.json"
 CRITERION = [{"criterion_id": "c_perception_output_valid", "criterion_text": "Perception model produced a valid score",
               "result": True, "hardness": "hard", "signals": {}}]
-REVIEWER = "sim-oracle"
+REVIEWER = load_env()["AMP_USERNAME"]   # real AMP reviewer: AMP assigns model-approval workitems to the latest human actor
 
 
 # ---------------------------------------------------------------- helpers
@@ -199,18 +199,12 @@ def fingerprint(db, agent):
                        "jobs": db.job_counts(agent)}, sort_keys=True, default=str)
 
 
-def approve_admin_workitems(human, agent, log):
+def approve_admin_workitems(human, db, agent, log):
     done = []
-    for wi in human.list_workitems():
-        if not str(wi.get("instance_id") or "").startswith(agent + "-"):
-            continue
-        if str(wi.get("status") or "").lower() != "pending" or str(wi.get("action") or "").lower() != "approval":
-            continue
-        if not is_rlhf_admin_workitem(wi):
-            continue
-        human.complete_workitem(wi["workitem_id"], "approve", admin=True)
-        done.append(wi["workitem_id"])
-        log.write("admin_workitem_approved", workitem_id=wi["workitem_id"])
+    for wid in db.pending_admin_workitems(agent):
+        human.complete_workitem(wid, "approve", admin=True)   # privileged: human admin session only
+        done.append(wid)
+        log.write("admin_workitem_approved", workitem_id=wid)
     return done
 
 
@@ -234,7 +228,7 @@ def settle(amp, human, db, agent, ts, pos, log, max_iters=8):
             raise RuntimeError(f"tick_job_id_collision at tick {ts['k']} (re-run on a used agent? use a fresh agent)")
         j = wait_job(db, r["job_id"])
         idle_s = wait_idle(db, agent, log, f"after tick {ts['k']}")
-        approved = approve_admin_workitems(human, agent, log)
+        approved = approve_admin_workitems(human, db, agent, log)
         if approved:
             idle_s += wait_idle(db, agent, log, f"after admin approval {ts['k']}")
         fp = fingerprint(db, agent)
