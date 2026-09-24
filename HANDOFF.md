@@ -183,3 +183,23 @@ workitem resolution incl. admin approvals. New agents must be FRESH per run (tic
 - **Commits:** no Co-Authored-By lines (Edward's standing rule).
 - **Auth update (Opus):** API key now has `hitl:resolve` (verified live). Ordinary workitems are resolved by the API key;
   HumanSession only approves privileged admin workitems. Plan amendment v1.1 #7.
+
+## Experiment 2 run brief (Opus, 2026-09-24; preregistered `prereg-exp2-v1`, `c2c005b`). Read EXPERIMENT_PLAN_2.md first.
+- **Run:** `python -m sim.run_study --config config/exp2/experiment_exp2_v1.json` (background; about 25 × 4–5 min).
+  Fresh agents `vis-loco2-*`; outputs go to `results/exp2/runs`. The driver stops each agent's worker after its run (log: `results/exp2/ops`)
+  and halts on any failure. Infrastructure aborts follow the v1.2 rule (the driver re-runs once on `-r2`). Never touch `results/runs` (Experiment 1).
+- **Stop and report to Edward (and ask him to switch to Opus) if:** an auto-reject/violation, reconcile failure, failed jobs, a worker-stop failure,
+  or anything that seems to need a code or config change. Do not change any config/*, AMP code, or parameters.
+- **Aggregation (to build; `analysis/aggregate.py` is hard-wired to Experiment 1):** write `analysis/aggregate_exp2.py` (reuse `analysis/common.py`,
+  and import helpers from `aggregate.py`), writing to `results/exp2/{aggregate,tables,figures}` only:
+  1. **Primary endpoint (plan §7), exactly as specified.**
+     - For each Experiment 2 run with Stage 2 items, the window is **Stage 2 items up to the first Stage 1 re-entry** (re-entry ends the window).
+     - k = AMP autonomous decisions in the window. Static matched coverage = the k window items with the largest `margin_abs`, ties by `image_id`.
+     - Pooled r_AMP, r_static, and Δ = r_AMP − r_static; 95 % percentile bootstrap over runs (10,000 resamples, seed 2026).
+     - Reading per §7, or "insufficient data" if fewer than 3 runs reach Stage 2.
+     - Save to `results/exp2/primary_endpoint.json`, with the per-run k and errors.
+  2. **Secondary:** T2–T5 with D1 (Experiment 1, from `results/runs`) and D2 rows. Paired per-cell D1 vs D2 table: Stage 1/2 entry positions, reached
+     Stage 2, retrains, re-entry position, Stage 2 coverage, HITL rate, autonomous error rate, final accuracy. Gate history per run
+     (`decision_debug`). F1/F1b with D1 and D2 points.
+  3. **Per-run determinism** vs the Experiment 1 run of the same cell: max |ΔP| over Stage ≥1 items before the first stage divergence (expect 0).
+- Then update STATUS.md, commit (no Co-Authored-By lines), and **stop**. Do NOT write RESULTS-2.md; Opus reviews and writes it.
