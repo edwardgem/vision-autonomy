@@ -181,3 +181,5 @@ workitem resolution incl. admin approvals. New agents must be FRESH per run (tic
 - **After a pass:** write `E2E_REPORT.md` §10 "Rerun" (checks table plus evidence paths), update STATUS, and stop for
   Edward's review. Do NOT start the study runs.
 - **Commits:** no Co-Authored-By lines (Edward's standing rule).
+- **Auth update (Opus):** API key now has `hitl:resolve` (verified live). Ordinary workitems are resolved by the API key;
+  HumanSession only approves privileged admin workitems. Plan amendment v1.1 #7.

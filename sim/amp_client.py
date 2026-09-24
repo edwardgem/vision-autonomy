@@ -134,10 +134,10 @@ class AmpClient:
 
 
 class HumanSession:
-    """Human (superadmin) session for the simulated reviewer.
+    """Human (superadmin) session, used ONLY for privileged RLHF model/stage-promotion approvals (decision D3).
 
-    AMP gives API keys no reviewer authority by default and never lets them resolve privileged RLHF
-    model/stage approvals, so - with Edward's explicit authorization - the simulated human acts through a
+    Ordinary oracle decisions go through the API key, which Edward granted `hitl:resolve` (2026-09-23). AMP never
+    lets an API key resolve privileged RLHF approvals, so - with Edward's explicit authorization - those use a
     normal login session (cookie + double-submit CSRF header). Cookies are Secure-flagged, so they are sent
     explicitly rather than through the http cookie jar. One login only (failed attempts count toward lockout).
     """

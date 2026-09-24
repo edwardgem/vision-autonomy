@@ -342,3 +342,6 @@ implementation facts found in the Component 3 E2E (`E2E_REPORT.md`):
    proposal accuracy by `margin_abs` band, which uses test labels. No frozen value was chosen or changed after it.
 6. **E2E evidence standard for auto-reject (plan §9 check 3).** At Stage 2 there must be ≥ 1 item with AMP
    approve-probability ≤ 0.10 routed to **human**, and zero autonomous non-approve decisions.
+7. *(Added the same day, before any study run.)* Edward granted the experiment API key the `hitl:resolve` capability.
+   Ordinary oracle decisions are made through the API key (acting as its owner, the assigned reviewer). The login
+   session is used only for privileged model-approval and Stage 2 promotion workitems, which AMP never lets API keys resolve.

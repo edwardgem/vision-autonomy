@@ -119,7 +119,7 @@ def process_item(amp, human, db, agent, row, pos, sim_run_id, poll_timeout=90.0)
     oracle, wid = "n/a", dec.get("workitem_id") or ""
     if routing == "hitl":
         oracle = "approve" if row.proposal == row.ground_truth else "reject"
-        human.complete_workitem(wid, oracle)
+        amp.complete_workitem(wid, oracle)   # API key with hitl:resolve (acts as its owner, the assigned reviewer)
         amp.submit_outcome(agent, rec_db["request_id"], oracle, REVIEWER, sim_run_id, pos)
         amp.submit_feedback(iid, "succeeded", "oracle_correct_by_construction")
     amp.set_state(agent, iid, "finished")
