@@ -36,11 +36,15 @@ def load_runs():
 
 
 # ------------------------------------------------------------------------------------------------ formatting
-def pm(vals, nd=3):
+def pm(vals, nd=3, of=None):
+    """mean ± SD over the defined values; tagged (n=k/N) whenever fewer than N seeds/runs contribute."""
+    vals = list(vals)
     v = np.array([x for x in vals if x == x], dtype=float)
+    total = of if of is not None else len(vals)
     if len(v) == 0:
         return "n/a"
-    return f"{v.mean():.{nd}f}" if len(v) == 1 or v.std(ddof=1) == 0 else f"{v.mean():.{nd}f} ± {v.std(ddof=1):.{nd}f}"
+    txt = f"{v.mean():.{nd}f}" if len(v) == 1 or v.std(ddof=1) == 0 else f"{v.mean():.{nd}f} ± {v.std(ddof=1):.{nd}f}"
+    return txt + (f" (n={len(v)}/{total})" if len(v) < total else "")
 
 
 def fmt(x, nd=3):
@@ -197,8 +201,8 @@ def main():
                    "Stage 2 entry (item, median)": fmt(rs.stage2_entry_pos.median(), 0) if len(rs) else "never",
                    "Candidates trained (mean)": fmt(g.candidates_trained.mean(), 1), "Stage regressions (total)": int(g.stage_regressions.sum()),
                    "Rollbacks (total)": int(g.rollbacks.sum()), "RLHF auto-disabled (runs)": int(g.rlhf_auto_disabled.sum()),
-                   "Stage 2 autonomy rate": pm(rs.stage2_autonomy_rate) if len(rs) else "n/a",
-                   "Stage 2 autonomous error rate": pm(rs.stage2_autonomous_error_rate) if len(rs) else "n/a"})
+                   "Stage 2 autonomy rate": pm(rs.stage2_autonomy_rate, of=len(g)) if len(rs) else "n/a",
+                   "Stage 2 autonomous error rate": pm(rs.stage2_autonomous_error_rate, of=len(g)) if len(rs) else "n/a"})
     write_table("T3_amp_promotion", pd.DataFrame(t3), f"T3. AMP promotion behaviour per category ({len(SEEDS)} preregistered stream seeds; 'Runs' = completed runs).",
                 "Entry positions are stream positions of the first Stage ≥1 / Stage 2 decision. Stage 2 rates are mean ± SD across the seeds that reached Stage 2, over their Stage 2 items only. Per-run detail: results/aggregate/T3_per_run.csv.")
 
@@ -260,11 +264,11 @@ def main():
                 continue
             tot = metrics(pd.concat([d for (s, n), v in t5_agg.items() if n == nm for d in v], ignore_index=True))
             t5.append({"Condition": nm, "Stage 2 items (total)": tot["n"], "Autonomous (total)": tot["autonomous_count"],
-                       "Autonomous rate (mean ± SD over seeds)": pm([p["autonomous_rate"] for p in per]),
-                       "Autonomous error rate (mean ± SD)": pm([p["autonomous_error_rate"] for p in per]),
+                       "Autonomous rate (mean ± SD over seeds)": pm([p["autonomous_rate"] for p in per], of=len(seeds_present)),
+                       "Autonomous error rate (mean ± SD)": pm([p["autonomous_error_rate"] for p in per], of=len(seeds_present)),
                        "Autonomous FA (total)": tot["autonomous_fa"],
-                       "Autonomous FA / autonomous (mean ± SD)": pm([p["autonomous_fa"] / p["autonomous_count"] if p["autonomous_count"] else np.nan for p in per]),
-                       "Accuracy (mean ± SD)": pm([p["accuracy"] for p in per])})
+                       "Autonomous FA / autonomous (mean ± SD)": pm([p["autonomous_fa"] / p["autonomous_count"] if p["autonomous_count"] else np.nan for p in per], of=len(seeds_present)),
+                       "Accuracy (mean ± SD)": pm([p["accuracy"] for p in per], of=len(seeds_present))})
     write_table("T5_stage2_window", pd.DataFrame(t5), "T5. Stage 2 window comparison: all conditions evaluated on exactly the items AMP handled at Stage 2 (runs that reached Stage 2).",
                 "Static HITL at matched coverage auto-executes the same NUMBER of items AMP executed autonomously (chosen by largest margin, ties by image_id): no free parameter. Seeds are pooled over categories; per-run detail: results/aggregate/T5_per_run.csv.")
 
@@ -302,19 +306,22 @@ def make_figures(rec, runs, seeds_present, t5_agg):
         mo = metrics(condition_model_only(sub))
         ax.plot(1.0, mo["autonomous_error_rate"], marker="s", ms=6, color=MUTED, ls="none", label="Model only")
         cat = None if title == "All categories" else title.replace(" ", "_")
-        pts = []
+        pts, n_seeds_run = [], 0
         for s in seeds_present:
             rr = [r["df"] for r in runs if r["seed"] == s and (cat is None or r["category"] == cat)]
             if cat is None and len(rr) != len(CATS):
                 continue
             if not rr:
                 continue
+            n_seeds_run += 1
             m = metrics(pd.concat(rr, ignore_index=True))
             if m["autonomous_count"]:
                 pts.append((m["autonomous_rate"], m["autonomous_error_rate"]))
         if pts:
             ax.plot([p[0] for p in pts], [p[1] for p in pts], marker="o", ms=5.5, color=ORANGE, mec="white", mew=0.8, ls="none", label="AMP progressive (one point per seed, full stream)")
         ax.set_title(title, fontsize=9, color=INK, loc="left")
+        ax.text(0.02, 0.97, f"AMP: {len(pts)}/{n_seeds_run} seeds made any autonomous decision\n(others = 0% coverage, not plottable)",
+                transform=ax.transAxes, va="top", fontsize=6.5, color=MUTED)
         ax.set_xlim(-0.02, 1.02)
     for ax in axs[1]:
         ax.set_xlabel("Coverage (fraction executed autonomously)")

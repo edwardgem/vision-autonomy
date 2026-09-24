@@ -11,5 +11,8 @@
 | C Static HITL (δ=1σ) | good | 575 | 0.990 | 0.010 | 0.797 | 0.013 |
 | C Static HITL (δ=1σ) | structural | 432 | 0.769 | 0.231 | 0.690 | 0.336 |
 | C Static HITL (δ=1σ) | logical | 561 | 0.595 | 0.405 | 0.779 | 0.519 |
+| D AMP progressive (mean ± SD, 5 seeds) | good | 575 | 0.998 ± 0.004 | 0.002 ± 0.004 | 0.014 ± 0.031 | 0.125 (n=1/5) |
+| D AMP progressive (mean ± SD, 5 seeds) | structural | 432 | 0.997 ± 0.007 | 0.003 ± 0.007 | 0.019 ± 0.043 | 0.167 (n=1/5) |
+| D AMP progressive (mean ± SD, 5 seeds) | logical | 561 | 0.995 ± 0.010 | 0.005 ± 0.010 | 0.024 ± 0.053 | 0.194 (n=1/5) |
 
 Error rate = 1 − accuracy: for defect types it is the false-acceptance rate, for good images the false-rejection rate. anomaly_type was never visible to AMP.

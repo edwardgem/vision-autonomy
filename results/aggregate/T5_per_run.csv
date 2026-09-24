@@ -1,1 +1,5 @@
-
+stream_seed,category,condition,n,accuracy,errors,fa_count,fa_rate,n_gt_defective,fr_count,fr_rate,n_gt_good,autonomous_count,autonomous_rate,hitl_count,hitl_rate,autonomous_errors,autonomous_error_rate,autonomous_fa,autonomous_fr
+4,juice_bottle,AMP progressive,170,0.852941,25,20,0.162602,123,5,0.106383,47,149,0.876471,21,0.123529,25,0.167785,20,5
+4,juice_bottle,Static HITL δ=1σ,170,0.935294,11,10,0.081301,123,1,0.021277,47,133,0.782353,37,0.217647,11,0.082707,10,1
+4,juice_bottle,Static HITL matched coverage,170,0.905882,16,14,0.113821,123,2,0.042553,47,149,0.876471,21,0.123529,16,0.107383,14,2
+4,juice_bottle,Model only,170,0.829412,29,23,0.186992,123,6,0.127660,47,170,1.000000,0,0.000000,29,0.170588,23,6

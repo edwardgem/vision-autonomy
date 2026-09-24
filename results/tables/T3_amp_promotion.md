@@ -2,6 +2,10 @@
 
 | Category | Runs | Seeds reaching Stage 2 | Stage 1 entry (item, median) | Stage 2 entry (item, median) | Candidates trained (mean) | Stage regressions (total) | Rollbacks (total) | RLHF auto-disabled (runs) | Stage 2 autonomy rate | Stage 2 autonomous error rate |
 |---|---|---|---|---|---|---|---|---|---|---|
-| breakfast_box | 1 | 0/1 | 81 | never | 1.0 | 0 | 0 | 0 | n/a | n/a |
+| breakfast_box | 5 | 0/5 | 81 | never | 1.0 | 0 | 0 | 0 | n/a | n/a |
+| juice_bottle | 5 | 1/5 | 81 | 161 | 1.0 | 0 | 0 | 0 | 0.876 (n=1/5) | 0.168 (n=1/5) |
+| pushpins | 5 | 0/5 | 81 | never | 1.0 | 0 | 0 | 0 | n/a | n/a |
+| screw_bag | 5 | 0/5 | 81 | never | 1.0 | 0 | 0 | 0 | n/a | n/a |
+| splicing_connectors | 5 | 0/5 | 81 | never | 1.0 | 0 | 0 | 0 | n/a | n/a |
 
 Entry positions are stream positions of the first Stage ≥1 / Stage 2 decision. Stage 2 rates are mean ± SD across the seeds that reached Stage 2, over their Stage 2 items only. Per-run detail: results/aggregate/T3_per_run.csv.
