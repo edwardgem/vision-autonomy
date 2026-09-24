@@ -8,6 +8,14 @@ No condition was added, rerun for results, or tuned. Sections 1–4 are **observ
 **Research question.** Can validated human decisions and model performance be used to progressively grant decision authority to a
 vision-based agent while maintaining policy-governed human oversight?
 
+> **Erratum (2026-09-24):** Subsequent code inspection while preparing Experiment 2 established that Experiment 1's cumulative Stage 1
+> agreement gate classified recommendations using the Stage 2 auto-execution threshold (P ≥ 0.90), whereas the recent-20 stability gate used
+> the stored Stage 1 recommendation based on recommend_threshold (P ≥ 0.65). Earlier wording implying that both gates used 0.90 was incorrect.
+> This correction changes no Experiment 1 measurements, gate outcomes, stage transitions, or conclusions.
+> *(Evidence: `rlhf/src/db/repos/ApprovalRepo.ts` — `aggregateWindowStats` uses `model_score ≥ threshold_used`; `getStage1RecentAgreement` uses
+> `signals_json.recommended_decision`. AMP's stored final-tick recent-20 rate matches a 0.65 recomputation in 24/24 non-promoting runs, a 0.90
+> recomputation in 4/24. In this document, "gate agreement" in §3.3 and H1 in §6 refer to the cumulative gate.)*
+
 ---
 
 ## 1. What was executed

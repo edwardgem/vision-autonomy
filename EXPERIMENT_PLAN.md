@@ -387,3 +387,11 @@ No experimental parameter, feature, policy or threshold is changed. This records
    `invoice-payment-agent-5c58` (Edward's payment agent) was not touched. Result: RLHF workers 31 → 1; MySQL `Threads_connected` ≥ 151 → 70;
    `max_connections` unchanged (151).
 5. **Remaining runs.** The last 4 study cells run on fresh agents (`juice_bottle` seed 4 on `…-s4-r2`, per the v1.2 rule for infrastructure aborts); their workers are stopped the same way after the study completes.
+
+## Erratum to amendment v1.2 #4 (2026-09-24; appended, the original text above is left unchanged)
+
+Amendment v1.2 #4 described "AMP's Stage 1 → 2 promotion gate" as measuring agreement with a recommendation at the 0.90 auto-execute threshold.
+That is correct only for the **cumulative-agreement** gate (`stage1_eval_min_agreement_rate`, computed from `model_score ≥ threshold_used`).
+The **recent-20 stability** gate (`stage1_recent_min_agreement_rate`) uses the stored Stage 1 `recommended_decision` (P ≥ `recommend_threshold`
+= 0.65). Established by code inspection while preparing Experiment 2 and confirmed against Experiment 1's stored gate values (24/24 runs).
+No Experiment 1 measurement, gate outcome, stage transition or conclusion changes. See RESULTS.md erratum.
