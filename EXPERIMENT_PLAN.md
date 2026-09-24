@@ -368,3 +368,22 @@ No experimental parameter, feature, policy or threshold is changed. This records
    largest margins (6.6–12.7 σ): sigmoid saturation, not a base-policy rule (a rule would affect every item). Non-fatal, reported, not acted on.
 6. **Observation to report as found (not a design change).** In the first 16 study runs **no run reached Stage 2**: AMP's own Stage 1 agreement
    ranged 0.44–0.62 (gate: 0.70). The E2E run (`juice_bottle`, seed 999, not a study seed) reached Stage 2 with agreement 0.709, a narrow pass.
+
+## Amendment v1.3 (2026-09-24, infrastructure / operations; authorized by Edward; no experimental parameter changed)
+
+1. **Incident.** After 22 study runs, run `juice_bottle` seed 4 failed at start with MySQL error 1040 *Too many connections* (before any item was
+   sent; the `vis-loco-juice-bottle-s4` agent has 0 requests). Cause: AMP keeps one scoped RLHF worker alive per agent with an enabled pipeline, each
+   holding up to 5 pooled connections; 31 workers exceeded MySQL's default `max_connections = 151` (`Max_used_connections` = 152). Resource exhaustion, not an experimental result.
+2. **Action (Edward's instruction).** Stop the workers of completed study agents and obsolete E2E/scratch agents; preserve every artifact and record; do not raise
+   `max_connections` unless that proves insufficient. AMP respawns killed workers (its reconcile loop keeps one per `rlhf_agent_config.enabled = 1`), so the only
+   supported mechanism is the RLHF toggle (`PUT /api/agent/<name>/policies/current/rlhf_enabled {"enabled": false}`). It was used via `sim/ops_stop_workers.py`.
+3. **What the toggle changes (verified per agent, `results/ops/toggle_log.jsonl`).** Only the `rlhf_enabled` flag in the agent's `policy.json` and current
+   `policy_vN.json` (true → false) and `rlhf_agent_config.enabled` (1 → 0; the rest of the row is re-upserted with values recomputed from the same policy).
+   Verified for all 30 agents: HTTP 200, config disabled, stage state unchanged, no other policy content changed. Before each change the config row, stage state and policy files
+   (sha256 + copies in `results/ops/policy_backup/`) were recorded. Nothing was deleted (agents, models, datasets, decisions, logs, result files).
+   **Consequence for the record:** the *stored* policy files of these agents now read `rlhf_enabled: false`; during their runs they were `true`
+   (run manifests record `amp_rlhf_params` and the policy-template hash). Reversible with `enabled: true`.
+4. **Scope.** 30 `vis-loco-*` agents (21 completed study runs, the 2 aborted attempts, 7 scratch/E2E agents; `vis-loco-e2e-2` had been auto-disabled by AMP earlier).
+   `invoice-payment-agent-5c58` (Edward's payment agent) was not touched. Result: RLHF workers 31 → 1; MySQL `Threads_connected` ≥ 151 → 70;
+   `max_connections` unchanged (151).
+5. **Remaining runs.** The last 4 study cells run on fresh agents (`juice_bottle` seed 4 on `…-s4-r2`, per the v1.2 rule for infrastructure aborts); their workers are stopped the same way after the study completes.
