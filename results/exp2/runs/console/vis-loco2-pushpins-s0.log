@@ -1,0 +1,52 @@
+registering + installing policy for vis-loco2-pushpins-s0
+run vision-loco-exp2-v1-vis-loco2-pushpins-s0-20260924T200556Z: 310 items, seed-in-worker=vision-loco-v1
+  seq   10 stage=0 human=10 auto=0
+  seq   20 stage=0 human=20 auto=0
+  seq   30 stage=0 human=30 auto=0
+  seq   40 stage=0 human=40 auto=0
+  seq   50 stage=0 human=50 auto=0
+  seq   60 stage=0 human=60 auto=0
+  seq   70 stage=0 human=70 auto=0
+  seq   80 stage=1 human=80 auto=0
+  seq   90 stage=1 human=90 auto=0
+  seq  100 stage=1 human=100 auto=0
+  seq  110 stage=1 human=110 auto=0
+  seq  120 stage=1 human=120 auto=0
+  seq  130 stage=1 human=130 auto=0
+  seq  140 stage=1 human=140 auto=0
+  seq  150 stage=1 human=150 auto=0
+  seq  160 stage=1 human=160 auto=0
+  seq  170 stage=1 human=170 auto=0
+  seq  180 stage=1 human=180 auto=0
+  seq  190 stage=1 human=190 auto=0
+  seq  200 stage=1 human=200 auto=0
+  seq  210 stage=1 human=210 auto=0
+  seq  220 stage=1 human=220 auto=0
+  seq  230 stage=1 human=230 auto=0
+  seq  240 stage=1 human=240 auto=0
+  seq  250 stage=1 human=250 auto=0
+  seq  260 stage=1 human=260 auto=0
+  seq  270 stage=1 human=270 auto=0
+  seq  280 stage=1 human=280 auto=0
+  seq  290 stage=1 human=290 auto=0
+  seq  300 stage=1 human=300 auto=0
+  seq  310 stage=1 human=310 auto=0
+{
+ "items_sent": 310,
+ "new_requests_in_amp_db": 310,
+ "requests_counted_in_tick_summaries": 310,
+ "reconcile_ok": true,
+ "by_stage_routing": {
+  "stage0:hitl": 80,
+  "stage1:hitl": 230
+ },
+ "first_stage1_pos": 81,
+ "first_stage2_pos": null,
+ "rlhf_auto_disabled_at_pos": null,
+ "stage2_human_with_p_le_0.10": 0,
+ "auto_rejects": 0,
+ "failed_jobs": [],
+ "mean_seconds_per_item": 0.487,
+ "finished": "2026-09-24T20:10:12.972950Z"
+}
+outputs: /Users/edwardc/Projects/vision-autonomy/results/exp2/runs/vision-loco-exp2-v1-vis-loco2-pushpins-s0-20260924T200556Z

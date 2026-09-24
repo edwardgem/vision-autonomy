@@ -1,0 +1,56 @@
+registering + installing policy for vis-loco2-juice-bottle-s2
+run vision-loco-exp2-v1-vis-loco2-juice-bottle-s2-20260924T205253Z: 330 items, seed-in-worker=vision-loco-v1
+  seq   10 stage=0 human=10 auto=0
+  seq   20 stage=0 human=20 auto=0
+  seq   30 stage=0 human=30 auto=0
+  seq   40 stage=0 human=40 auto=0
+  seq   50 stage=0 human=50 auto=0
+  seq   60 stage=0 human=60 auto=0
+  seq   70 stage=0 human=70 auto=0
+  seq   80 stage=1 human=80 auto=0
+  seq   90 stage=1 human=90 auto=0
+  seq  100 stage=1 human=100 auto=0
+  seq  110 stage=1 human=110 auto=0
+  seq  120 stage=1 human=120 auto=0
+  seq  130 stage=1 human=130 auto=0
+  seq  140 stage=1 human=140 auto=0
+  seq  150 stage=1 human=150 auto=0
+  seq  160 stage=2 human=160 auto=0
+  seq  170 stage=2 human=168 auto=2
+  seq  180 stage=2 human=174 auto=6
+  seq  190 stage=2 human=179 auto=11
+  seq  200 stage=2 human=185 auto=15
+  seq  210 stage=2 human=192 auto=18
+  seq  220 stage=2 human=200 auto=20
+  seq  230 stage=2 human=209 auto=21
+  seq  240 stage=2 human=215 auto=25
+  seq  250 stage=2 human=221 auto=29
+  seq  260 stage=2 human=228 auto=32
+  seq  270 stage=2 human=233 auto=37
+  seq  280 stage=2 human=239 auto=41
+  seq  290 stage=1 human=245 auto=45
+  seq  300 stage=1 human=255 auto=45
+  seq  310 stage=1 human=265 auto=45
+  seq  320 stage=1 human=275 auto=45
+  seq  330 stage=1 human=285 auto=45
+{
+ "items_sent": 330,
+ "new_requests_in_amp_db": 330,
+ "requests_counted_in_tick_summaries": 330,
+ "reconcile_ok": true,
+ "by_stage_routing": {
+  "stage0:hitl": 80,
+  "stage1:hitl": 120,
+  "stage2:autonomous": 45,
+  "stage2:hitl": 85
+ },
+ "first_stage1_pos": 81,
+ "first_stage2_pos": 161,
+ "rlhf_auto_disabled_at_pos": null,
+ "stage2_human_with_p_le_0.10": 0,
+ "auto_rejects": 0,
+ "failed_jobs": [],
+ "mean_seconds_per_item": 0.907,
+ "finished": "2026-09-24T20:59:56.707708Z"
+}
+outputs: /Users/edwardc/Projects/vision-autonomy/results/exp2/runs/vision-loco-exp2-v1-vis-loco2-juice-bottle-s2-20260924T205253Z

@@ -1,0 +1,56 @@
+registering + installing policy for vis-loco2-juice-bottle-s4
+run vision-loco-exp2-v1-vis-loco2-juice-bottle-s4-20260924T214737Z: 330 items, seed-in-worker=vision-loco-v1
+  seq   10 stage=0 human=10 auto=0
+  seq   20 stage=0 human=20 auto=0
+  seq   30 stage=0 human=30 auto=0
+  seq   40 stage=0 human=40 auto=0
+  seq   50 stage=0 human=50 auto=0
+  seq   60 stage=0 human=60 auto=0
+  seq   70 stage=0 human=70 auto=0
+  seq   80 stage=1 human=80 auto=0
+  seq   90 stage=1 human=90 auto=0
+  seq  100 stage=1 human=100 auto=0
+  seq  110 stage=1 human=110 auto=0
+  seq  120 stage=1 human=120 auto=0
+  seq  130 stage=1 human=130 auto=0
+  seq  140 stage=1 human=140 auto=0
+  seq  150 stage=1 human=150 auto=0
+  seq  160 stage=2 human=160 auto=0
+  seq  170 stage=2 human=163 auto=7
+  seq  180 stage=2 human=164 auto=16
+  seq  190 stage=2 human=164 auto=26
+  seq  200 stage=2 human=167 auto=33
+  seq  210 stage=2 human=167 auto=43
+  seq  220 stage=2 human=167 auto=53
+  seq  230 stage=2 human=167 auto=63
+  seq  240 stage=2 human=168 auto=72
+  seq  250 stage=2 human=169 auto=81
+  seq  260 stage=2 human=171 auto=89
+  seq  270 stage=2 human=172 auto=98
+  seq  280 stage=2 human=173 auto=107
+  seq  290 stage=2 human=173 auto=117
+  seq  300 stage=2 human=174 auto=126
+  seq  310 stage=2 human=176 auto=134
+  seq  320 stage=2 human=176 auto=144
+  seq  330 stage=2 human=176 auto=154
+{
+ "items_sent": 330,
+ "new_requests_in_amp_db": 330,
+ "requests_counted_in_tick_summaries": 330,
+ "reconcile_ok": true,
+ "by_stage_routing": {
+  "stage0:hitl": 80,
+  "stage1:hitl": 80,
+  "stage2:autonomous": 154,
+  "stage2:hitl": 16
+ },
+ "first_stage1_pos": 81,
+ "first_stage2_pos": 161,
+ "rlhf_auto_disabled_at_pos": null,
+ "stage2_human_with_p_le_0.10": 0,
+ "auto_rejects": 0,
+ "failed_jobs": [],
+ "mean_seconds_per_item": 2.46,
+ "finished": "2026-09-24T22:03:13.671330Z"
+}
+outputs: /Users/edwardc/Projects/vision-autonomy/results/exp2/runs/vision-loco-exp2-v1-vis-loco2-juice-bottle-s4-20260924T214737Z

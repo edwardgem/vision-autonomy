@@ -1,0 +1,10 @@
+category,stream_seed,window_items,reentry_pos,k,amp_errors,static_errors,amp_fa,static_fa
+breakfast_box,0,110,271.0,24,0,0,0,0
+breakfast_box,2,110,271.0,26,0,1,0,1
+breakfast_box,3,100,261.0,20,0,0,0,0
+juice_bottle,0,140,301.0,53,1,0,0,0
+juice_bottle,1,140,301.0,59,0,0,0,0
+juice_bottle,2,130,291.0,45,0,0,0,0
+juice_bottle,3,170,,84,2,2,0,0
+juice_bottle,4,170,,154,28,19,22,17
+splicing_connectors,0,152,,26,1,3,1,3
