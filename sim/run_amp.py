@@ -223,9 +223,14 @@ def settle(amp, human, db, agent, ts, pos, log, max_iters=8):
         tick_minutes = 1440 - ts["k"]            # unique job id per tick (job id keys on minute of now-tick_minutes)
         n_before = db.tick_job_count(agent)
         r = amp.tick(agent, tick_minutes)
-        if db.tick_job_count(agent) != n_before + 1:   # AMP dedupes same job id -> tick would be silently skipped
+        # AMP dedupes an identical job id -> the tick would be silently skipped. Guard v2 (amendment v1.2): AMP's own
+        # scheduler may also add a STAGE_TICK job concurrently, so require AT LEAST one new job (v1 required exactly one and
+        # raised a false alarm on such a race), and never reuse a job id this run already issued.
+        seen = ts.setdefault("job_ids", set())
+        if r["job_id"] in seen or db.tick_job_count(agent) < n_before + 1:
             log.write("tick_job_id_collision", tick_index=ts["k"], job_id=r["job_id"])
             raise RuntimeError(f"tick_job_id_collision at tick {ts['k']} (re-run on a used agent? use a fresh agent)")
+        seen.add(r["job_id"])
         j = wait_job(db, r["job_id"])
         idle_s = wait_idle(db, agent, log, f"after tick {ts['k']}")
         approved = approve_admin_workitems(human, db, agent, log)

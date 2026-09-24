@@ -345,3 +345,26 @@ implementation facts found in the Component 3 E2E (`E2E_REPORT.md`):
 7. *(Added the same day, before any study run.)* Edward granted the experiment API key the `hitl:resolve` capability.
    Ordinary oracle decisions are made through the API key (acting as its owner, the assigned reviewer). The login
    session is used only for privileged model-approval and Stage 2 promotion workitems, which AMP never lets API keys resolve.
+
+## Amendment v1.2 (2026-09-24, written after 16 of 25 study runs and BEFORE the re-run described below)
+
+No experimental parameter, feature, policy or threshold is changed. This records a simulator-infrastructure abort and how it is handled.
+
+1. **What happened.** Study run 17, `juice_bottle` stream seed 3 (agent `vis-loco-juice-bottle-s3`), aborted at stream position 320 of 330
+   (tick 63) when the simulator's tick-collision guard raised. Cause (verified in AMP's DB): a **false positive** in the guard. It required
+   exactly one new STAGE_TICK job per trigger, but AMP's own `amp_monitor_scheduler` inserted an extra tick for the agent 30 ms earlier.
+   The flagged tick itself was created and ran normally (`success`, 1 attempt). No data was lost or altered; 10 items were never sent and
+   the run wrote no final outputs, so it is **incomplete**. Its partial trajectory is preserved (`results/runs/…juice-bottle-s3-20260924T044611Z/`,
+   320 decisions): it was in **Stage 1 for all items 81–320 and had not reached Stage 2**.
+2. **Guard v2** (`sim/run_amp.py`): require *at least* one new tick job and never reuse a job id issued earlier in the same run. The
+   `rows == tick-summary rows` reconciliation at the end of each run is unchanged and still detects any lost row.
+3. **Handling rule (declared before the re-run; applies to infrastructure aborts only, never to a run that completed).** A cell whose run aborts for a reason
+   unrelated to its results is re-run **once** on a fresh agent (`…-r2`) with identical inputs. Tables use the **first complete run of each cell**. The aborted
+   run is kept and listed in the results (partial trajectory, and whether the complete re-run agrees with it). If both exist and differ, both are reported.
+4. **Definition to state in the results.** AMP's Stage 1 → 2 promotion gate measures agreement between the human decision and a
+   *recommendation at the 0.90 auto-execute threshold* (approve iff P(approve) ≥ 0.90), computed from `rlhf_approval_request.model_score`
+   and `threshold_used`. This differs from the displayed Stage 1 `recommended_decision` (0.65). Both are recorded per decision.
+5. **Informational flags.** The simulator's "probability exactly 0/1" flag fired for 10 of 3,939 Stage ≥ 1 items in the first 16 runs. All were at the
+   largest margins (6.6–12.7 σ): sigmoid saturation, not a base-policy rule (a rule would affect every item). Non-fatal, reported, not acted on.
+6. **Observation to report as found (not a design change).** In the first 16 study runs **no run reached Stage 2**: AMP's own Stage 1 agreement
+   ranged 0.44–0.62 (gate: 0.70). The E2E run (`juice_bottle`, seed 999, not a study seed) reached Stage 2 with agreement 0.709, a narrow pass.

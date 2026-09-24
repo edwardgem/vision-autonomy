@@ -59,5 +59,31 @@
     "experiment_config": "e03d7167b3afc6745faa6561e622fe97d0b25dea2b2238a0282e15ea32d10923",
     "decision_records": "eb24ae6b025cb4724579fbdfc4d1f368e1476b95fed27c4be2fe93495a4cfaa9"
   },
-  "python": "3.12.13"
+  "python": "3.12.13",
+  "preexisting_requests_on_agent": 0,
+  "summary": {
+    "items_sent": 330,
+    "new_requests_in_amp_db": 330,
+    "requests_counted_in_tick_summaries": 330,
+    "reconcile_ok": true,
+    "by_stage_routing": {
+      "stage0:hitl": 80,
+      "stage1:hitl": 250
+    },
+    "first_stage1_pos": 81,
+    "first_stage2_pos": null,
+    "rlhf_auto_disabled_at_pos": null,
+    "stage2_human_with_p_le_0.10": 0,
+    "auto_rejects": 0,
+    "failed_jobs": [],
+    "admin_approvals": [
+      {
+        "workitem_id": "rlhf-model-approval-abc27be17cee49a9",
+        "resolution": "approve",
+        "at": "2026-09-24T03:41:42.563942Z"
+      }
+    ],
+    "mean_seconds_per_item": 0.445,
+    "finished": "2026-09-24T03:45:08.193564Z"
+  }
 }

@@ -22,14 +22,32 @@ def log(ev, **kw):
         f.write(json.dumps({"ts": iso_now(), "event": ev, **kw}) + "\n")
 
 
+def _manifests(agent):
+    return sorted(OUT.glob(f"*-{agent}-2*/manifest.json"))
+
+
 def completed(agent):
-    for m in OUT.glob(f"*-{agent}-*/manifest.json"):
+    for m in _manifests(agent):
         try:
             if "summary" in json.loads(m.read_text()):
                 return m.parent
         except Exception:
             pass
     return None
+
+
+def next_agent(base):
+    """Fresh agent name for a cell: the slug, or slug-r2, -r3... after an incomplete earlier attempt (amendment v1.2).
+    Returns (agent_name, completed_dir_or_None)."""
+    n = 1
+    while True:
+        name = base if n == 1 else f"{base}-r{n}"
+        done = completed(name)
+        if done:
+            return name, done
+        if not _manifests(name):
+            return name, None
+        n += 1
 
 
 def main():
@@ -41,8 +59,7 @@ def main():
     while i < len(seeds):
         seed, t_seed = seeds[i], time.time()
         for cat in CATS:
-            agent = agent_slug(cat, seed)
-            done = completed(agent)
+            agent, done = next_agent(agent_slug(cat, seed))
             if done:
                 log("run_skipped_already_complete", agent=agent, dir=str(done))
                 continue
