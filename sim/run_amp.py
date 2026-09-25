@@ -17,6 +17,7 @@ import pandas as pd
 
 from sim.amp_client import AmpClient, HumanSession, agent_slug, iso_now, load_env, ROOT
 from sim.amp_db import AmpDB
+from sim.exp3_stream import build_exp3_stream
 
 # Experiment config: Experiment 1 by default; Experiment 2 passes --config config/exp2/experiment_exp2_v1.json.
 # Parsed before the rest of the module so the constants below follow the selected experiment.
@@ -291,8 +292,19 @@ def run(a):
     env = load_env()
     amp, human, db = AmpClient(env), HumanSession(env), AmpDB(env["AMP_ORG_ID"])
     human.login()
-    agent = a.agent or agent_slug(a.category, a.stream_seed, AGENT_PATTERN)
-    stream = build_stream(a.category, a.stream_seed)
+    exp3 = CFG.get("design") == "exp3"
+    if exp3:
+        if a.arm not in ("shift", "stationary"):
+            raise SystemExit("Experiment 3 needs --arm shift|stationary")
+        sc = CFG["streams"]
+        a.category = "pooled"
+        agent = a.agent or AGENT_PATTERN.format(arm=a.arm, stream_seed=a.stream_seed)
+        stream = build_exp3_stream(a.arm, a.stream_seed, sc["n_pre"], sc["n_post"], sc["pi_structural"], sc["pi_logical_post_shift"])
+    else:
+        if not a.category:
+            raise SystemExit("--category is required for Experiments 1/2")
+        agent = a.agent or agent_slug(a.category, a.stream_seed, AGENT_PATTERN)
+        stream = build_stream(a.category, a.stream_seed)
     if a.limit:
         stream = stream.iloc[:a.limit]
     run_id = f"{EXPERIMENT_ID}-{agent}-{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
@@ -333,6 +345,10 @@ def run(a):
                    "decision_records": sha256_file(ROOT / "results" / "inputs" / "decision_records.csv")},
         "python": sys.version.split()[0],
     }
+    if exp3:
+        manifest["arm"] = a.arm
+        manifest["stream_image_ids_sha256"] = hashlib.sha256(",".join(stream.image_id).encode()).hexdigest()
+        manifest["stream_composition"] = {f"{k[0]}:{k[1]}": int(v) for k, v in stream.groupby(["segment", "anomaly_type"]).size().items()}
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2, default=str))
     print(f"run {run_id}: {len(stream)} items, seed-in-worker={manifest['worker_training_seed']}", flush=True)
 
@@ -343,6 +359,8 @@ def run(a):
     try:
         for pos, row in enumerate(stream.itertuples(index=False), start=1):
             rec = process_item(amp, human, db, agent, row, pos, sim_run_id)
+            if exp3:
+                rec["arm"], rec["segment"] = a.arm, row.segment
             recs.append(rec)
             jf.write(json.dumps(rec, default=str) + "\n")
             viol = check_violations(rec)
@@ -395,7 +413,8 @@ def run(a):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--category", required=True)
+    ap.add_argument("--category", default=None)
+    ap.add_argument("--arm", default=None, help="Experiment 3 only: shift | stationary")
     ap.add_argument("--stream-seed", type=int, required=True)
     ap.add_argument("--agent", default=None)
     ap.add_argument("--limit", type=int, default=None)

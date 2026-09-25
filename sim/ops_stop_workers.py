@@ -6,7 +6,7 @@ That flips `rlhf_enabled` in the agent's policy files and re-upserts its config 
 it does not reset stage state and deletes nothing. Before each toggle this script snapshots the config row, state row and policy
 files (sha256 + copies) under results/ops/, and afterwards verifies that ONLY the rlhf_enabled flag changed. Reversible with enabled=true.
 
-Never touches agents that are not named vis-loco-* / vis-loco2-* / vis-auth-* (e.g. invoice-payment-agent-5c58).
+Never touches agents that are not named vis-loco-* / vis-loco2-* / vis-auth-* / vis-exp3-* (e.g. invoice-payment-agent-5c58).
 """
 import argparse, hashlib, json, re, shutil, subprocess, time
 from pathlib import Path
@@ -68,7 +68,7 @@ def main():
     OPS.mkdir(parents=True, exist_ok=True)
     amp = AmpClient()
     targets = a.agents or running_worker_agents()
-    targets = [t for t in targets if re.match(r"vis-(loco\d*|auth)-", t) and t not in a.keep]   # vis-loco-* (Exp 1), vis-loco2-* (Exp 2), vis-auth-* (engineering)
+    targets = [t for t in targets if re.match(r"vis-(loco\d*|auth|exp3)-", t) and t not in a.keep]   # vis-loco-* (Exp 1), vis-loco2-* (Exp 2), vis-auth-* (engineering), vis-exp3-* (Exp 3)
     print("targets:", len(targets), targets)
     log = open(OPS / "toggle_log.jsonl", "a", buffering=1)
     for t in targets:
