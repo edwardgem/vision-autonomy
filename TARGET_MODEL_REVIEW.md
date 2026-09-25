@@ -49,7 +49,7 @@ Code references are to the AMP versions used in Experiment 2 (amp-backend `ad5e7
 ### 2.3 Risk is action-dependent: agree, with a caution on cost assumptions
 
 - **What the experiments showed.** Experiment 2 displayed the asymmetry without our designing it.
-  - Outside one run, AMP's autonomy was 430 "defective" confirmations and 1 "release as good".
+  - Outside one run, AMP's autonomy was 430 "defective" confirmations and 1 "release as good". [Erratum 2026-09-25: 336, not 430; see the RESULTS-2.md erratum. The conclusion is unchanged.]
   - In the anomalous run, 22 of 55 auto-released parts were defective.
   - In inspection, releasing a defective part (FA) and scrapping a good one (FR) have very different consequences.
 - **Where AMP stands.** It has one `auto_execute_threshold` per agent. Action-specific control exists only indirectly: a hard criterion can block autonomy for some actions, and the model can learn an action feature.
