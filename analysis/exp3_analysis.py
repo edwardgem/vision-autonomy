@@ -128,8 +128,10 @@ def analyse_run(d, monitoring):
     t0 = np.zeros(len(r), bool); t1 = np.zeros(len(r), bool)
     if first:
         after = pos > first[0]
-        models = set(r.loc[after & ~np.isnan(P), "amp_model_version"].dropna())
-        out["frozen_model_ok"] = models <= {first[2]}
+        # frozen model: every scored decision after first activation came from ONE model version (the twins need it)
+        models = set(r.loc[~np.isnan(P), "amp_model_version"].dropna())
+        out["frozen_model_ok"] = len(models) == 1
+        out["good_auth_model"] = next(iter(models)) if len(models) == 1 else None
         t0 = good & after & (P >= first[1])
         elig = probes = 0
         for i in np.where(t0)[0]:

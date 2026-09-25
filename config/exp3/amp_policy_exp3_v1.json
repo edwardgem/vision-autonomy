@@ -4,7 +4,7 @@
   "policy_type": "rlhf",
   "status": "active",
   "approver": "reviewer@example.org",
-  "comment": "Experiment 3 (EXPERIMENT_PLAN_3.md section 3): authority lifecycle under a controlled reliability change. Model frozen after first activation; P8 recent-window monitor on.",
+  "comment": "Experiment 3 (EXPERIMENT_PLAN_3.md section 3): authority lifecycle under a controlled reliability change. Model frozen after first activation; P8 recent-window monitor on. Pilot ADJ-2 applied: grid lower extent +[0.75, 0.70] (criterion in analysis/exp3_pilot_check.py).",
   "schema_version": "1",
   "org_id": "__ORG_ID__",
   "agent_name": "__AGENT_NAME__",
@@ -111,7 +111,9 @@
             0.93,
             0.9,
             0.85,
-            0.8
+            0.8,
+            0.75,
+            0.7
           ],
           "max_autonomous_risk": 0.1,
           "min_authorized_rows": 30,
@@ -129,7 +131,9 @@
             0.93,
             0.9,
             0.85,
-            0.8
+            0.8,
+            0.75,
+            0.7
           ],
           "max_autonomous_risk": 0.1,
           "min_authorized_rows": 30,

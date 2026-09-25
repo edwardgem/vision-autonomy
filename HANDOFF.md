@@ -215,3 +215,18 @@ workitem resolution incl. admin approvals. New agents must be FRESH per run (tic
   - workers: stopped via `python -m sim.ops_stop_workers --agents <name> --ops-dir results/engineering/ops`
 - **Live runs:** never edit amp-backend files during a live run. Flask `--reload` restarts the backend and kills the run.
 - **Experiment 3:** not designed and not run. Wait for Edward.
+
+## Experiment 3 run brief (Opus, 2026-09-25; preregistered `prereg-exp3-v1`). Read EXPERIMENT_PLAN_3.md first.
+
+- **Do not start until Edward approves the 24 study runs.** Change nothing in the plan, the configs, AMP or the analysis. A failure stops the study; a retry needs a fresh agent, which the driver handles, and Edward's decision.
+- **Before running:**
+  1. AMP code is rlhf `4be5747`, amp-backend `4e243ae`, hitl-agent `ae3d409` (branch `feat/authority`).
+  2. Restart the services: `pm2 restart amp`, then hitl-agent with the secret: `S="$(grep '^AMP_INTERNAL_SECRET=' amp-backend/.env | cut -d= -f2-)"; AMP_INTERNAL_SECRET="$S" pm2 restart hitl-agent --update-env; unset S`.
+  3. Wait until the backend answers 401 on `/api/session/validate`.
+- **Run:** `cd vision-autonomy && source .venv/bin/activate && nohup python -m sim.run_study_exp3 > results/exp3_study_driver.log 2>&1 &`
+  - It takes about 9–10.5 h.
+  - Progress: `results/exp3/runs/study_log.jsonl` and `results/exp3/runs/console/*.log`.
+  - Poll the study log, not `pgrep -f` (pgrep matches the polling command itself).
+- **During the run:** never edit amp-backend (or any AMP) files. Flask `--reload` would restart the backend and kill the run.
+  - If MySQL runs out of connections: workers are already stopped after each run; do not raise `max_connections` (amendment v1.3).
+- **After the run:** `python -m analysis.exp3_analysis --runs-dir results/exp3/runs`. Then STOP and report to Edward; switch back to Opus to write RESULTS-3.md.
