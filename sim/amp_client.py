@@ -40,6 +40,7 @@ class AmpClient:
         self.org_id = env["AMP_ORG_ID"]
         self.user = env["AMP_USERNAME"]
         self.http = httpx.Client(timeout=timeout, headers={"X-API-Key": self.key})
+        self.legacy_authority_injected = None
 
     # -- low level -------------------------------------------------------
     def _req(self, method, path, ok=(200, 201, 202), **kw):
@@ -70,6 +71,13 @@ class AmpClient:
     def install_policy(self, agent_name, policy_template_path):
         pol = json.loads(Path(policy_template_path).read_text())
         pol["org_id"], pol["agent_name"] = self.org_id, agent_name
+        # Templates that predate the AMP authority-default migration (Experiments 1/2) carry no authority block.
+        # AMP now resolves an absent block to the authority model, so - exactly as the migration does for existing
+        # policies - such templates are installed as explicit legacy to keep the experiments reproducible.
+        ops = pol.setdefault("autonomy_ops", {})
+        self.legacy_authority_injected = "authority" not in ops
+        if self.legacy_authority_injected:
+            ops["authority"] = {"enabled": False}
         saved = self._req("POST", "/api/rlhf/policy/save", json={"agent_name": agent_name, "policy_json": pol})
         approved = self._req("POST", f"/api/agent/{agent_name}/policy/approve", json={
             "approver": self.user, "enableRlhf": True,

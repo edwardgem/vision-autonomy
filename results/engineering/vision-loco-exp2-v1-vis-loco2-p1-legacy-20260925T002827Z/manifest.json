@@ -1,0 +1,96 @@
+{
+  "run_id": "vision-loco-exp2-v1-vis-loco2-p1-legacy-20260925T002827Z",
+  "experiment_id": "vision-loco-exp2-v1",
+  "experiment_config": "config/exp2/experiment_exp2_v1.json",
+  "policy_template": "config/exp2/amp_policy_exp2_v1.json",
+  "condition": "D_amp_progressive",
+  "agent_name": "vis-loco2-p1-legacy",
+  "category": "juice_bottle",
+  "stream_seed": 999,
+  "n_items": 90,
+  "limit": 90,
+  "tick_every_items": 10,
+  "tick_minutes_rule": "1440 - k (k = tick index; unique job id, window unaffected)",
+  "started": "2026-09-25T00:28:30.846115Z",
+  "org_id": "O-XXXX-ORG",
+  "reviewer_session_user": "reviewer@example.org",
+  "amp_testing_mode": false,
+  "worker_training_seed": "vision-loco-v1",
+  "amp_rlhf_params": {
+    "authority": {
+      "enabled": false
+    },
+    "stage2_probe_rate": 0.1,
+    "stage1_eval_max_days": 5,
+    "stage2_auto_threshold": 0.9,
+    "retrain_min_human_rows": 80,
+    "rollback_cooldown_days": 7,
+    "stage1_agreement_basis": "recommendation",
+    "model_approval_assignee": null,
+    "stage2_probe_min_per_day": 2,
+    "max_failed_retrain_cycles": 4,
+    "stage1_recent_window_rows": 20,
+    "stage1_eval_min_human_rows": 80,
+    "stage1_recommend_threshold": 0.65,
+    "upgrade_min_auto_rate_gain": 0.03,
+    "upgrade_min_eval_human_rows": 80,
+    "initial_train_min_human_rows": 80,
+    "auto_approve_upgrade_proposals": false,
+    "stage1_eval_min_agreement_rate": 0.7,
+    "stage1_recent_min_agreement_rate": 0.65,
+    "post_switch_zero_auto_rollback_days": 2,
+    "stage2_promotion_blocking_safety_alerts_7d_max": 0
+  },
+  "legacy_authority_injected": true,
+  "git": {
+    "vision-autonomy": {
+      "sha": "b88bb141c14c63ee1ee381dc57dbf3084ff34e54",
+      "dirty": true
+    },
+    "amp-backend": {
+      "sha": "e8bbe4649017eb701c873c12a5c6cec4624c7f27",
+      "dirty": true
+    },
+    "hitl-agent": {
+      "sha": "bb3ae7f5f5e72bf4b4f6acfbf436c7d6537cf699",
+      "dirty": true
+    },
+    "rlhf": {
+      "sha": "50ff2dd5ce6dd49a5042a8080e951df8157c0ba1",
+      "dirty": true
+    }
+  },
+  "sha256": {
+    "policy_template": "6b573506feda1f6e4189c5e8ee1e822a70ade71fe4fd95b92472099d8234b300",
+    "calibration": "a33653b2bf6cf1edac5b0f3ad7c14287312c4ad4b3bfce967eed679f1d1d6d95",
+    "experiment_config": "d755b694c5e42ab92317d28b430f9e3cd91de2674a9f7b46fa600c04f3010ffc",
+    "decision_records": "eb24ae6b025cb4724579fbdfc4d1f368e1476b95fed27c4be2fe93495a4cfaa9"
+  },
+  "python": "3.12.13",
+  "preexisting_requests_on_agent": 0,
+  "summary": {
+    "items_sent": 90,
+    "new_requests_in_amp_db": 90,
+    "requests_counted_in_tick_summaries": 90,
+    "reconcile_ok": true,
+    "by_stage_routing": {
+      "stage0:hitl": 80,
+      "stage1:hitl": 10
+    },
+    "first_stage1_pos": 81,
+    "first_stage2_pos": null,
+    "rlhf_auto_disabled_at_pos": null,
+    "stage2_human_with_p_le_0.10": 0,
+    "auto_rejects": 0,
+    "failed_jobs": [],
+    "admin_approvals": [
+      {
+        "workitem_id": "rlhf-model-approval-b83b4be064471f25",
+        "resolution": "approve",
+        "at": "2026-09-25T00:29:30.607044Z"
+      }
+    ],
+    "mean_seconds_per_item": 0.396,
+    "finished": "2026-09-25T00:29:42.617148Z"
+  }
+}

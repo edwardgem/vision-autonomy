@@ -285,6 +285,7 @@ def run(a):
         time.sleep(3)   # let the backend spawn the scoped RLHF worker
     st = amp.rlhf_status(agent)
     params = st["agent_config"]["params_json"]
+    legacy_injected = amp.legacy_authority_injected
     params = json.loads(params) if isinstance(params, str) else params
 
     manifest = {
@@ -295,6 +296,7 @@ def run(a):
         "started": iso_now(), "org_id": env["AMP_ORG_ID"], "reviewer_session_user": env["AMP_USERNAME"],
         "amp_testing_mode": st.get("amp_testing_mode"), "worker_training_seed": worker_training_seed(env["AMP_ORG_ID"], agent),
         "amp_rlhf_params": params,
+        "legacy_authority_injected": legacy_injected,
         "git": {"vision-autonomy": git_info(ROOT), "amp-backend": git_info(ROOT.parent / "amp-backend"),
                 "hitl-agent": git_info(ROOT.parent / "hitl-agent"), "rlhf": git_info(ROOT.parent / "rlhf")},
         "sha256": {"policy_template": sha256_file(POLICY_TEMPLATE),
