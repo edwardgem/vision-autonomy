@@ -1,0 +1,35 @@
+registering + installing policy for vis-auth-e2e-1
+run engineering-authority-smoke-vis-auth-e2e-1-20260925T004022Z: 330 items, seed-in-worker=vision-loco-v1
+  seq   10 stage=0 human=10 auto=0
+  seq   20 stage=0 human=20 auto=0
+  seq   30 stage=0 human=30 auto=0
+  seq   40 stage=0 human=40 auto=0
+  seq   50 stage=0 human=50 auto=0
+  seq   60 stage=0 human=60 auto=0
+  seq   70 stage=0 human=70 auto=0
+  seq   80 stage=1 human=80 auto=0
+  seq   90 stage=1 human=90 auto=0
+  seq  100 stage=1 human=100 auto=0
+  seq  110 stage=1 human=110 auto=0
+  seq  120 stage=1 human=120 auto=0
+  seq  130 stage=1 human=130 auto=0
+  seq  140 stage=1 human=140 auto=0
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/edwardc/Projects/vision-autonomy/sim/run_amp.py", line 381, in <module>
+    main()
+  File "/Users/edwardc/Projects/vision-autonomy/sim/run_amp.py", line 377, in main
+    run(ap.parse_args())
+  File "/Users/edwardc/Projects/vision-autonomy/sim/run_amp.py", line 317, in run
+    rec = process_item(amp, human, db, agent, row, pos, sim_run_id)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/edwardc/Projects/vision-autonomy/sim/run_amp.py", line 106, in process_item
+    iid = amp.init_instance(agent, f"vision decision {row.image_id}")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/edwardc/Projects/vision-autonomy/sim/amp_client.py", line 98, in init_instance
+    d = self._req("POST", "/api/agent/init", json={
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/edwardc/Projects/vision-autonomy/sim/amp_client.py", line 56, in _req
+    raise RuntimeError(f"{method} {path} transport_error: {last}")
+RuntimeError: POST /api/agent/init transport_error: [Errno 61] Connection refused

@@ -203,3 +203,15 @@ workitem resolution incl. admin approvals. New agents must be FRESH per run (tic
      (`decision_debug`). F1/F1b with D1 and D2 points.
   3. **Per-run determinism** vs the Experiment 1 run of the same cell: max |ΔP| over Stage ≥1 items before the first stage divergence (expect 0).
 - Then update STATUS.md, commit (no Co-Authored-By lines), and **stop**. Do NOT write RESULTS-2.md; Opus reviews and writes it.
+
+## AMP authority lifecycle (Opus, 2026-09-25): P0–P7 implemented — STOP here
+
+- **Where to look:** read `AUTHORITY_READINESS.md` (the report) and `AMP_AUTHORITY_DESIGN.md` (the design).
+- **Branches:** `feat/authority` in rlhf, hitl-agent and amp-backend. Not pushed, merged or deployed.
+- **Phase gate:** every AMP change must pass all three suites plus `node regression/legacy_replay.js` (exit 0).
+- **Engineering smokes:**
+  - configs: `config/engineering/experiment_authority{,_fallback}_smoke.json`
+  - agents: `vis-auth-e2e-*`
+  - workers: stopped via `python -m sim.ops_stop_workers --agents <name> --ops-dir results/engineering/ops`
+- **Live runs:** never edit amp-backend files during a live run. Flask `--reload` restarts the backend and kills the run.
+- **Experiment 3:** not designed and not run. Wait for Edward.

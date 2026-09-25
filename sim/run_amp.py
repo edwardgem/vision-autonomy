@@ -119,23 +119,36 @@ def process_item(amp, human, db, agent, row, pos, sim_run_id, poll_timeout=90.0)
     if rec_db is None:
         raise RuntimeError(f"seq {pos} {iid}: AMP stored no rlhf request row (bypass?)")
     sig = rec_db["signals"]
-    routing = "autonomous" if sig.get("decision_mode") == "auto" else "hitl"
+    # authority mode, safe_action class: the proposal is not executed; the agent performs the safe action at once
+    routing = {"auto": "autonomous", "fallback": "fallback"}.get(sig.get("decision_mode"), "hitl")
 
     oracle, wid = "n/a", dec.get("workitem_id") or ""
-    if routing == "hitl":
+    if routing == "fallback":
+        if sig.get("deferred_review"):
+            # non-blocking deferred review: the oracle answers it; AMP itself records the human outcome for the
+            # same decision point (no submit_outcome here, so that recording path is exercised end to end)
+            wid = ((dec.get("deferred_review") or {}).get("workitem_id")) or wid
+            oracle = "approve" if row.proposal == row.ground_truth else "reject"
+            if wid:
+                amp.complete_workitem(wid, oracle)
+    elif routing == "hitl":
         oracle = "approve" if row.proposal == row.ground_truth else "reject"
         amp.complete_workitem(wid, oracle)   # API key with hitl:resolve (acts as its owner, the assigned reviewer)
         amp.submit_outcome(agent, rec_db["request_id"], oracle, REVIEWER, sim_run_id, pos)
         amp.submit_feedback(iid, "succeeded", "oracle_correct_by_construction")
     amp.set_state(agent, iid, "finished")
 
-    final = row.proposal if routing == "autonomous" else row.ground_truth
+    fallback_action = sig.get("fallback_action")
+    final = (row.proposal if routing == "autonomous" else
+             f"safe_action:{fallback_action}" if routing == "fallback" else row.ground_truth)
     stage = int(rec_db["decision_stage"])
     if routing == "hitl":
         reason = {0: "stage0_full_hitl", 1: "stage1_full_hitl"}.get(stage)
         if stage == 2:
             reason = ("stage2_probe" if sig.get("probe_forced_human") else
                       "stage2_hard_blocked" if sig.get("hard_blocked") else "stage2_below_auto_threshold")
+    elif routing == "fallback":
+        reason = f"authority_fallback:{sig.get('governance_reason')}"
     else:
         reason = "n/a"
     truth_def, final_def = row.ground_truth == "defective", final == "defective"
@@ -151,10 +164,19 @@ def process_item(amp, human, db, agent, row, pos, sim_run_id, poll_timeout=90.0)
         "probe_forced_human": bool(sig.get("probe_forced_human")), "hard_blocked": bool(sig.get("hard_blocked")),
         "amp_auto_decision": rec_db["outcome_decision"] if routing == "autonomous" else None,
         "amp_threshold_used": rec_db["threshold_used"], "amp_label_mode": sig.get("label_mode"),
-        "oracle_response": oracle, "final_decision": final, "correct": final == row.ground_truth,
-        "false_acceptance": (not final_def) and truth_def, "false_rejection": final_def and (not truth_def),
+        "oracle_response": oracle, "final_decision": final,
+        # a safe action is neither the proposal nor its reversal: correctness is not defined for it (reported apart)
+        "correct": None if routing == "fallback" else final == row.ground_truth,
+        "false_acceptance": None if routing == "fallback" else (not final_def) and truth_def,
+        "false_rejection": None if routing == "fallback" else final_def and (not truth_def),
         "decision_point_id": rec_db["request_id"], "workitem_id": wid, "instance_id": iid,
         "seconds": round(time.time() - t0, 3), "timestamp": iso_now(),
+        # authority-mode governance fields (absent/None for legacy agents; appended, existing fields unchanged)
+        "authority_mode": sig.get("authority_mode"), "governance_outcome": sig.get("governance_outcome"),
+        "governance_reason": sig.get("governance_reason"), "action_class": sig.get("action_class"),
+        "class_threshold": sig.get("class_threshold"), "authority_eligible": sig.get("authority_eligible"),
+        "fallback_action": fallback_action, "deferred_review": sig.get("deferred_review"),
+        "authority_version": sig.get("authority_version"),
     }
 
 
@@ -167,6 +189,12 @@ def check_violations(rec):
             v.append(f"AUTO_REJECT_OR_NON_APPROVE:{rec['amp_auto_decision']}")   # plan 5.3 #2: run-invalidating
         if rec["hard_blocked"]:
             v.append("autonomous_while_hard_blocked")
+        if rec.get("authority_mode") == "authority":
+            if rec.get("governance_outcome") != "execute":
+                v.append(f"authority_autonomous_without_execute:{rec.get('governance_outcome')}")
+            thr, pp = rec.get("class_threshold"), rec["amp_approval_probability"]
+            if thr is None or pp is None or pp < thr:
+                v.append(f"authority_autonomous_below_class_threshold:{pp}<{thr}")
     p = rec["amp_approval_probability"]
     if rec["amp_stage"] >= 1 and p is not None and p in (0.0, 1.0):
         v.append("base_policy_rule_suspected(prob exactly 0/1)")
@@ -326,7 +354,8 @@ def run(a):
                 stage = settle(amp, human, db, agent, ts, pos, log)
                 last_settled = pos
                 print(f"  seq {pos:4d} stage={stage} human={sum(r['routing']=='hitl' for r in recs)} "
-                      f"auto={sum(r['routing']=='autonomous' for r in recs)}", flush=True)
+                      f"auto={sum(r['routing']=='autonomous' for r in recs)}"
+                      + (f" fallback={n_fb}" if (n_fb := sum(r['routing'] == 'fallback' for r in recs)) else ""), flush=True)
         if last_settled != len(stream):
             settle(amp, human, db, agent, ts, len(stream), log)
     finally:
