@@ -5,3 +5,8 @@ __pycache__/
 .DS_Store
 results/*/raw_features/
 .env
+
+# local-only: Claude Code worktrees, paper drafts (double-blind; kept out of the repo), backups
+.claude/
+CVC_2027_*
+*.bak
