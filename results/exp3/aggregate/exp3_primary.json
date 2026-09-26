@@ -1,0 +1,21 @@
+{
+  "eligible_shift": 10,
+  "eligible_stationary": 10,
+  "escapes_post": {
+    "AMP": 128,
+    "T1": 206,
+    "T0": 293,
+    "TM": 204
+  },
+  "rho_vs_T1": 0.6213592233009708,
+  "rho_vs_T1_upper95": 0.8164251207729468,
+  "rho_vs_T0": 0.43686006825938567,
+  "rho_vs_TM": 0.6274509803921569,
+  "H1": true,
+  "stationary_revoked_share": 0.0,
+  "stationary_amp_good_error": 0.033851276359600446,
+  "H2a": true,
+  "H2b": true,
+  "SUCCESS": true,
+  "verdict": "SUPPORTED"
+}

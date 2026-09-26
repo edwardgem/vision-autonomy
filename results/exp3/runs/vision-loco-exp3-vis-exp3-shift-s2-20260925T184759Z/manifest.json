@@ -1,0 +1,185 @@
+{
+  "run_id": "vision-loco-exp3-vis-exp3-shift-s2-20260925T184759Z",
+  "experiment_id": "vision-loco-exp3",
+  "experiment_config": "config/exp3/experiment_exp3_v1.json",
+  "policy_template": "config/exp3/amp_policy_exp3_v1.json",
+  "condition": "D_amp_progressive",
+  "agent_name": "vis-exp3-shift-s2",
+  "category": "pooled",
+  "stream_seed": 2,
+  "n_items": 630,
+  "limit": null,
+  "tick_every_items": 10,
+  "tick_minutes_rule": "1440 - k (k = tick index; unique job id, window unaffected)",
+  "started": "2026-09-25T18:48:02.525825Z",
+  "org_id": "O-XXXX-ORG",
+  "reviewer_session_user": "reviewer@example.org",
+  "amp_testing_mode": false,
+  "worker_training_seed": "vision-loco-v1",
+  "amp_rlhf_params": {
+    "authority": {
+      "classes": {
+        "good": {
+          "fallback": {
+            "mode": "hitl"
+          },
+          "threshold_grid": [
+            0.99,
+            0.98,
+            0.97,
+            0.95,
+            0.93,
+            0.9,
+            0.85,
+            0.8,
+            0.75,
+            0.7
+          ],
+          "threshold_mode": "risk_controlled",
+          "max_autonomous_risk": 0.1,
+          "min_authorized_rows": 30
+        },
+        "defective": {
+          "fallback": {
+            "mode": "hitl"
+          },
+          "threshold_grid": [
+            0.99,
+            0.98,
+            0.97,
+            0.95,
+            0.93,
+            0.9,
+            0.85,
+            0.8,
+            0.75,
+            0.7
+          ],
+          "threshold_mode": "risk_controlled",
+          "max_autonomous_risk": 0.1,
+          "min_authorized_rows": 30
+        }
+      },
+      "enabled": true,
+      "class_key": "proposal",
+      "confidence": 0.95,
+      "monitoring": {
+        "probe_rate": 0.3,
+        "recent_window": 20,
+        "probe_rate_initial": 0.3,
+        "probe_initial_decisions": 50,
+        "min_probe_rows_for_rules": 10,
+        "min_probes_per_decisions": [
+          2,
+          50
+        ],
+        "revoke_on_confirmed_failures": 3
+      },
+      "requalify_on": [
+        "model_activation",
+        "authority_policy_change",
+        "revocation"
+      ],
+      "default_class": {
+        "autonomy": "never",
+        "fallback": {
+          "mode": "hitl"
+        }
+      },
+      "qualification": {
+        "require_admin_approval": true,
+        "min_discrimination_auroc": null,
+        "model_acceptance_min_auroc": 0.55,
+        "model_acceptance_max_auroc_drop": 0.05
+      }
+    },
+    "stage2_probe_rate": 0.1,
+    "stage1_eval_max_days": 5,
+    "stage2_auto_threshold": 0.9,
+    "retrain_min_human_rows": 100000,
+    "rollback_cooldown_days": 7,
+    "stage1_agreement_basis": "execution_threshold",
+    "model_approval_assignee": null,
+    "stage2_probe_min_per_day": 2,
+    "max_failed_retrain_cycles": 4,
+    "stage1_recent_window_rows": 20,
+    "stage1_eval_min_human_rows": 150,
+    "stage1_recommend_threshold": 0.65,
+    "upgrade_min_auto_rate_gain": 0.03,
+    "upgrade_min_eval_human_rows": 80,
+    "initial_train_min_human_rows": 150,
+    "auto_approve_upgrade_proposals": false,
+    "stage1_eval_min_agreement_rate": 0.7,
+    "stage1_recent_min_agreement_rate": 0.65,
+    "post_switch_zero_auto_rollback_days": 2,
+    "stage2_promotion_blocking_safety_alerts_7d_max": 0
+  },
+  "legacy_authority_injected": false,
+  "git": {
+    "vision-autonomy": {
+      "sha": "362e2901b83129a22ad72e6045447038b16331b2",
+      "dirty": true
+    },
+    "amp-backend": {
+      "sha": "4e243ae6a34b63c98eb98fb2970d0366170fef22",
+      "dirty": false
+    },
+    "hitl-agent": {
+      "sha": "ae3d4096c05991729b0fd923648e3302b8d2ac15",
+      "dirty": false
+    },
+    "rlhf": {
+      "sha": "4be57472543735bb6810a74b3cca241b3c84682c",
+      "dirty": false
+    }
+  },
+  "sha256": {
+    "policy_template": "872c704485c5b286ddd51eb547dea2866986e39a65f15dd1cc5d0e6d2d69ac39",
+    "calibration": "a33653b2bf6cf1edac5b0f3ad7c14287312c4ad4b3bfce967eed679f1d1d6d95",
+    "experiment_config": "d9e0a8dce96f7014992525694b62e44cb5b3241dc741bb8061dbb4e918f9e50f",
+    "decision_records": "eb24ae6b025cb4724579fbdfc4d1f368e1476b95fed27c4be2fe93495a4cfaa9"
+  },
+  "python": "3.12.13",
+  "arm": "shift",
+  "stream_image_ids_sha256": "4e2d21038ebf289efb9ce0f8f588e108f786327f7b51aadc40a4c0029fb7e092",
+  "stream_composition": {
+    "post:good": 150,
+    "post:logical": 75,
+    "post:structural": 25,
+    "pre:good": 342,
+    "pre:structural": 38
+  },
+  "preexisting_requests_on_agent": 0,
+  "summary": {
+    "items_sent": 630,
+    "new_requests_in_amp_db": 630,
+    "requests_counted_in_tick_summaries": 630,
+    "reconcile_ok": true,
+    "by_stage_routing": {
+      "stage0:hitl": 150,
+      "stage1:hitl": 40,
+      "stage2:autonomous": 170,
+      "stage2:hitl": 270
+    },
+    "first_stage1_pos": 151,
+    "first_stage2_pos": 191,
+    "rlhf_auto_disabled_at_pos": null,
+    "stage2_human_with_p_le_0.10": 0,
+    "auto_rejects": 0,
+    "failed_jobs": [],
+    "admin_approvals": [
+      {
+        "workitem_id": "rlhf-model-approval-3c9b8783f1a33958",
+        "resolution": "approve",
+        "at": "2026-09-25T18:50:00.501042Z"
+      },
+      {
+        "workitem_id": "rlhf-authority-auth-2e54d9ca0621ba6c",
+        "resolution": "approve",
+        "at": "2026-09-25T18:50:35.073425Z"
+      }
+    ],
+    "mean_seconds_per_item": 1.395,
+    "finished": "2026-09-25T19:06:25.149078Z"
+  }
+}

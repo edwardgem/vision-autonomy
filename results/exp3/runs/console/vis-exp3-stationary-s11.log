@@ -1,0 +1,83 @@
+registering + installing policy for vis-exp3-stationary-s11
+run vision-loco-exp3-vis-exp3-stationary-s11-20260925T234813Z: 630 items, seed-in-worker=vision-loco-v1
+  seq   10 stage=0 human=10 auto=0
+  seq   20 stage=0 human=20 auto=0
+  seq   30 stage=0 human=30 auto=0
+  seq   40 stage=0 human=40 auto=0
+  seq   50 stage=0 human=50 auto=0
+  seq   60 stage=0 human=60 auto=0
+  seq   70 stage=0 human=70 auto=0
+  seq   80 stage=0 human=80 auto=0
+  seq   90 stage=0 human=90 auto=0
+  seq  100 stage=0 human=100 auto=0
+  seq  110 stage=0 human=110 auto=0
+  seq  120 stage=0 human=120 auto=0
+  seq  130 stage=0 human=130 auto=0
+  seq  140 stage=0 human=140 auto=0
+  seq  150 stage=0 human=150 auto=0
+  seq  160 stage=0 human=160 auto=0
+  seq  170 stage=0 human=170 auto=0
+  seq  180 stage=0 human=180 auto=0
+  seq  190 stage=0 human=190 auto=0
+  seq  200 stage=0 human=200 auto=0
+  seq  210 stage=0 human=210 auto=0
+  seq  220 stage=0 human=220 auto=0
+  seq  230 stage=0 human=230 auto=0
+  seq  240 stage=0 human=240 auto=0
+  seq  250 stage=0 human=250 auto=0
+  seq  260 stage=0 human=260 auto=0
+  seq  270 stage=0 human=270 auto=0
+  seq  280 stage=0 human=280 auto=0
+  seq  290 stage=0 human=290 auto=0
+  seq  300 stage=0 human=300 auto=0
+  seq  310 stage=0 human=310 auto=0
+  seq  320 stage=0 human=320 auto=0
+  seq  330 stage=0 human=330 auto=0
+  seq  340 stage=0 human=340 auto=0
+  seq  350 stage=0 human=350 auto=0
+  seq  360 stage=0 human=360 auto=0
+  seq  370 stage=0 human=370 auto=0
+  seq  380 stage=0 human=380 auto=0
+  seq  390 stage=0 human=390 auto=0
+  seq  400 stage=0 human=400 auto=0
+  seq  410 stage=0 human=410 auto=0
+  seq  420 stage=0 human=420 auto=0
+  seq  430 stage=0 human=430 auto=0
+  seq  440 stage=0 human=440 auto=0
+  seq  450 stage=0 human=450 auto=0
+  seq  460 stage=0 human=460 auto=0
+  seq  470 stage=0 human=470 auto=0
+  seq  480 stage=0 human=480 auto=0
+  seq  490 stage=0 human=490 auto=0
+  seq  500 stage=0 human=500 auto=0
+  seq  510 stage=0 human=510 auto=0
+  seq  520 stage=0 human=520 auto=0
+  seq  530 stage=0 human=530 auto=0
+  seq  540 stage=0 human=540 auto=0
+  seq  550 stage=0 human=550 auto=0
+  seq  560 stage=0 human=560 auto=0
+  seq  570 stage=0 human=570 auto=0
+  seq  580 stage=0 human=580 auto=0
+  seq  590 stage=0 human=590 auto=0
+  seq  600 stage=0 human=600 auto=0
+  seq  610 stage=0 human=610 auto=0
+  seq  620 stage=0 human=620 auto=0
+  seq  630 stage=0 human=630 auto=0
+{
+ "items_sent": 630,
+ "new_requests_in_amp_db": 630,
+ "requests_counted_in_tick_summaries": 630,
+ "reconcile_ok": true,
+ "by_stage_routing": {
+  "stage0:hitl": 630
+ },
+ "first_stage1_pos": null,
+ "first_stage2_pos": null,
+ "rlhf_auto_disabled_at_pos": null,
+ "stage2_human_with_p_le_0.10": 0,
+ "auto_rejects": 0,
+ "failed_jobs": [],
+ "mean_seconds_per_item": 0.411,
+ "finished": "2026-09-25T23:56:47.971798Z"
+}
+outputs: /Users/edwardc/Projects/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s11-20260925T234813Z
