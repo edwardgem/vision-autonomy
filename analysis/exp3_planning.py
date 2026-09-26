@@ -1,7 +1,7 @@
 """Experiment 3 PLANNING simulator (design aid only; not the experiment, not AMP).
 
-Offline replica of AMP's authority lifecycle rules (rlhf src/authority/*; Clopper-Pearson imported verbatim from
-amp-backend/authority_status.py) run over the real frozen PatchCore test scores, to size Experiment 3 BEFORE it is
+Offline replica of AMP's authority lifecycle rules (rlhf src/authority/*; Clopper-Pearson from analysis/cp_bounds.py,
+the same algorithm as the platform's) run over the real frozen PatchCore test scores, to size Experiment 3 BEFORE it is
 preregistered: stream construction, evidence budgets, risk budgets, probe power, and the static-authorization twin.
 
 Approximations (declared; the experiment itself runs real AMP):
@@ -19,9 +19,9 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 
+from analysis.cp_bounds import cp_upper, cp_lower  # same algorithm as the platform's implementation
+
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT.parent / "amp-backend"))
-from authority_status import cp_upper, cp_lower  # noqa: E402  (same algorithm as rlhf stats.ts)
 
 SENSITIVE = ["screw_bag", "pushpins", "splicing_connectors"]
 ALL5 = ["breakfast_box", "juice_bottle", "pushpins", "screw_bag", "splicing_connectors"]

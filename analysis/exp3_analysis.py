@@ -18,9 +18,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from analysis.cp_bounds import cp_lower, cp_upper  # same algorithm as the platform's implementation
+
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT.parent / "amp-backend"))
-from authority_status import cp_lower, cp_upper  # noqa: E402  (same algorithm as rlhf stats.ts)
 
 N_PRE = 380
 BUDGET = 0.10

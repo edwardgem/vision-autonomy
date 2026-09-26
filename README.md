@@ -87,14 +87,17 @@ and matplotlib:
 python -m analysis.baselines          # conditions A-C (oracle, model only, static HITL)
 python -m analysis.aggregate          # Experiment 1 tables T1-T5, figures
 python -m analysis.aggregate_exp2     # Experiment 2 primary endpoint and tables
+python -m analysis.exp3_analysis --runs-dir results/exp3/runs   # Experiment 3 preregistered endpoint (H1, H2)
+python -m analysis.exp3_secondary     # Experiment 3 secondary tables
 python paper/figures/sec3_figures.py  # paper figures (see paper/figures/README.md)
 python paper/figures/sec4_exp12_figures.py
 python paper/figures/sec4_exp3_figures.py
+python -m analysis.test_cp_bounds     # tests of the Clopper-Pearson bounds
+python -m analysis.test_exp3_analysis # self-test of the Experiment 3 analysis on a synthetic run
 ```
 
-The Experiment 3 analyses, `python -m analysis.exp3_analysis --runs-dir results/exp3/runs` (the preregistered
-endpoint) and `python -m analysis.exp3_secondary`, also need a sibling `amp-backend` checkout, from which they import
-the platform's Clopper–Pearson implementation.
+The Clopper–Pearson bounds in `analysis/cp_bounds.py` use the same algorithm as the governance platform, so
+qualification and revocation decisions recomputed here match the platform's exactly.
 
 **From the images** (needs the dataset and `anomalib==2.6.2`; about 36 min on CPU):
 
@@ -114,10 +117,17 @@ Reviewers are simulated as perfect and instantaneous. The 0.10 risk budget was s
 industrial requirements. PatchCore is used in a single fixed configuration. See the threats-to-validity sections of
 each `RESULTS*.md`.
 
-## Data license and citation
+## License
 
-Results derived from MVTec LOCO AD are subject to its license, **CC BY-NC-SA 4.0** (non-commercial; attribution;
-share-alike). Please cite the dataset:
+- **Code** (`analysis/`, `sim/`, `scripts/`, `regression/`, `paper/figures/`): [Apache License 2.0](LICENSE).
+- **Data derived from MVTec LOCO AD** (everything under `results/`, including scores, decision records, tables and
+  figures): the dataset's license, **CC BY-NC-SA 4.0** (attribution, non-commercial, share-alike). The dataset itself
+  is not redistributed here.
+- **The governance platform** that the simulator drives is a separate system and is not covered by this repository.
+
+## Citation
+
+Please cite the dataset:
 
 > Bergmann, P., Batzner, K., Fauser, M., Sattlegger, D., Steger, C.: Beyond Dents and Scratches: Logical Constraints
 > in Unsupervised Anomaly Detection and Localization. International Journal of Computer Vision 130, 947–969 (2022).
