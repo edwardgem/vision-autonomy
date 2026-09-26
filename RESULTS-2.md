@@ -15,17 +15,6 @@ Sections are ordered as follows:
 Experiment 2 made the cumulative gate use the Stage 1 recommendation too (`promotion.stage1_agreement_basis = recommendation`). **Every individual autonomous
 decision still required P ≥ 0.90.** Everything else was identical to Experiment 1.
 
-> **Erratum (2026-09-25):** In §4.2, the number of autonomous "defective" proposals outside juice_bottle s4 was previously reported as
-> 430. Recalculation from the raw decision records gives **336** (3 wrong). The earlier value was a transcription error in the hand-written
-> §4.2 table: the per-cell file committed with this document (`results/exp2/aggregate/autonomous_by_proposal_exploratory.csv`) was already
-> correct, so no analysis code is affected. This correction affects the exploratory action-class count only. It does not change the
-> preregistered primary endpoint, promotion results, or the Experiment 2 interpretation: 336 of the 337 autonomous executions in those 8 runs
-> were "defective" confirmations, so "almost entirely" still holds.
-> *(Evidence: the 25 raw `results/exp2/runs/*/amp_decisions.csv` files (7,840 rows) give, excluding juice_bottle s4, 337 autonomous
-> decisions = 336 `defective` proposals (3 with ground truth good) + 1 `good` proposal (ground truth defective). juice_bottle s4 gives 99 (6) and
-> 55 (22); all 9 runs give 435 (9) and 56 (23), with Σk = 491 as in §2. The static matched-coverage row, 421 (4) and 70 (21), is unchanged.
-> The original §4.2 table is left as written, with a pointer to this erratum.)*
-
 ---
 
 ## 1. What was executed
@@ -166,10 +155,11 @@ Wilson intervals treat items as independent and are descriptive; the run-level i
 
 | | Autonomous "defective" proposals (errors) | Autonomous "good" proposals, i.e. released parts (errors = escaped defects) |
 |---|---|---|
-| AMP, 8 runs excl. juice_bottle s4 | 430 (3) [**erratum: 336 (3)**, see top] | **1 (1)** |
+| AMP, 8 runs excl. juice_bottle s4 | 336 (3) | **1 (1)** |
 | AMP, juice_bottle s4 | 99 (6) | **55 (22)** |
 | Static matched, all 9 runs | 421 (4) | 70 (21) |
 
+- **Erratum (2026-09-26):** this row originally read 430 (3). Recounted from the raw decision records (`results/exp2/runs/*/amp_decisions.jsonl`), it is 336 (3): per run 24 + 26 + 20 + 53 + 59 + 45 + 84 + 25. The error count and every conclusion are unchanged. The 430 was a transcription error in this hand-written table; the per-cell file committed with it (`results/exp2/aggregate/autonomous_by_proposal_exploratory.csv`) was already correct, so no analysis code is affected. The "Static matched, all 9 runs" row was also recounted from the raw records with the preregistered matched-coverage rule and is confirmed: 421 (4) and 70 (21), Σk = 491 with 25 errors, as in §2. This is an exploratory count only; the preregistered primary endpoint and promotion results are unaffected.
 - **Outside juice_bottle s4, AMP's autonomy consisted almost entirely of confirming "defective" proposals.** Every "release as good" decision except one went to a human.
 - **In juice_bottle s4, AMP autonomously released 55 parts, 22 of them defective (40 %).**
 
