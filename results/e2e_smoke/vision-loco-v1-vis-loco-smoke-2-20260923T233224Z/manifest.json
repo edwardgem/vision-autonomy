@@ -1,0 +1,80 @@
+{
+  "run_id": "vision-loco-v1-vis-loco-smoke-2-20260923T233224Z",
+  "experiment_id": "vision-loco-v1",
+  "condition": "D_amp_progressive",
+  "agent_name": "vis-loco-smoke-2",
+  "category": "juice_bottle",
+  "stream_seed": 997,
+  "n_items": 12,
+  "limit": 12,
+  "tick_every_items": 10,
+  "tick_minutes_rule": "1440 - k (k = tick index; unique job id, window unaffected)",
+  "started": "2026-09-23T23:32:28.037220Z",
+  "org_id": "ORG-ANON",
+  "reviewer_session_user": "anonymous@example.com",
+  "amp_testing_mode": false,
+  "worker_training_seed": "vision-loco-v1",
+  "amp_rlhf_params": {
+    "stage2_probe_rate": 0.1,
+    "stage1_eval_max_days": 5,
+    "stage2_auto_threshold": 0.9,
+    "retrain_min_human_rows": 80,
+    "rollback_cooldown_days": 7,
+    "model_approval_assignee": null,
+    "stage2_probe_min_per_day": 2,
+    "max_failed_retrain_cycles": 4,
+    "stage1_recent_window_rows": 20,
+    "stage1_eval_min_human_rows": 80,
+    "stage1_recommend_threshold": 0.65,
+    "upgrade_min_auto_rate_gain": 0.03,
+    "upgrade_min_eval_human_rows": 80,
+    "initial_train_min_human_rows": 80,
+    "auto_approve_upgrade_proposals": false,
+    "stage1_eval_min_agreement_rate": 0.7,
+    "stage1_recent_min_agreement_rate": 0.65,
+    "post_switch_zero_auto_rollback_days": 2,
+    "stage2_promotion_blocking_safety_alerts_7d_max": 0
+  },
+  "git": {
+    "vision-autonomy": {
+      "sha": "fbeedfcb98d2744d91f9a4778ac88abe981eeaed",
+      "dirty": true
+    },
+    "gov-backend": {
+      "sha": "d2a42caa2d484851631f33990a9bf572e8cac219",
+      "dirty": false
+    },
+    "hitl-agent": {
+      "sha": "65472c71e738da607aae8c3c220b98f7fd45bc9e",
+      "dirty": false
+    },
+    "rlhf": {
+      "sha": "59fffbdc7c9b94e13bd60c57089202b39af609b1",
+      "dirty": false
+    }
+  },
+  "sha256": {
+    "policy_template": "f83fc31f5dfc72bf88a45988f0b6647c63575acbf0103754e06aa577ee67edae",
+    "calibration": "a33653b2bf6cf1edac5b0f3ad7c14287312c4ad4b3bfce967eed679f1d1d6d95",
+    "experiment_config": "e03d7167b3afc6745faa6561e622fe97d0b25dea2b2238a0282e15ea32d10923",
+    "decision_records": "eb24ae6b025cb4724579fbdfc4d1f368e1476b95fed27c4be2fe93495a4cfaa9"
+  },
+  "python": "3.12.13",
+  "preexisting_requests_on_agent": 0,
+  "summary": {
+    "items_sent": 12,
+    "new_requests_in_amp_db": 12,
+    "requests_counted_in_tick_summaries": 12,
+    "reconcile_ok": true,
+    "by_stage_routing": {
+      "stage0:hitl": 12
+    },
+    "first_stage1_pos": null,
+    "first_stage2_pos": null,
+    "auto_rejects": 0,
+    "failed_jobs": [],
+    "admin_approvals": [],
+    "mean_seconds_per_item": 0.324,
+    "finished": "2026-09-23T23:32:39.412319Z"
+  }
+}

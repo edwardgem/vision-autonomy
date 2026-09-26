@@ -1,0 +1,116 @@
+{
+  "run_id": "engineering-authority-smoke-vis-auth-e2e-1-20260925T004022Z",
+  "experiment_id": "engineering-authority-smoke",
+  "experiment_config": "config/engineering/experiment_authority_smoke.json",
+  "policy_template": "config/engineering/amp_policy_authority_smoke.json",
+  "condition": "D_amp_progressive",
+  "agent_name": "vis-auth-e2e-1",
+  "category": "juice_bottle",
+  "stream_seed": 999,
+  "n_items": 330,
+  "limit": null,
+  "tick_every_items": 10,
+  "tick_minutes_rule": "1440 - k (k = tick index; unique job id, window unaffected)",
+  "started": "2026-09-25T00:40:25.612685Z",
+  "org_id": "ORG-ANON",
+  "reviewer_session_user": "anonymous@example.com",
+  "amp_testing_mode": false,
+  "worker_training_seed": "vision-loco-v1",
+  "amp_rlhf_params": {
+    "authority": {
+      "classes": {
+        "good": {
+          "fallback": {
+            "mode": "hitl"
+          },
+          "threshold_grid": [
+            0.99,
+            0.98,
+            0.97,
+            0.95
+          ],
+          "threshold_mode": "risk_controlled",
+          "max_autonomous_risk": 0.1,
+          "min_authorized_rows": 30
+        },
+        "defective": {
+          "fallback": {
+            "mode": "hitl"
+          },
+          "threshold_grid": [
+            0.99,
+            0.98,
+            0.97,
+            0.95,
+            0.93,
+            0.9,
+            0.85,
+            0.8
+          ],
+          "threshold_mode": "risk_controlled",
+          "max_autonomous_risk": 0.1,
+          "min_authorized_rows": 30
+        }
+      },
+      "enabled": true,
+      "class_key": "proposal",
+      "confidence": 0.95,
+      "default_class": {
+        "autonomy": "never",
+        "fallback": {
+          "mode": "hitl"
+        }
+      },
+      "qualification": {
+        "require_admin_approval": true,
+        "min_discrimination_auroc": null
+      }
+    },
+    "stage2_probe_rate": 0.1,
+    "stage1_eval_max_days": 5,
+    "stage2_auto_threshold": 0.9,
+    "retrain_min_human_rows": 80,
+    "rollback_cooldown_days": 7,
+    "stage1_agreement_basis": "execution_threshold",
+    "model_approval_assignee": null,
+    "stage2_probe_min_per_day": 2,
+    "max_failed_retrain_cycles": 4,
+    "stage1_recent_window_rows": 20,
+    "stage1_eval_min_human_rows": 80,
+    "stage1_recommend_threshold": 0.65,
+    "upgrade_min_auto_rate_gain": 0.03,
+    "upgrade_min_eval_human_rows": 80,
+    "initial_train_min_human_rows": 80,
+    "auto_approve_upgrade_proposals": false,
+    "stage1_eval_min_agreement_rate": 0.7,
+    "stage1_recent_min_agreement_rate": 0.65,
+    "post_switch_zero_auto_rollback_days": 2,
+    "stage2_promotion_blocking_safety_alerts_7d_max": 0
+  },
+  "legacy_authority_injected": false,
+  "git": {
+    "vision-autonomy": {
+      "sha": "b14f061c05280c96b6545441eb35d4ee6057f1d2",
+      "dirty": true
+    },
+    "gov-backend": {
+      "sha": "40123ed3fbc2cfaa03a46df63fc07118c91a9f56",
+      "dirty": true
+    },
+    "hitl-agent": {
+      "sha": "77eabbc652a4419b5ef8b67c106d0fb189dc6e61",
+      "dirty": false
+    },
+    "rlhf": {
+      "sha": "df9e62fe23f82844c81c42b4f5608b01027698a3",
+      "dirty": true
+    }
+  },
+  "sha256": {
+    "policy_template": "e60b37b3b95372819e805f56023a1b62274a727421c35e9b9210061483002e8d",
+    "calibration": "a33653b2bf6cf1edac5b0f3ad7c14287312c4ad4b3bfce967eed679f1d1d6d95",
+    "experiment_config": "ba12ec99bc2dc65facca047512e4124217f91f627934b30a5d05a437685618af",
+    "decision_records": "eb24ae6b025cb4724579fbdfc4d1f368e1476b95fed27c4be2fe93495a4cfaa9"
+  },
+  "python": "3.12.13"
+}

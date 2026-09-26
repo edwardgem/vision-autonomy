@@ -1,0 +1,76 @@
+{"ts": "2026-09-25T17:23:21.853189Z", "event": "study_start", "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "arms": ["shift", "stationary"]}
+{"ts": "2026-09-25T17:23:21.853598Z", "event": "run_start", "agent": "vis-exp3-shift-s0", "arm": "shift", "seed": 0}
+{"ts": "2026-09-25T17:40:40.628696Z", "event": "run_end", "agent": "vis-exp3-shift-s0", "returncode": 0, "minutes": 17.31}
+{"ts": "2026-09-25T17:40:52.436085Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s0", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s0']\nvis-exp3-shift-s0 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T17:40:52.437293Z", "event": "run_start", "agent": "vis-exp3-stationary-s0", "arm": "stationary", "seed": 0}
+{"ts": "2026-09-25T17:59:46.616867Z", "event": "run_end", "agent": "vis-exp3-stationary-s0", "returncode": 0, "minutes": 18.9}
+{"ts": "2026-09-25T17:59:58.398630Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s0", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s0']\nvis-exp3-stationary-s0 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T17:59:58.399495Z", "event": "run_start", "agent": "vis-exp3-shift-s1", "arm": "shift", "seed": 1}
+{"ts": "2026-09-25T18:20:25.160847Z", "event": "run_end", "agent": "vis-exp3-shift-s1", "returncode": 0, "minutes": 20.45}
+{"ts": "2026-09-25T18:20:36.940096Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s1", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s1']\nvis-exp3-shift-s1 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T18:20:36.941230Z", "event": "run_start", "agent": "vis-exp3-stationary-s1", "arm": "stationary", "seed": 1}
+{"ts": "2026-09-25T18:47:46.894171Z", "event": "run_end", "agent": "vis-exp3-stationary-s1", "returncode": 0, "minutes": 27.17}
+{"ts": "2026-09-25T18:47:58.634348Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s1", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s1']\nvis-exp3-stationary-s1 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T18:47:58.635396Z", "event": "run_start", "agent": "vis-exp3-shift-s2", "arm": "shift", "seed": 2}
+{"ts": "2026-09-25T19:06:25.189347Z", "event": "run_end", "agent": "vis-exp3-shift-s2", "returncode": 0, "minutes": 18.44}
+{"ts": "2026-09-25T19:06:36.945806Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s2", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s2']\nvis-exp3-shift-s2 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T19:06:36.946928Z", "event": "run_start", "agent": "vis-exp3-stationary-s2", "arm": "stationary", "seed": 2}
+{"ts": "2026-09-25T19:26:48.130000Z", "event": "run_end", "agent": "vis-exp3-stationary-s2", "returncode": 0, "minutes": 20.19}
+{"ts": "2026-09-25T19:26:59.913514Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s2", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s2']\nvis-exp3-stationary-s2 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T19:26:59.914726Z", "event": "run_start", "agent": "vis-exp3-shift-s3", "arm": "shift", "seed": 3}
+{"ts": "2026-09-25T19:49:14.979840Z", "event": "run_end", "agent": "vis-exp3-shift-s3", "returncode": 0, "minutes": 22.25}
+{"ts": "2026-09-25T19:49:26.710076Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s3", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s3']\nvis-exp3-shift-s3 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T19:49:26.711147Z", "event": "run_start", "agent": "vis-exp3-stationary-s3", "arm": "stationary", "seed": 3}
+{"ts": "2026-09-25T20:13:27.949323Z", "event": "run_end", "agent": "vis-exp3-stationary-s3", "returncode": 0, "minutes": 24.02}
+{"ts": "2026-09-25T20:13:39.814053Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s3", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s3']\nvis-exp3-stationary-s3 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T20:13:39.815466Z", "event": "run_start", "agent": "vis-exp3-shift-s4", "arm": "shift", "seed": 4}
+{"ts": "2026-09-25T20:24:13.027277Z", "event": "run_end", "agent": "vis-exp3-shift-s4", "returncode": 0, "minutes": 10.55}
+{"ts": "2026-09-25T20:24:24.862272Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s4", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s4']\nvis-exp3-shift-s4 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T20:24:24.863476Z", "event": "run_start", "agent": "vis-exp3-stationary-s4", "arm": "stationary", "seed": 4}
+{"ts": "2026-09-25T20:35:33.870221Z", "event": "run_end", "agent": "vis-exp3-stationary-s4", "returncode": 0, "minutes": 11.15}
+{"ts": "2026-09-25T20:35:45.732467Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s4", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s4']\nvis-exp3-stationary-s4 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T20:35:45.733266Z", "event": "run_start", "agent": "vis-exp3-shift-s5", "arm": "shift", "seed": 5}
+{"ts": "2026-09-25T20:48:55.526159Z", "event": "run_end", "agent": "vis-exp3-shift-s5", "returncode": 0, "minutes": 13.16}
+{"ts": "2026-09-25T20:49:07.351880Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s5", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s5']\nvis-exp3-shift-s5 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T20:49:07.353106Z", "event": "run_start", "agent": "vis-exp3-stationary-s5", "arm": "stationary", "seed": 5}
+{"ts": "2026-09-25T21:02:27.988047Z", "event": "run_end", "agent": "vis-exp3-stationary-s5", "returncode": 0, "minutes": 13.34}
+{"ts": "2026-09-25T21:02:40.002311Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s5", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s5']\nvis-exp3-stationary-s5 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T21:02:40.004872Z", "event": "run_start", "agent": "vis-exp3-shift-s6", "arm": "shift", "seed": 6}
+{"ts": "2026-09-25T21:17:39.517554Z", "event": "run_end", "agent": "vis-exp3-shift-s6", "returncode": 0, "minutes": 14.99}
+{"ts": "2026-09-25T21:17:51.296447Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s6", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s6']\nvis-exp3-shift-s6 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T21:17:51.297779Z", "event": "run_start", "agent": "vis-exp3-stationary-s6", "arm": "stationary", "seed": 6}
+{"ts": "2026-09-25T21:38:21.990604Z", "event": "run_end", "agent": "vis-exp3-stationary-s6", "returncode": 0, "minutes": 20.51}
+{"ts": "2026-09-25T21:38:33.817723Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s6", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s6']\nvis-exp3-stationary-s6 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T21:38:33.819331Z", "event": "run_start", "agent": "vis-exp3-shift-s7", "arm": "shift", "seed": 7}
+{"ts": "2026-09-25T21:56:07.747126Z", "event": "run_end", "agent": "vis-exp3-shift-s7", "returncode": 0, "minutes": 17.57}
+{"ts": "2026-09-25T21:56:19.521596Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s7", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s7']\nvis-exp3-shift-s7 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T21:56:19.522985Z", "event": "run_start", "agent": "vis-exp3-stationary-s7", "arm": "stationary", "seed": 7}
+{"ts": "2026-09-25T22:20:50.250299Z", "event": "run_end", "agent": "vis-exp3-stationary-s7", "returncode": 0, "minutes": 24.51}
+{"ts": "2026-09-25T22:21:02.099064Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s7", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s7']\nvis-exp3-stationary-s7 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T22:21:02.102436Z", "event": "run_start", "agent": "vis-exp3-shift-s8", "arm": "shift", "seed": 8}
+{"ts": "2026-09-25T22:34:53.574746Z", "event": "run_end", "agent": "vis-exp3-shift-s8", "returncode": 0, "minutes": 13.86}
+{"ts": "2026-09-25T22:35:05.354837Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s8", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s8']\nvis-exp3-shift-s8 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T22:35:05.355968Z", "event": "run_start", "agent": "vis-exp3-stationary-s8", "arm": "stationary", "seed": 8}
+{"ts": "2026-09-25T22:52:46.110678Z", "event": "run_end", "agent": "vis-exp3-stationary-s8", "returncode": 0, "minutes": 17.68}
+{"ts": "2026-09-25T22:52:57.958172Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s8", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s8']\nvis-exp3-stationary-s8 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T22:52:57.961657Z", "event": "run_start", "agent": "vis-exp3-shift-s9", "arm": "shift", "seed": 9}
+{"ts": "2026-09-25T23:01:32.397080Z", "event": "run_end", "agent": "vis-exp3-shift-s9", "returncode": 0, "minutes": 8.57}
+{"ts": "2026-09-25T23:01:35.177909Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s9", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s9']\nvis-exp3-shift-s9 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T23:01:35.179535Z", "event": "run_start", "agent": "vis-exp3-stationary-s9", "arm": "stationary", "seed": 9}
+{"ts": "2026-09-25T23:10:14.144560Z", "event": "run_end", "agent": "vis-exp3-stationary-s9", "returncode": 0, "minutes": 8.65}
+{"ts": "2026-09-25T23:10:16.910022Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s9", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s9']\nvis-exp3-stationary-s9 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T23:10:16.911560Z", "event": "run_start", "agent": "vis-exp3-shift-s10", "arm": "shift", "seed": 10}
+{"ts": "2026-09-25T23:23:10.520732Z", "event": "run_end", "agent": "vis-exp3-shift-s10", "returncode": 0, "minutes": 12.89}
+{"ts": "2026-09-25T23:23:22.348174Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s10", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s10']\nvis-exp3-shift-s10 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T23:23:22.349718Z", "event": "run_start", "agent": "vis-exp3-stationary-s10", "arm": "stationary", "seed": 10}
+{"ts": "2026-09-25T23:39:26.453877Z", "event": "run_end", "agent": "vis-exp3-stationary-s10", "returncode": 0, "minutes": 16.07}
+{"ts": "2026-09-25T23:39:38.267048Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s10", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s10']\nvis-exp3-stationary-s10 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T23:39:38.267988Z", "event": "run_start", "agent": "vis-exp3-shift-s11", "arm": "shift", "seed": 11}
+{"ts": "2026-09-25T23:48:10.429136Z", "event": "run_end", "agent": "vis-exp3-shift-s11", "returncode": 0, "minutes": 8.54}
+{"ts": "2026-09-25T23:48:13.560494Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s11", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s11']\nvis-exp3-shift-s11 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T23:48:13.561924Z", "event": "run_start", "agent": "vis-exp3-stationary-s11", "arm": "stationary", "seed": 11}
+{"ts": "2026-09-25T23:56:48.017144Z", "event": "run_end", "agent": "vis-exp3-stationary-s11", "returncode": 0, "minutes": 8.57}
+{"ts": "2026-09-25T23:56:50.874059Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s11", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s11']\nvis-exp3-stationary-s11 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T23:56:51.359535Z", "event": "arm_done", "arm": "shift", "runs": 12, "eligible": 10}
+{"ts": "2026-09-25T23:56:51.700745Z", "event": "arm_done", "arm": "stationary", "runs": 12, "eligible": 10}
+{"ts": "2026-09-25T23:56:51.700867Z", "event": "study_done"}

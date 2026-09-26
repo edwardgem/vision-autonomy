@@ -1,0 +1,56 @@
+registering + installing policy for vis-loco-e2e-3b
+run vision-loco-v1-vis-loco-e2e-3b-20260924T000846Z: 330 items, seed-in-worker=vision-loco-v1
+  seq   10 stage=0 human=10 auto=0
+  seq   20 stage=0 human=20 auto=0
+  seq   30 stage=0 human=30 auto=0
+  seq   40 stage=0 human=40 auto=0
+  seq   50 stage=0 human=50 auto=0
+  seq   60 stage=0 human=60 auto=0
+  seq   70 stage=0 human=70 auto=0
+  seq   80 stage=1 human=80 auto=0
+  seq   90 stage=1 human=90 auto=0
+  seq  100 stage=1 human=100 auto=0
+  seq  110 stage=1 human=110 auto=0
+  seq  120 stage=1 human=120 auto=0
+  seq  130 stage=1 human=130 auto=0
+  seq  140 stage=1 human=140 auto=0
+  seq  150 stage=1 human=150 auto=0
+  seq  160 stage=2 human=160 auto=0
+  seq  170 stage=2 human=168 auto=2
+  seq  180 stage=2 human=173 auto=7
+  seq  190 stage=2 human=179 auto=11
+  seq  200 stage=2 human=186 auto=14
+  seq  210 stage=2 human=191 auto=19
+  seq  220 stage=2 human=197 auto=23
+  seq  230 stage=2 human=204 auto=26
+  seq  240 stage=2 human=210 auto=30
+  seq  250 stage=2 human=214 auto=36
+  seq  260 stage=2 human=221 auto=39
+  seq  270 stage=2 human=227 auto=43
+  seq  280 stage=2 human=233 auto=47
+  seq  290 stage=2 human=239 auto=51
+  seq  300 stage=2 human=246 auto=54
+  seq  310 stage=2 human=253 auto=57
+  seq  320 stage=2 human=258 auto=62
+  seq  330 stage=2 human=262 auto=68
+{
+ "items_sent": 330,
+ "new_requests_in_amp_db": 330,
+ "requests_counted_in_tick_summaries": 330,
+ "reconcile_ok": true,
+ "by_stage_routing": {
+  "stage0:hitl": 80,
+  "stage1:hitl": 80,
+  "stage2:autonomous": 68,
+  "stage2:hitl": 102
+ },
+ "first_stage1_pos": 81,
+ "first_stage2_pos": 161,
+ "rlhf_auto_disabled_at_pos": null,
+ "stage2_human_with_p_le_0.10": 0,
+ "auto_rejects": 0,
+ "failed_jobs": [],
+ "mean_seconds_per_item": 1.069,
+ "finished": "2026-09-24T00:16:48.296827Z"
+}
+outputs: results/e2e/vision-loco-v1-vis-loco-e2e-3b-20260924T000846Z

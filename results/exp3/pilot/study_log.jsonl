@@ -1,0 +1,8 @@
+{"ts": "2026-09-25T05:11:14.145347Z", "event": "pilot_start", "seeds": {"shift": 9001, "stationary": 9001}}
+{"ts": "2026-09-25T05:11:14.145731Z", "event": "run_start", "agent": "vis-exp3-shift-s9001", "arm": "shift", "seed": 9001}
+{"ts": "2026-09-25T05:30:53.050909Z", "event": "run_end", "agent": "vis-exp3-shift-s9001", "returncode": 0, "minutes": 19.65}
+{"ts": "2026-09-25T05:31:04.741953Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-shift-s9001", "returncode": 0, "output": "targets: 1 ['vis-exp3-shift-s9001']\nvis-exp3-shift-s9001 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T05:31:04.742958Z", "event": "run_start", "agent": "vis-exp3-stationary-s9001", "arm": "stationary", "seed": 9001}
+{"ts": "2026-09-25T05:57:26.518926Z", "event": "run_end", "agent": "vis-exp3-stationary-s9001", "returncode": 0, "minutes": 26.36}
+{"ts": "2026-09-25T05:57:38.280396Z", "event": "worker_stopped_after_run", "agent": "vis-exp3-stationary-s9001", "returncode": 0, "output": "targets: 1 ['vis-exp3-stationary-s9001']\nvis-exp3-stationary-s9001 HTTP 200 | config.enabled -> 0 | state unchanged: True | only flag changed: True\n"}
+{"ts": "2026-09-25T05:57:38.280995Z", "event": "pilot_done"}

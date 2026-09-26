@@ -1,0 +1,46 @@
+                                                                                                                run_dir                    agent         arm  seed    n  complete  ...  tm_delta  tm_pos  tm_good_exec_pre tm_good_err_pre  tm_good_exec_post  tm_good_err_post
+0         /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s0-20260925T172322Z        vis-exp3-shift-s0       shift     0  630      True  ...       NaN     NaN                 0               0                  0                 0
+1         /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s1-20260925T175958Z        vis-exp3-shift-s1       shift     1  630      True  ...      0.00   190.0               172               9                196                51
+2        /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s10-20260925T231017Z       vis-exp3-shift-s10       shift    10  630      True  ...       NaN     NaN                 0               0                  0                 0
+3        /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s11-20260925T233938Z       vis-exp3-shift-s11       shift    11  630      True  ...       NaN     NaN                 0               0                  0                 0
+4         /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s2-20260925T184759Z        vis-exp3-shift-s2       shift     2  630      True  ...      1.00   190.0               138               9                145                30
+5         /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s3-20260925T192700Z        vis-exp3-shift-s3       shift     3  630      True  ...      0.50   190.0               160               7                172                37
+6         /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s4-20260925T201340Z        vis-exp3-shift-s4       shift     4  630      True  ...       NaN     NaN                 0               0                  0                 0
+7         /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s5-20260925T203546Z        vis-exp3-shift-s5       shift     5  630      True  ...       NaN     NaN                 0               0                  0                 0
+8         /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s6-20260925T210240Z        vis-exp3-shift-s6       shift     6  630      True  ...      1.50   200.0               107               3                118                27
+9         /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s7-20260925T213834Z        vis-exp3-shift-s7       shift     7  630      True  ...      0.75   190.0               151               6                168                41
+10        /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s8-20260925T222102Z        vis-exp3-shift-s8       shift     8  630      True  ...      2.00   220.0                60               0                 75                18
+11        /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s9-20260925T225258Z        vis-exp3-shift-s9       shift     9  630      True  ...       NaN     NaN                 0               0                  0                 0
+12   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s0-20260925T174052Z   vis-exp3-stationary-s0  stationary     0  630      True  ...       NaN     NaN                 0               0                  0                 0
+13   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s1-20260925T182037Z   vis-exp3-stationary-s1  stationary     1  630      True  ...      0.00   190.0               172               9                231                12
+14  /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s10-20260925T232322Z  vis-exp3-stationary-s10  stationary    10  630      True  ...       NaN     NaN                 0               0                  0                 0
+15  /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s11-20260925T234813Z  vis-exp3-stationary-s11  stationary    11  630      True  ...       NaN     NaN                 0               0                  0                 0
+16   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s2-20260925T190637Z   vis-exp3-stationary-s2  stationary     2  630      True  ...      1.00   190.0               138               9                181                 4
+17   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s3-20260925T194927Z   vis-exp3-stationary-s3  stationary     3  630      True  ...      0.50   190.0               160               7                207                 3
+18   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s4-20260925T202425Z   vis-exp3-stationary-s4  stationary     4  630      True  ...       NaN     NaN                 0               0                  0                 0
+19   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s5-20260925T204907Z   vis-exp3-stationary-s5  stationary     5  630      True  ...      2.00   230.0                48               0                105                 2
+20   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s6-20260925T211751Z   vis-exp3-stationary-s6  stationary     6  630      True  ...      1.50   200.0               107               3                143                 2
+21   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s7-20260925T215619Z   vis-exp3-stationary-s7  stationary     7  630      True  ...      0.75   190.0               151               6                197                 6
+22   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s8-20260925T223505Z   vis-exp3-stationary-s8  stationary     8  630      True  ...      2.00   220.0                60               0                 88                 2
+23   /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-stationary-s9-20260925T230135Z   vis-exp3-stationary-s9  stationary     9  630      True  ...       NaN     NaN                 0               0                  0                 0
+{
+  "eligible_shift": 10,
+  "eligible_stationary": 10,
+  "escapes_post": {
+    "GOV": 128,
+    "T1": 206,
+    "T0": 293,
+    "TM": 204
+  },
+  "rho_vs_T1": 0.6213592233009708,
+  "rho_vs_T1_upper95": 0.8164251207729468,
+  "rho_vs_T0": 0.43686006825938567,
+  "rho_vs_TM": 0.6274509803921569,
+  "H1": true,
+  "stationary_revoked_share": 0.0,
+  "stationary_amp_good_error": 0.033851276359600446,
+  "H2a": true,
+  "H2b": true,
+  "SUCCESS": true,
+  "verdict": "SUPPORTED"
+}

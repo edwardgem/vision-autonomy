@@ -1,0 +1,46 @@
+registering + installing policy for vis-loco-juice-bottle-s3
+run vision-loco-v1-vis-loco-juice-bottle-s3-20260924T044611Z: 330 items, seed-in-worker=vision-loco-v1
+  seq   10 stage=0 human=10 auto=0
+  seq   20 stage=0 human=20 auto=0
+  seq   30 stage=0 human=30 auto=0
+  seq   40 stage=0 human=40 auto=0
+  seq   50 stage=0 human=50 auto=0
+  seq   60 stage=0 human=60 auto=0
+  seq   70 stage=0 human=70 auto=0
+  seq   80 stage=1 human=80 auto=0
+  seq   90 stage=1 human=90 auto=0
+  seq  100 stage=1 human=100 auto=0
+  seq  110 stage=1 human=110 auto=0
+  seq  120 stage=1 human=120 auto=0
+  seq  130 stage=1 human=130 auto=0
+  seq  140 stage=1 human=140 auto=0
+  seq  150 stage=1 human=150 auto=0
+  seq  160 stage=1 human=160 auto=0
+  seq  170 stage=1 human=170 auto=0
+  seq  180 stage=1 human=180 auto=0
+  seq  190 stage=1 human=190 auto=0
+  seq  200 stage=1 human=200 auto=0
+  seq  210 stage=1 human=210 auto=0
+  seq  220 stage=1 human=220 auto=0
+  seq  230 stage=1 human=230 auto=0
+  seq  240 stage=1 human=240 auto=0
+  seq  250 stage=1 human=250 auto=0
+  seq  260 stage=1 human=260 auto=0
+  seq  270 stage=1 human=270 auto=0
+  seq  280 stage=1 human=280 auto=0
+  seq  290 stage=1 human=290 auto=0
+  seq  300 stage=1 human=300 auto=0
+  seq  310 stage=1 human=310 auto=0
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/vision-autonomy/sim/run_amp.py", line 367, in <module>
+    main()
+  File "/workspace/vision-autonomy/sim/run_amp.py", line 363, in main
+    run(ap.parse_args())
+  File "/workspace/vision-autonomy/sim/run_amp.py", line 313, in run
+    stage = settle(amp, human, db, agent, ts, pos, log)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/vision-autonomy/sim/run_amp.py", line 228, in settle
+    raise RuntimeError(f"tick_job_id_collision at tick {ts['k']} (re-run on a used agent? use a fresh agent)")
+RuntimeError: tick_job_id_collision at tick 63 (re-run on a used agent? use a fresh agent)

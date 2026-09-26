@@ -1,0 +1,86 @@
+registering + installing policy for vis-exp3-shift-s2
+run vision-loco-exp3-vis-exp3-shift-s2-20260925T184759Z: 630 items, seed-in-worker=vision-loco-v1
+  seq   10 stage=0 human=10 auto=0
+  seq   20 stage=0 human=20 auto=0
+  seq   30 stage=0 human=30 auto=0
+  seq   40 stage=0 human=40 auto=0
+  seq   50 stage=0 human=50 auto=0
+  seq   60 stage=0 human=60 auto=0
+  seq   70 stage=0 human=70 auto=0
+  seq   80 stage=0 human=80 auto=0
+  seq   90 stage=0 human=90 auto=0
+  seq  100 stage=0 human=100 auto=0
+  seq  110 stage=0 human=110 auto=0
+  seq  120 stage=0 human=120 auto=0
+  seq  130 stage=0 human=130 auto=0
+  seq  140 stage=0 human=140 auto=0
+  seq  150 stage=1 human=150 auto=0
+  seq  160 stage=1 human=160 auto=0
+  seq  170 stage=1 human=170 auto=0
+  seq  180 stage=1 human=180 auto=0
+  seq  190 stage=2 human=190 auto=0
+  seq  200 stage=2 human=196 auto=4
+  seq  210 stage=2 human=201 auto=9
+  seq  220 stage=2 human=208 auto=12
+  seq  230 stage=2 human=213 auto=17
+  seq  240 stage=2 human=222 auto=18
+  seq  250 stage=2 human=229 auto=21
+  seq  260 stage=2 human=235 auto=25
+  seq  270 stage=2 human=239 auto=31
+  seq  280 stage=2 human=244 auto=36
+  seq  290 stage=2 human=248 auto=42
+  seq  300 stage=2 human=254 auto=46
+  seq  310 stage=2 human=257 auto=53
+  seq  320 stage=2 human=263 auto=57
+  seq  330 stage=2 human=268 auto=62
+  seq  340 stage=2 human=274 auto=66
+  seq  350 stage=2 human=279 auto=71
+  seq  360 stage=2 human=284 auto=76
+  seq  370 stage=2 human=288 auto=82
+  seq  380 stage=2 human=294 auto=86
+  seq  390 stage=2 human=302 auto=88
+  seq  400 stage=2 human=309 auto=91
+  seq  410 stage=2 human=317 auto=93
+  seq  420 stage=2 human=325 auto=95
+  seq  430 stage=2 human=331 auto=99
+  seq  440 stage=2 human=340 auto=100
+  seq  450 stage=2 human=346 auto=104
+  seq  460 stage=2 human=353 auto=107
+  seq  470 stage=2 human=361 auto=109
+  seq  480 stage=2 human=368 auto=112
+  seq  490 stage=2 human=375 auto=115
+  seq  500 stage=2 human=380 auto=120
+  seq  510 stage=2 human=385 auto=125
+  seq  520 stage=2 human=392 auto=128
+  seq  530 stage=2 human=399 auto=131
+  seq  540 stage=2 human=405 auto=135
+  seq  550 stage=2 human=413 auto=137
+  seq  560 stage=2 human=418 auto=142
+  seq  570 stage=2 human=423 auto=147
+  seq  580 stage=2 human=429 auto=151
+  seq  590 stage=2 human=436 auto=154
+  seq  600 stage=2 human=441 auto=159
+  seq  610 stage=2 human=447 auto=163
+  seq  620 stage=2 human=454 auto=166
+  seq  630 stage=2 human=460 auto=170
+{
+ "items_sent": 630,
+ "new_requests_in_amp_db": 630,
+ "requests_counted_in_tick_summaries": 630,
+ "reconcile_ok": true,
+ "by_stage_routing": {
+  "stage0:hitl": 150,
+  "stage1:hitl": 40,
+  "stage2:autonomous": 170,
+  "stage2:hitl": 270
+ },
+ "first_stage1_pos": 151,
+ "first_stage2_pos": 191,
+ "rlhf_auto_disabled_at_pos": null,
+ "stage2_human_with_p_le_0.10": 0,
+ "auto_rejects": 0,
+ "failed_jobs": [],
+ "mean_seconds_per_item": 1.395,
+ "finished": "2026-09-25T19:06:25.149078Z"
+}
+outputs: /workspace/vision-autonomy/results/exp3/runs/vision-loco-exp3-vis-exp3-shift-s2-20260925T184759Z

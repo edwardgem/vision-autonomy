@@ -1,0 +1,159 @@
+{
+  "root": "/workspace/vision-autonomy/data/MVTec_LOCO",
+  "categories": {
+    "breakfast_box": {
+      "train": {
+        "good": 351
+      },
+      "validation": {
+        "good": 62
+      },
+      "test": {
+        "good": 102,
+        "logical_anomalies": 83,
+        "structural_anomalies": 90
+      },
+      "ground_truth": {
+        "logical_anomalies": {
+          "images_with_gt_dir": 83,
+          "mask_files": 83,
+          "gt_dirs_match_test_images": true
+        },
+        "structural_anomalies": {
+          "images_with_gt_dir": 90,
+          "mask_files": 90,
+          "gt_dirs_match_test_images": true
+        }
+      },
+      "image_size_wh": [
+        1600,
+        1280
+      ]
+    },
+    "juice_bottle": {
+      "train": {
+        "good": 335
+      },
+      "validation": {
+        "good": 54
+      },
+      "test": {
+        "good": 94,
+        "logical_anomalies": 142,
+        "structural_anomalies": 94
+      },
+      "ground_truth": {
+        "logical_anomalies": {
+          "images_with_gt_dir": 142,
+          "mask_files": 154,
+          "gt_dirs_match_test_images": true
+        },
+        "structural_anomalies": {
+          "images_with_gt_dir": 94,
+          "mask_files": 95,
+          "gt_dirs_match_test_images": true
+        }
+      },
+      "image_size_wh": [
+        800,
+        1600
+      ]
+    },
+    "pushpins": {
+      "train": {
+        "good": 372
+      },
+      "validation": {
+        "good": 69
+      },
+      "test": {
+        "good": 138,
+        "logical_anomalies": 91,
+        "structural_anomalies": 81
+      },
+      "ground_truth": {
+        "logical_anomalies": {
+          "images_with_gt_dir": 91,
+          "mask_files": 307,
+          "gt_dirs_match_test_images": true
+        },
+        "structural_anomalies": {
+          "images_with_gt_dir": 81,
+          "mask_files": 81,
+          "gt_dirs_match_test_images": true
+        }
+      },
+      "image_size_wh": [
+        1700,
+        1000
+      ]
+    },
+    "screw_bag": {
+      "train": {
+        "good": 360
+      },
+      "validation": {
+        "good": 60
+      },
+      "test": {
+        "good": 122,
+        "logical_anomalies": 137,
+        "structural_anomalies": 82
+      },
+      "ground_truth": {
+        "logical_anomalies": {
+          "images_with_gt_dir": 137,
+          "mask_files": 161,
+          "gt_dirs_match_test_images": true
+        },
+        "structural_anomalies": {
+          "images_with_gt_dir": 82,
+          "mask_files": 82,
+          "gt_dirs_match_test_images": true
+        }
+      },
+      "image_size_wh": [
+        1600,
+        1100
+      ]
+    },
+    "splicing_connectors": {
+      "train": {
+        "good": 360
+      },
+      "validation": {
+        "good": 60
+      },
+      "test": {
+        "good": 119,
+        "logical_anomalies": 108,
+        "structural_anomalies": 85
+      },
+      "ground_truth": {
+        "logical_anomalies": {
+          "images_with_gt_dir": 108,
+          "mask_files": 108,
+          "gt_dirs_match_test_images": true
+        },
+        "structural_anomalies": {
+          "images_with_gt_dir": 85,
+          "mask_files": 85,
+          "gt_dirs_match_test_images": true
+        }
+      },
+      "image_size_wh": [
+        1700,
+        850
+      ]
+    }
+  },
+  "totals": {
+    "train": 1778,
+    "validation": 305,
+    "test_good": 575,
+    "test_logical_anomalies": 561,
+    "test_structural_anomalies": 432
+  },
+  "total_png_images_train_val_test": 3651,
+  "total_test": 1568
+}

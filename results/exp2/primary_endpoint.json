@@ -1,0 +1,129 @@
+{
+  "experiment": "vision-loco-exp2-v1",
+  "window_definition": "first Stage 2 decision until first re-entry to Stage 1 (exclusive)",
+  "runs_reaching_stage2": 9,
+  "min_runs_required": 3,
+  "total_k": 491,
+  "amp_errors": 32,
+  "static_errors": 25,
+  "amp_fa": 23,
+  "static_fa": 21,
+  "r_amp": 0.06517311608961303,
+  "r_static": 0.05091649694501019,
+  "delta": 0.014256619144602842,
+  "fa_rate_amp": 0.04684317718940937,
+  "fa_rate_static": 0.04276985743380855,
+  "delta_ci95": [
+    -0.018518518518518517,
+    0.038109825262272586
+  ],
+  "bootstrap": {
+    "resamples": 10000,
+    "seed": 2026,
+    "unit": "runs",
+    "finite_resamples": 10000
+  },
+  "reading": "inconclusive",
+  "reading_rule": "consistent: delta <= 0 and CI upper < +0.05; contradicts: CI lower > 0; otherwise inconclusive; < 3 runs reaching Stage 2: insufficient data (EXPERIMENT_PLAN_2.md section 7)",
+  "per_run": [
+    {
+      "category": "breakfast_box",
+      "stream_seed": 0,
+      "window_items": 110,
+      "reentry_pos": 271.0,
+      "k": 24,
+      "amp_errors": 0,
+      "static_errors": 0,
+      "amp_fa": 0,
+      "static_fa": 0
+    },
+    {
+      "category": "breakfast_box",
+      "stream_seed": 2,
+      "window_items": 110,
+      "reentry_pos": 271.0,
+      "k": 26,
+      "amp_errors": 0,
+      "static_errors": 1,
+      "amp_fa": 0,
+      "static_fa": 1
+    },
+    {
+      "category": "breakfast_box",
+      "stream_seed": 3,
+      "window_items": 100,
+      "reentry_pos": 261.0,
+      "k": 20,
+      "amp_errors": 0,
+      "static_errors": 0,
+      "amp_fa": 0,
+      "static_fa": 0
+    },
+    {
+      "category": "juice_bottle",
+      "stream_seed": 0,
+      "window_items": 140,
+      "reentry_pos": 301.0,
+      "k": 53,
+      "amp_errors": 1,
+      "static_errors": 0,
+      "amp_fa": 0,
+      "static_fa": 0
+    },
+    {
+      "category": "juice_bottle",
+      "stream_seed": 1,
+      "window_items": 140,
+      "reentry_pos": 301.0,
+      "k": 59,
+      "amp_errors": 0,
+      "static_errors": 0,
+      "amp_fa": 0,
+      "static_fa": 0
+    },
+    {
+      "category": "juice_bottle",
+      "stream_seed": 2,
+      "window_items": 130,
+      "reentry_pos": 291.0,
+      "k": 45,
+      "amp_errors": 0,
+      "static_errors": 0,
+      "amp_fa": 0,
+      "static_fa": 0
+    },
+    {
+      "category": "juice_bottle",
+      "stream_seed": 3,
+      "window_items": 170,
+      "reentry_pos": NaN,
+      "k": 84,
+      "amp_errors": 2,
+      "static_errors": 2,
+      "amp_fa": 0,
+      "static_fa": 0
+    },
+    {
+      "category": "juice_bottle",
+      "stream_seed": 4,
+      "window_items": 170,
+      "reentry_pos": NaN,
+      "k": 154,
+      "amp_errors": 28,
+      "static_errors": 19,
+      "amp_fa": 22,
+      "static_fa": 17
+    },
+    {
+      "category": "splicing_connectors",
+      "stream_seed": 0,
+      "window_items": 152,
+      "reentry_pos": NaN,
+      "k": 26,
+      "amp_errors": 1,
+      "static_errors": 3,
+      "amp_fa": 1,
+      "static_fa": 3
+    }
+  ]
+}

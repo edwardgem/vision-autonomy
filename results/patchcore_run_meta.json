@@ -1,0 +1,40 @@
+{
+  "seed": 0,
+  "device": "cpu",
+  "anomalib": "2.6.2",
+  "torch": "2.14.0",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "config": "anomalib Patchcore defaults (wide_resnet50_2, layer2+layer3, coreset 0.1, k=9), resize 256x256, no crop, no label-fitted threshold",
+  "categories": {
+    "breakfast_box": {
+      "train_images": 351,
+      "scored_images": 337,
+      "fit_seconds": 348.1,
+      "total_seconds": 410.2
+    },
+    "juice_bottle": {
+      "train_images": 335,
+      "scored_images": 384,
+      "fit_seconds": 309.7,
+      "total_seconds": 372.2
+    },
+    "pushpins": {
+      "train_images": 372,
+      "scored_images": 379,
+      "fit_seconds": 390.1,
+      "total_seconds": 456.6
+    },
+    "screw_bag": {
+      "train_images": 360,
+      "scored_images": 401,
+      "fit_seconds": 392.6,
+      "total_seconds": 486.9
+    },
+    "splicing_connectors": {
+      "train_images": 360,
+      "scored_images": 372,
+      "fit_seconds": 381.0,
+      "total_seconds": 451.6
+    }
+  }
+}

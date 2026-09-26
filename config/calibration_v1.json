@@ -1,0 +1,41 @@
+{
+  "source": "results/patchcore_scores.csv split=validation (normal-only); test rows not read",
+  "numpy_quantile_method": "linear",
+  "per_category": {
+    "breakfast_box": {
+      "n_val_good": 62,
+      "quantile": 0.95,
+      "tau": 43.425123,
+      "mu_val": 41.521044,
+      "sigma_val": 1.360327
+    },
+    "juice_bottle": {
+      "n_val_good": 54,
+      "quantile": 0.95,
+      "tau": 33.780404,
+      "mu_val": 30.488292,
+      "sigma_val": 2.241903
+    },
+    "pushpins": {
+      "n_val_good": 69,
+      "quantile": 0.95,
+      "tau": 43.027032,
+      "mu_val": 38.691912,
+      "sigma_val": 2.486275
+    },
+    "screw_bag": {
+      "n_val_good": 60,
+      "quantile": 0.95,
+      "tau": 51.944736,
+      "mu_val": 48.767819,
+      "sigma_val": 2.153234
+    },
+    "splicing_connectors": {
+      "n_val_good": 60,
+      "quantile": 0.95,
+      "tau": 41.658142,
+      "mu_val": 36.648393,
+      "sigma_val": 2.720073
+    }
+  }
+}

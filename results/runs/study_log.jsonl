@@ -1,0 +1,109 @@
+{"ts": "2026-09-24T03:36:49.692004Z", "event": "study_start", "seeds": [0, 1, 2, 3, 4], "categories": ["breakfast_box", "juice_bottle", "pushpins", "screw_bag", "splicing_connectors"]}
+{"ts": "2026-09-24T03:36:49.692589Z", "event": "run_start", "agent": "vis-loco-breakfast-box-s0", "seed": 0, "category": "breakfast_box"}
+{"ts": "2026-09-24T03:40:35.035165Z", "event": "run_end", "agent": "vis-loco-breakfast-box-s0", "returncode": 0, "minutes": 3.76}
+{"ts": "2026-09-24T03:40:35.036082Z", "event": "run_start", "agent": "vis-loco-juice-bottle-s0", "seed": 0, "category": "juice_bottle"}
+{"ts": "2026-09-24T03:45:08.247953Z", "event": "run_end", "agent": "vis-loco-juice-bottle-s0", "returncode": 0, "minutes": 4.55}
+{"ts": "2026-09-24T03:45:08.248960Z", "event": "run_start", "agent": "vis-loco-pushpins-s0", "seed": 0, "category": "pushpins"}
+{"ts": "2026-09-24T03:49:25.444159Z", "event": "run_end", "agent": "vis-loco-pushpins-s0", "returncode": 0, "minutes": 4.29}
+{"ts": "2026-09-24T03:49:25.444678Z", "event": "run_start", "agent": "vis-loco-screw-bag-s0", "seed": 0, "category": "screw_bag"}
+{"ts": "2026-09-24T03:54:10.798901Z", "event": "run_end", "agent": "vis-loco-screw-bag-s0", "returncode": 0, "minutes": 4.76}
+{"ts": "2026-09-24T03:54:10.799443Z", "event": "run_start", "agent": "vis-loco-splicing-connectors-s0", "seed": 0, "category": "splicing_connectors"}
+{"ts": "2026-09-24T03:58:31.889593Z", "event": "run_end", "agent": "vis-loco-splicing-connectors-s0", "returncode": 0, "minutes": 4.35}
+{"ts": "2026-09-24T03:58:31.889944Z", "event": "seed_done", "seed": 0, "hours": 0.362}
+{"ts": "2026-09-24T03:58:31.890174Z", "event": "run_start", "agent": "vis-loco-breakfast-box-s1", "seed": 1, "category": "breakfast_box"}
+{"ts": "2026-09-24T04:02:24.644578Z", "event": "run_end", "agent": "vis-loco-breakfast-box-s1", "returncode": 0, "minutes": 3.88}
+{"ts": "2026-09-24T04:02:24.645148Z", "event": "run_start", "agent": "vis-loco-juice-bottle-s1", "seed": 1, "category": "juice_bottle"}
+{"ts": "2026-09-24T04:06:57.827941Z", "event": "run_end", "agent": "vis-loco-juice-bottle-s1", "returncode": 0, "minutes": 4.55}
+{"ts": "2026-09-24T04:06:57.828516Z", "event": "run_start", "agent": "vis-loco-pushpins-s1", "seed": 1, "category": "pushpins"}
+{"ts": "2026-09-24T04:11:15.002107Z", "event": "run_end", "agent": "vis-loco-pushpins-s1", "returncode": 0, "minutes": 4.29}
+{"ts": "2026-09-24T04:11:15.002669Z", "event": "run_start", "agent": "vis-loco-screw-bag-s1", "seed": 1, "category": "screw_bag"}
+{"ts": "2026-09-24T04:16:00.487099Z", "event": "run_end", "agent": "vis-loco-screw-bag-s1", "returncode": 0, "minutes": 4.76}
+{"ts": "2026-09-24T04:16:00.487656Z", "event": "run_start", "agent": "vis-loco-splicing-connectors-s1", "seed": 1, "category": "splicing_connectors"}
+{"ts": "2026-09-24T04:20:33.735140Z", "event": "run_end", "agent": "vis-loco-splicing-connectors-s1", "returncode": 0, "minutes": 4.55}
+{"ts": "2026-09-24T04:20:33.735744Z", "event": "seed_done", "seed": 1, "hours": 0.367}
+{"ts": "2026-09-24T04:20:33.735983Z", "event": "run_start", "agent": "vis-loco-breakfast-box-s2", "seed": 2, "category": "breakfast_box"}
+{"ts": "2026-09-24T04:24:24.784523Z", "event": "run_end", "agent": "vis-loco-breakfast-box-s2", "returncode": 0, "minutes": 3.85}
+{"ts": "2026-09-24T04:24:24.785224Z", "event": "run_start", "agent": "vis-loco-juice-bottle-s2", "seed": 2, "category": "juice_bottle"}
+{"ts": "2026-09-24T04:28:58.235465Z", "event": "run_end", "agent": "vis-loco-juice-bottle-s2", "returncode": 0, "minutes": 4.56}
+{"ts": "2026-09-24T04:28:58.236271Z", "event": "run_start", "agent": "vis-loco-pushpins-s2", "seed": 2, "category": "pushpins"}
+{"ts": "2026-09-24T04:33:15.245230Z", "event": "run_end", "agent": "vis-loco-pushpins-s2", "returncode": 0, "minutes": 4.28}
+{"ts": "2026-09-24T04:33:15.245959Z", "event": "run_start", "agent": "vis-loco-screw-bag-s2", "seed": 2, "category": "screw_bag"}
+{"ts": "2026-09-24T04:38:00.810435Z", "event": "run_end", "agent": "vis-loco-screw-bag-s2", "returncode": 0, "minutes": 4.76}
+{"ts": "2026-09-24T04:38:00.811118Z", "event": "run_start", "agent": "vis-loco-splicing-connectors-s2", "seed": 2, "category": "splicing_connectors"}
+{"ts": "2026-09-24T04:42:20.341912Z", "event": "run_end", "agent": "vis-loco-splicing-connectors-s2", "returncode": 0, "minutes": 4.33}
+{"ts": "2026-09-24T04:42:20.343860Z", "event": "seed_done", "seed": 2, "hours": 0.363}
+{"ts": "2026-09-24T04:42:20.344085Z", "event": "run_start", "agent": "vis-loco-breakfast-box-s3", "seed": 3, "category": "breakfast_box"}
+{"ts": "2026-09-24T04:46:11.488637Z", "event": "run_end", "agent": "vis-loco-breakfast-box-s3", "returncode": 0, "minutes": 3.85}
+{"ts": "2026-09-24T04:46:11.489341Z", "event": "run_start", "agent": "vis-loco-juice-bottle-s3", "seed": 3, "category": "juice_bottle"}
+{"ts": "2026-09-24T04:50:33.629452Z", "event": "run_end", "agent": "vis-loco-juice-bottle-s3", "returncode": 1, "minutes": 4.37}
+{"ts": "2026-09-24T04:50:33.629690Z", "event": "study_stopped_on_failure", "agent": "vis-loco-juice-bottle-s3", "returncode": 1}
+{"ts": "2026-09-24T04:54:13.828410Z", "event": "study_start", "seeds": [0, 1, 2, 3, 4], "categories": ["breakfast_box", "juice_bottle", "pushpins", "screw_bag", "splicing_connectors"]}
+{"ts": "2026-09-24T04:54:13.828912Z", "event": "run_skipped_already_complete", "agent": "vis-loco-breakfast-box-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-breakfast-box-s0-20260924T033650Z"}
+{"ts": "2026-09-24T04:54:13.829118Z", "event": "run_skipped_already_complete", "agent": "vis-loco-juice-bottle-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-juice-bottle-s0-20260924T034035Z"}
+{"ts": "2026-09-24T04:54:13.829304Z", "event": "run_skipped_already_complete", "agent": "vis-loco-pushpins-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-pushpins-s0-20260924T034508Z"}
+{"ts": "2026-09-24T04:54:13.829485Z", "event": "run_skipped_already_complete", "agent": "vis-loco-screw-bag-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-screw-bag-s0-20260924T034925Z"}
+{"ts": "2026-09-24T04:54:13.829680Z", "event": "run_skipped_already_complete", "agent": "vis-loco-splicing-connectors-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-splicing-connectors-s0-20260924T035411Z"}
+{"ts": "2026-09-24T04:54:13.829721Z", "event": "seed_done", "seed": 0, "hours": 0.0}
+{"ts": "2026-09-24T04:54:13.829908Z", "event": "run_skipped_already_complete", "agent": "vis-loco-breakfast-box-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-breakfast-box-s1-20260924T035832Z"}
+{"ts": "2026-09-24T04:54:13.830087Z", "event": "run_skipped_already_complete", "agent": "vis-loco-juice-bottle-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-juice-bottle-s1-20260924T040224Z"}
+{"ts": "2026-09-24T04:54:13.830269Z", "event": "run_skipped_already_complete", "agent": "vis-loco-pushpins-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-pushpins-s1-20260924T040658Z"}
+{"ts": "2026-09-24T04:54:13.830445Z", "event": "run_skipped_already_complete", "agent": "vis-loco-screw-bag-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-screw-bag-s1-20260924T041115Z"}
+{"ts": "2026-09-24T04:54:13.830636Z", "event": "run_skipped_already_complete", "agent": "vis-loco-splicing-connectors-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-splicing-connectors-s1-20260924T041600Z"}
+{"ts": "2026-09-24T04:54:13.830667Z", "event": "seed_done", "seed": 1, "hours": 0.0}
+{"ts": "2026-09-24T04:54:13.830847Z", "event": "run_skipped_already_complete", "agent": "vis-loco-breakfast-box-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-breakfast-box-s2-20260924T042034Z"}
+{"ts": "2026-09-24T04:54:13.831023Z", "event": "run_skipped_already_complete", "agent": "vis-loco-juice-bottle-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-juice-bottle-s2-20260924T042425Z"}
+{"ts": "2026-09-24T04:54:13.831237Z", "event": "run_skipped_already_complete", "agent": "vis-loco-pushpins-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-pushpins-s2-20260924T042858Z"}
+{"ts": "2026-09-24T04:54:13.831428Z", "event": "run_skipped_already_complete", "agent": "vis-loco-screw-bag-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-screw-bag-s2-20260924T043315Z"}
+{"ts": "2026-09-24T04:54:13.831622Z", "event": "run_skipped_already_complete", "agent": "vis-loco-splicing-connectors-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-splicing-connectors-s2-20260924T043801Z"}
+{"ts": "2026-09-24T04:54:13.831656Z", "event": "seed_done", "seed": 2, "hours": 0.0}
+{"ts": "2026-09-24T04:54:13.831834Z", "event": "run_skipped_already_complete", "agent": "vis-loco-breakfast-box-s3", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-breakfast-box-s3-20260924T044220Z"}
+{"ts": "2026-09-24T04:54:13.832164Z", "event": "run_start", "agent": "vis-loco-juice-bottle-s3-r2", "seed": 3, "category": "juice_bottle"}
+{"ts": "2026-09-24T04:58:49.121814Z", "event": "run_end", "agent": "vis-loco-juice-bottle-s3-r2", "returncode": 0, "minutes": 4.59}
+{"ts": "2026-09-24T04:58:49.122747Z", "event": "run_start", "agent": "vis-loco-pushpins-s3", "seed": 3, "category": "pushpins"}
+{"ts": "2026-09-24T05:03:06.264979Z", "event": "run_end", "agent": "vis-loco-pushpins-s3", "returncode": 0, "minutes": 4.29}
+{"ts": "2026-09-24T05:03:06.265955Z", "event": "run_start", "agent": "vis-loco-screw-bag-s3", "seed": 3, "category": "screw_bag"}
+{"ts": "2026-09-24T05:07:52.004963Z", "event": "run_end", "agent": "vis-loco-screw-bag-s3", "returncode": 0, "minutes": 4.76}
+{"ts": "2026-09-24T05:07:52.005777Z", "event": "run_start", "agent": "vis-loco-splicing-connectors-s3", "seed": 3, "category": "splicing_connectors"}
+{"ts": "2026-09-24T05:12:10.934321Z", "event": "run_end", "agent": "vis-loco-splicing-connectors-s3", "returncode": 0, "minutes": 4.32}
+{"ts": "2026-09-24T05:12:10.934961Z", "event": "seed_done", "seed": 3, "hours": 0.299}
+{"ts": "2026-09-24T05:12:10.935287Z", "event": "run_start", "agent": "vis-loco-breakfast-box-s4", "seed": 4, "category": "breakfast_box"}
+{"ts": "2026-09-24T05:15:59.700053Z", "event": "run_end", "agent": "vis-loco-breakfast-box-s4", "returncode": 0, "minutes": 3.81}
+{"ts": "2026-09-24T05:15:59.700885Z", "event": "run_start", "agent": "vis-loco-juice-bottle-s4", "seed": 4, "category": "juice_bottle"}
+{"ts": "2026-09-24T05:16:04.005938Z", "event": "run_end", "agent": "vis-loco-juice-bottle-s4", "returncode": 1, "minutes": 0.07}
+{"ts": "2026-09-24T05:16:04.006057Z", "event": "study_stopped_on_failure", "agent": "vis-loco-juice-bottle-s4", "returncode": 1}
+{"ts": "2026-09-24T05:32:13.847060Z", "event": "study_start", "seeds": [0, 1, 2, 3, 4], "categories": ["breakfast_box", "juice_bottle", "pushpins", "screw_bag", "splicing_connectors"]}
+{"ts": "2026-09-24T05:32:13.847729Z", "event": "run_skipped_already_complete", "agent": "vis-loco-breakfast-box-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-breakfast-box-s0-20260924T033650Z"}
+{"ts": "2026-09-24T05:32:13.848111Z", "event": "run_skipped_already_complete", "agent": "vis-loco-juice-bottle-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-juice-bottle-s0-20260924T034035Z"}
+{"ts": "2026-09-24T05:32:13.848480Z", "event": "run_skipped_already_complete", "agent": "vis-loco-pushpins-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-pushpins-s0-20260924T034508Z"}
+{"ts": "2026-09-24T05:32:13.848843Z", "event": "run_skipped_already_complete", "agent": "vis-loco-screw-bag-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-screw-bag-s0-20260924T034925Z"}
+{"ts": "2026-09-24T05:32:13.849195Z", "event": "run_skipped_already_complete", "agent": "vis-loco-splicing-connectors-s0", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-splicing-connectors-s0-20260924T035411Z"}
+{"ts": "2026-09-24T05:32:13.849268Z", "event": "seed_done", "seed": 0, "hours": 0.0}
+{"ts": "2026-09-24T05:32:13.849634Z", "event": "run_skipped_already_complete", "agent": "vis-loco-breakfast-box-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-breakfast-box-s1-20260924T035832Z"}
+{"ts": "2026-09-24T05:32:13.849954Z", "event": "run_skipped_already_complete", "agent": "vis-loco-juice-bottle-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-juice-bottle-s1-20260924T040224Z"}
+{"ts": "2026-09-24T05:32:13.850271Z", "event": "run_skipped_already_complete", "agent": "vis-loco-pushpins-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-pushpins-s1-20260924T040658Z"}
+{"ts": "2026-09-24T05:32:13.850552Z", "event": "run_skipped_already_complete", "agent": "vis-loco-screw-bag-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-screw-bag-s1-20260924T041115Z"}
+{"ts": "2026-09-24T05:32:13.850856Z", "event": "run_skipped_already_complete", "agent": "vis-loco-splicing-connectors-s1", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-splicing-connectors-s1-20260924T041600Z"}
+{"ts": "2026-09-24T05:32:13.850900Z", "event": "seed_done", "seed": 1, "hours": 0.0}
+{"ts": "2026-09-24T05:32:13.851195Z", "event": "run_skipped_already_complete", "agent": "vis-loco-breakfast-box-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-breakfast-box-s2-20260924T042034Z"}
+{"ts": "2026-09-24T05:32:13.851505Z", "event": "run_skipped_already_complete", "agent": "vis-loco-juice-bottle-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-juice-bottle-s2-20260924T042425Z"}
+{"ts": "2026-09-24T05:32:13.851770Z", "event": "run_skipped_already_complete", "agent": "vis-loco-pushpins-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-pushpins-s2-20260924T042858Z"}
+{"ts": "2026-09-24T05:32:13.852066Z", "event": "run_skipped_already_complete", "agent": "vis-loco-screw-bag-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-screw-bag-s2-20260924T043315Z"}
+{"ts": "2026-09-24T05:32:13.852341Z", "event": "run_skipped_already_complete", "agent": "vis-loco-splicing-connectors-s2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-splicing-connectors-s2-20260924T043801Z"}
+{"ts": "2026-09-24T05:32:13.852374Z", "event": "seed_done", "seed": 2, "hours": 0.0}
+{"ts": "2026-09-24T05:32:13.852688Z", "event": "run_skipped_already_complete", "agent": "vis-loco-breakfast-box-s3", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-breakfast-box-s3-20260924T044220Z"}
+{"ts": "2026-09-24T05:32:13.853168Z", "event": "run_skipped_already_complete", "agent": "vis-loco-juice-bottle-s3-r2", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-juice-bottle-s3-r2-20260924T045414Z"}
+{"ts": "2026-09-24T05:32:13.853348Z", "event": "run_skipped_already_complete", "agent": "vis-loco-pushpins-s3", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-pushpins-s3-20260924T045849Z"}
+{"ts": "2026-09-24T05:32:13.853543Z", "event": "run_skipped_already_complete", "agent": "vis-loco-screw-bag-s3", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-screw-bag-s3-20260924T050306Z"}
+{"ts": "2026-09-24T05:32:13.853725Z", "event": "run_skipped_already_complete", "agent": "vis-loco-splicing-connectors-s3", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-splicing-connectors-s3-20260924T050752Z"}
+{"ts": "2026-09-24T05:32:13.853758Z", "event": "seed_done", "seed": 3, "hours": 0.0}
+{"ts": "2026-09-24T05:32:13.853961Z", "event": "run_skipped_already_complete", "agent": "vis-loco-breakfast-box-s4", "dir": "/workspace/vision-autonomy/results/runs/vision-loco-v1-vis-loco-breakfast-box-s4-20260924T051211Z"}
+{"ts": "2026-09-24T05:32:13.854303Z", "event": "run_start", "agent": "vis-loco-juice-bottle-s4-r2", "seed": 4, "category": "juice_bottle"}
+{"ts": "2026-09-24T05:47:16.774365Z", "event": "run_end", "agent": "vis-loco-juice-bottle-s4-r2", "returncode": 0, "minutes": 15.05}
+{"ts": "2026-09-24T05:47:16.778010Z", "event": "run_start", "agent": "vis-loco-pushpins-s4", "seed": 4, "category": "pushpins"}
+{"ts": "2026-09-24T05:51:34.228018Z", "event": "run_end", "agent": "vis-loco-pushpins-s4", "returncode": 0, "minutes": 4.29}
+{"ts": "2026-09-24T05:51:34.228759Z", "event": "run_start", "agent": "vis-loco-screw-bag-s4", "seed": 4, "category": "screw_bag"}
+{"ts": "2026-09-24T05:56:09.592662Z", "event": "run_end", "agent": "vis-loco-screw-bag-s4", "returncode": 0, "minutes": 4.59}
+{"ts": "2026-09-24T05:56:09.593466Z", "event": "run_start", "agent": "vis-loco-splicing-connectors-s4", "seed": 4, "category": "splicing_connectors"}
+{"ts": "2026-09-24T06:00:28.857480Z", "event": "run_end", "agent": "vis-loco-splicing-connectors-s4", "returncode": 0, "minutes": 4.32}
+{"ts": "2026-09-24T06:00:28.858096Z", "event": "seed_done", "seed": 4, "hours": 0.471}
+{"ts": "2026-09-24T06:00:28.858161Z", "event": "study_done", "total_hours": 0.471}

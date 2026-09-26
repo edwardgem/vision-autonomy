@@ -1,0 +1,102 @@
+"""Run the preregistered GOV study: stream seeds x categories, one fresh agent per run, sequentially.
+
+Protocol (EXPERIMENT_PLAN.md sections 2, 5 + amendment v1.1): no parameter is chosen or changed here. A failed run STOPS the
+study (no silent retries: a retry needs a fresh agent and a decision). The only adaptive rule is the preregistered,
+time-only seed fallback: if seed 0 takes > 3 h wall time, run seeds 0, 1, 2 only.
+"""
+import json, subprocess, sys, time
+from pathlib import Path
+from sim.amp_client import agent_slug, iso_now, ROOT
+
+_cfg_arg = next((sys.argv[i + 1] for i, v in enumerate(sys.argv[:-1]) if v == "--config"), None)
+CFG_REL = _cfg_arg or "config/experiment_v1.json"
+CFG = json.loads((ROOT / CFG_REL).read_text())
+AGENT_PATTERN = CFG["amp"].get("agent_name_pattern", "vis-loco-{category}-s{stream_seed}")
+STOP_WORKER_AFTER_RUN = bool(CFG["amp"].get("stop_worker_after_each_run"))
+CATS = CFG["dataset"]["categories"]
+SEEDS = list(CFG["streams"]["stream_seeds"])
+FALLBACK_SEEDS = list(CFG["streams"]["fallback_stream_seeds"])
+FALLBACK_HOURS = float(CFG["streams"]["fallback_if_seed_wall_time_gt_hours"])
+OUT = ROOT / CFG.get("results_root", "results") / "runs"
+LOG = OUT / "study_log.jsonl"
+
+
+def log(ev, **kw):
+    with open(LOG, "a", buffering=1) as f:
+        f.write(json.dumps({"ts": iso_now(), "event": ev, **kw}) + "\n")
+
+
+def _manifests(agent):
+    return sorted(OUT.glob(f"*-{agent}-2*/manifest.json"))
+
+
+def completed(agent):
+    for m in _manifests(agent):
+        try:
+            if "summary" in json.loads(m.read_text()):
+                return m.parent
+        except Exception:
+            pass
+    return None
+
+
+def next_agent(base):
+    """Fresh agent name for a cell: the slug, or slug-r2, -r3... after an incomplete earlier attempt (amendment v1.2).
+    Returns (agent_name, completed_dir_or_None)."""
+    n = 1
+    while True:
+        name = base if n == 1 else f"{base}-r{n}"
+        done = completed(name)
+        if done:
+            return name, done
+        if not _manifests(name):
+            return name, None
+        n += 1
+
+
+def main():
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "console").mkdir(exist_ok=True)
+    seeds, t_study = list(SEEDS), time.time()
+    log("study_start", seeds=seeds, categories=CATS)
+    i = 0
+    while i < len(seeds):
+        seed, t_seed = seeds[i], time.time()
+        for cat in CATS:
+            agent, done = next_agent(agent_slug(cat, seed, AGENT_PATTERN))
+            if done:
+                log("run_skipped_already_complete", agent=agent, dir=str(done))
+                continue
+            t0 = time.time()
+            log("run_start", agent=agent, seed=seed, category=cat)
+            with open(OUT / "console" / f"{agent}.log", "w") as cf:
+                rc = subprocess.run([sys.executable, "-m", "sim.run_amp", "--config", CFG_REL, "--category", cat, "--stream-seed", str(seed),
+                                     "--agent", agent, "--out-root", str(OUT)], stdout=cf, stderr=subprocess.STDOUT,
+                                    cwd=str(ROOT)).returncode
+            log("run_end", agent=agent, returncode=rc, minutes=round((time.time() - t0) / 60, 2))
+            if STOP_WORKER_AFTER_RUN:   # declared in advance (EXPERIMENT_PLAN_2.md section 5); Exp 1 v1.3 mechanism
+                src = subprocess.run([sys.executable, "-m", "sim.ops_stop_workers", "--agents", agent,
+                                      "--ops-dir", str(OUT.parent / "ops")],
+                                     capture_output=True, text=True, cwd=str(ROOT))
+                log("worker_stopped_after_run", agent=agent, returncode=src.returncode, output=src.stdout[-400:])
+                if src.returncode != 0 or "config.enabled -> 0" not in src.stdout:
+                    log("study_stopped_worker_not_stopped", agent=agent)
+                    print(f"STUDY STOPPED: could not stop worker of {agent}; see study_log", flush=True)
+                    sys.exit(3)
+            if rc != 0 or not completed(agent):
+                log("study_stopped_on_failure", agent=agent, returncode=rc)
+                print(f"STUDY STOPPED: run {agent} failed (rc={rc}); see {OUT}/console/{agent}.log", flush=True)
+                sys.exit(2)
+        hours = (time.time() - t_seed) / 3600
+        log("seed_done", seed=seed, hours=round(hours, 3))
+        if i == 0 and hours > FALLBACK_HOURS and seeds != FALLBACK_SEEDS:
+            seeds = [s for s in FALLBACK_SEEDS]
+            log("seed_fallback_applied", reason=f"seed 0 took {hours:.2f} h > {FALLBACK_HOURS} h (preregistered, time-only)",
+                seeds=seeds)
+        i += 1
+    log("study_done", total_hours=round((time.time() - t_study) / 3600, 3))
+    print("STUDY DONE", flush=True)
+
+
+if __name__ == "__main__":
+    main()

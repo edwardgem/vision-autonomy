@@ -1,0 +1,108 @@
+{
+  "policy_id": "policy_v1",
+  "version_number": "v1",
+  "status": "active",
+  "approved_date": "2026-09-23T22:12:11.586285",
+  "approver": "anonymous@example.com",
+  "comment": "vision-loco-v1 pre-registered policy (EXPERIMENT_PLAN.md section 5)",
+  "policy_type": "rlhf",
+  "schema_version": "1",
+  "org_id": "ORG-ANON",
+  "agent_name": "vis-loco-breakfast-box-s4",
+  "feature_schema_version": "loco_v1",
+  "action_governance": {
+    "action_fields_allowlist": [
+      "proposal",
+      "score_z",
+      "margin_abs"
+    ],
+    "signal_keys_allowlist": [],
+    "feature_sources": {
+      "action_fields": {
+        "proposal": {
+          "source_type": "compute",
+          "source": "compute://raw_score>=tau ? defective : good"
+        },
+        "score_z": {
+          "source_type": "compute",
+          "source": "compute://(raw_score-mu_val)/sigma_val"
+        },
+        "margin_abs": {
+          "source_type": "compute",
+          "source": "compute://abs(raw_score-tau)/sigma_val"
+        }
+      },
+      "signal_keys": {}
+    },
+    "force_human_approval": false,
+    "automation": {
+      "mode": "progressive",
+      "recommend_threshold": 0.65,
+      "auto_execute_threshold": 0.9,
+      "auto_reject_threshold": 1.01,
+      "min_samples_for_autonomy_change": 80
+    },
+    "base_policy_rules": {
+      "reject_on_hard_fail": false,
+      "approve_on_all_pass": false
+    },
+    "decision_ui": {
+      "allowed_human_decisions": [
+        "approve",
+        "reject"
+      ],
+      "require_comment_on_defer": false,
+      "require_reason_on_override_approval": false
+    },
+    "criteria": [
+      {
+        "criterion_id": "c_perception_output_valid",
+        "description": "The perception model produced a valid score for this image",
+        "hardness": "hard",
+        "evaluator": {
+          "type": "compute",
+          "inputs": {
+            "margin_abs": "{{action.margin_abs}}"
+          },
+          "formula": "margin_abs >= 0",
+          "fallback_result": false
+        },
+        "condition_semantics": "allow_when"
+      }
+    ]
+  },
+  "autonomy_ops": {
+    "promotion": {
+      "stage1_eval_min_human_rows": 80,
+      "stage1_eval_max_days": 5,
+      "stage1_eval_min_agreement_rate": 0.7,
+      "stage1_recent_window_rows": 20,
+      "stage1_recent_min_agreement_rate": 0.65,
+      "stage2_promotion_blocking_safety_alerts_7d_max": 0
+    },
+    "retrain": {
+      "retrain_min_human_rows": 80,
+      "max_failed_retrain_cycles": 4
+    },
+    "upgrade": {
+      "upgrade_min_eval_human_rows": 80,
+      "upgrade_min_auto_rate_gain": 0.03,
+      "model_approval_assignee": null,
+      "auto_approve_upgrade_proposals": false
+    },
+    "rollback": {
+      "post_switch_zero_auto_rollback_days": 2,
+      "cooldown_days": 7
+    },
+    "probing": {
+      "stage2_probe_rate": 0.1,
+      "stage2_probe_min_per_day": 2
+    },
+    "base_policy_rules": {
+      "reject_on_hard_fail": false,
+      "approve_on_all_pass": false
+    }
+  },
+  "active_date": "2026-09-23T22:12:11.586285",
+  "rlhf_enabled": true
+}
