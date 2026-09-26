@@ -155,10 +155,11 @@ Wilson intervals treat items as independent and are descriptive; the run-level i
 
 | | Autonomous "defective" proposals (errors) | Autonomous "good" proposals, i.e. released parts (errors = escaped defects) |
 |---|---|---|
-| AMP, 8 runs excl. juice_bottle s4 | 430 (3) | **1 (1)** |
+| AMP, 8 runs excl. juice_bottle s4 | 336 (3) | **1 (1)** |
 | AMP, juice_bottle s4 | 99 (6) | **55 (22)** |
 | Static matched, all 9 runs | 421 (4) | 70 (21) |
 
+- **Erratum (2026-09-26):** this row originally read 430 (3). Recounted from the raw decision records (`results/exp2/runs/*/amp_decisions.jsonl`), it is 336 (3): per run 24 + 26 + 20 + 53 + 59 + 45 + 84 + 25. The error count and every conclusion are unchanged.
 - **Outside juice_bottle s4, AMP's autonomy consisted almost entirely of confirming "defective" proposals.** Every "release as good" decision except one went to a human.
 - **In juice_bottle s4, AMP autonomously released 55 parts, 22 of them defective (40 %).**
 
