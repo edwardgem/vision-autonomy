@@ -1,8 +1,8 @@
 # Policy-Governed Progressive Autonomy for Vision Agents
 
 Research code, preregistered plans, per-decision run records and analyses for a study of **when a vision agent should
-be allowed to act on its own predictions without human review**. The accompanying paper is under double-blind review
-(CVC 2027).
+be allowed to act on its own predictions without human review**. The accompanying paper has been accepted at
+CVC 2027.
 
 ## Motivation
 
@@ -135,4 +135,4 @@ Please cite the dataset:
 
 PatchCore: Roth, K., et al.: Towards Total Recall in Industrial Anomaly Detection. In: CVPR 2022.
 
-A citation for the paper will be added after review.
+A citation for the paper will be added once the proceedings reference is available.
