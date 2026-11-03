@@ -117,6 +117,10 @@ Reviewers are simulated as perfect and instantaneous. The 0.10 risk budget was s
 industrial requirements. PatchCore is used in a single fixed configuration. See the threats-to-validity sections of
 each `RESULTS*.md`.
 
+## Note on recorded files
+
+After the experiments were run, a reviewer email address and a platform organization ID were replaced with placeholders (`reviewer@example.org`, `O-XXXX-ORG`) throughout the repository and its history, ahead of public release. The SHA-256 values recorded in the run manifests were computed on the original files, so they will not match the config files in this repository byte for byte. The experimental content is unchanged. Git history and the `prereg-*` tags were rewritten as part of this, so their commit hashes differ from any cited earlier.
+
 ## License
 
 - **Code** (`analysis/`, `sim/`, `scripts/`, `regression/`, `paper/figures/`): [Apache License 2.0](LICENSE).
