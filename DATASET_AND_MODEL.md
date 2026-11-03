@@ -7,7 +7,6 @@ unless marked *(docs)*.
 
 **Source / integrity.** anomalib's direct link to `mvtec_loco_anomaly_detection.tar.xz` (6,126,996,224 bytes);
 SHA-256 `9e7c84db…e687` **matches** anomalib's published hash. Stored in `data/MVTec_LOCO/` (gitignored).
-Note: `curl` cannot resolve `www.mydrive.ch` on this machine; workaround in HANDOFF.md.
 
 **License / citation.** CC BY-NC-SA 4.0 (non-commercial; research use fine; derived tables need attribution and
 share-alike). Cite Bergmann, Batzner, Fauser, Sattlegger, Steger, *Beyond Dents and Scratches: Logical Constraints in
@@ -37,7 +36,7 @@ Unsupervised Anomaly Detection and Localization*, IJCV 130 (2022), doi:10.1007/s
 
 **Structural vs logical.** Structural = local defects (dents, scratches, contamination). Logical = constraint violations
 (wrong count / position / combination of otherwise normal parts). Type is available **only** as the test folder name
-and is therefore analysis-only metadata (see leakage rule in HANDOFF.md).
+and is therefore analysis-only metadata, never passed to the governance platform.
 
 **Transformations needed.** (1) Build an image-level table from folder names: `image_id`, `category`, `anomaly_type`
 ∈ {good, logical, structural}, `ground_truth` ∈ {good, defective}. (2) Nothing else — PatchCore consumes the PNGs
@@ -102,7 +101,7 @@ Consistent with the literature: PatchCore is weaker on logical anomalies; `screw
 
 ```bash
 python3.12 -m venv .venv && source .venv/bin/activate && pip install anomalib==2.6.2
-# download + extract LOCO to data/MVTec_LOCO (see HANDOFF.md for the DNS workaround), then:
+# download + extract LOCO to data/MVTec_LOCO, then:
 python scripts/inspect_dataset.py                 # -> results/dataset_manifest.json
 TQDM_DISABLE=1 python scripts/score_patchcore.py --seed 0   # -> results/patchcore_scores.csv (~36 min CPU)
 ```

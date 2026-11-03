@@ -69,7 +69,7 @@ The contribution is the governance mechanism and its empirical characterization,
 | `RESULTS*.md` | Results for Experiments 1–3: observations, then interpretation, then discussion; errata are appended, never silent |
 | `DATASET_AND_MODEL.md` | Dataset inspection, PatchCore configuration, calibration decisions |
 | `AMP_AUTHORITY_DESIGN.md`, `AUTHORITY_READINESS.md`, `TARGET_MODEL_REVIEW.md`, `AMP_ISSUES.md` | Design and review of the authority lifecycle, and platform issues found by the experiments |
-| `E2E_REPORT.md`, `HANDOFF.md`, `STATUS.md` | Engineering acceptance tests, run briefs, project status |
+| `E2E_REPORT.md` | Engineering acceptance tests of the simulator against the platform |
 | `config/` | Frozen calibration, policies and experiment configs (per experiment; SHA-256 recorded in every run manifest) |
 | `scripts/` | Dataset inspection, PatchCore scoring, construction of the frozen decision records |
 | `sim/` | Simulator and study drivers that stream decisions through the governance platform |
@@ -108,7 +108,7 @@ python scripts/build_inputs.py                             # -> results/inputs/d
 ```
 
 **New study runs** need a running instance of the governance platform and its RLHF workers
-(`RLHF_TRAINING_SEED=vision-loco-v1`). See `HANDOFF.md` and the plans for the exact procedure.
+(`RLHF_TRAINING_SEED=vision-loco-v1`). See the preregistered plans for the exact procedure.
 
 ## Limitations
 

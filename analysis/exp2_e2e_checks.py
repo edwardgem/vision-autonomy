@@ -2,14 +2,14 @@
 
 Usage: python -m analysis.exp2_e2e_checks <exp2_run_dir> [--ref <exp1_e2e_run_dir>]
 """
-import argparse, glob, json
+import argparse, glob, json, os
 from pathlib import Path
 import numpy as np
 import pandas as pd
 from sim.amp_db import AmpDB
-from sim.amp_client import load_env
+from sim.amp_client import load_env, ROOT
 
-MODELS = Path("/Users/edwardc/Projects/amp-backend/.amp-rlhf/models")
+MODELS = Path(os.environ.get("AMP_RLHF_MODELS", str(ROOT.parent / "amp-backend" / ".amp-rlhf" / "models")))  # platform checkout, not in this repo
 
 
 def load(run_dir):

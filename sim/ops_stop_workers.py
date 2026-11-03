@@ -8,12 +8,12 @@ files (sha256 + copies) under results/ops/, and afterwards verifies that ONLY th
 
 Never touches agents that are not named vis-loco-* / vis-loco2-* / vis-auth-* / vis-exp3-* (e.g. invoice-payment-agent-5c58).
 """
-import argparse, hashlib, json, re, shutil, subprocess, time
+import argparse, hashlib, json, os, re, shutil, subprocess, time
 from pathlib import Path
 from sim.amp_client import AmpClient, iso_now, ROOT
 
 OPS = ROOT / "results" / "ops"
-AGENTS_ROOT = Path("/Users/edwardc/Projects/agents")
+AGENTS_ROOT = Path(os.environ.get("AMP_AGENTS_ROOT", str(ROOT.parent / "agents")))  # platform agent directories, not in this repo
 
 
 def running_worker_agents():

@@ -10,3 +10,6 @@ results/*/raw_features/
 .claude/
 CVC_2027_*
 *.bak
+
+# internal working notes (kept locally, not published)
+doc/

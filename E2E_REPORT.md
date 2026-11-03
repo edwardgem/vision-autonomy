@@ -69,7 +69,7 @@ omission in the HITL server's normalizer rather than a design choice. Effects on
 
 - **Authorization boundary.** An API key cannot complete workitems (needs the `hitl:resolve` capability) and can
   **never** resolve privileged RLHF model/stage approvals. Per Edward's decision, the simulator uses one login
-  session as `reviewer@example.org` (password in the gitignored `.env`) for all workitem resolution. That includes
+  session as the study owner's superadmin account (password in the gitignored `.env`) for all workitem resolution. That includes
   the admin approvals, each of which is logged in `manifest.summary.admin_approvals`. Paper note: the simulated
   human is a human-admin session, not an API key.
 - **AMP counts the workitem completion and the outcome separately.** Both are posted (as the payment simulator

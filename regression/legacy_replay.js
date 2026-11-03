@@ -11,7 +11,7 @@
  */
 const fs = require('fs');
 const path = require('path');
-const RLHF = '/Users/edwardc/Projects/rlhf/dist/src';
+const RLHF = process.env.AMP_RLHF_SRC || path.resolve(__dirname, '../../rlhf/dist/src');  // platform build, not in this repo
 const { legacyStage2Candidate, evaluateLegacyStage1Gates } = require(`${RLHF}/services/rlhf/legacy_governance`);
 const ROOT = path.resolve(__dirname, '..');
 const RUN_ROOTS = [path.join(ROOT, 'results/runs'), path.join(ROOT, 'results/exp2/runs')];
@@ -45,7 +45,7 @@ async function main() {
   report.runs = runs.length;
   let pool = null, repo = null;
   if (!noSql) {
-    const env = Object.fromEntries(fs.readFileSync('/Users/edwardc/Projects/amp-backend/.env', 'utf8').split('\n')
+    const env = Object.fromEntries(fs.readFileSync(process.env.AMP_BACKEND_ENV || path.resolve(__dirname, '../../amp-backend/.env'), 'utf8').split('\n')
       .filter((l) => l.includes('=') && !l.trim().startsWith('#')).map((l) => [l.slice(0, l.indexOf('=')).trim(), l.slice(l.indexOf('=') + 1).trim()]));
     const { createMySQLPool } = require(`${RLHF}/db/mysql_client`);
     const { ApprovalRepo } = require(`${RLHF}/db/repos/ApprovalRepo`);

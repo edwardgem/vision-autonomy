@@ -4,12 +4,12 @@ Used for (a) per-decision stage / model score / probe flag / routing exactly as 
 (b) detecting that AMP's RLHF job queue for an agent is idle, (c) exporting the agent's event log.
 Credentials are read from amp-backend/.env at runtime and are never printed or copied.
 """
-import json
+import json, os
 from pathlib import Path
 import mysql.connector
-from sim.amp_client import load_env
+from sim.amp_client import load_env, ROOT
 
-BACKEND_ENV = Path("/Users/edwardc/Projects/amp-backend/.env")
+BACKEND_ENV = Path(os.environ.get("AMP_BACKEND_ENV", str(ROOT.parent / "amp-backend" / ".env")))  # platform checkout, not in this repo
 
 
 class AmpDB:

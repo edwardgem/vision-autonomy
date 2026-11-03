@@ -215,7 +215,7 @@ These are hypotheses consistent with §3, stated so they can be tested. None was
 
 ## 8. Artifacts
 
-- **Plan and record:** `EXPERIMENT_PLAN.md` (with amendments), `DATASET_AND_MODEL.md`, `E2E_REPORT.md` (v1 failure and rerun), `STATUS.md`, `HANDOFF.md`
+- **Plan and record:** `EXPERIMENT_PLAN.md` (with amendments), `DATASET_AND_MODEL.md`, `E2E_REPORT.md` (v1 failure and rerun)
 - **Per-decision data:**
   - `results/runs/<run_id>/{manifest.json, amp_decisions.csv/.jsonl, amp_events.jsonl, amp_rlhf_events.jsonl}` (27 dirs, including the 2 aborted attempts)
   - `results/baselines/{oracle,model_only,static_hitl}.csv`
